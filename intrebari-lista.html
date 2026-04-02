@@ -11,920 +11,912 @@
   .subtitle { text-align: center; color: #888; margin-bottom: 32px; font-size: 0.9rem; }
   .grid { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
   .card { background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; }
+  .card-has-img { border-color: #22c55e40; }
   .num { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 10px; font-weight: 800; font-size: 1.1rem; color: #fff; }
+  .num-has-img { background: linear-gradient(135deg, #22c55e, #06b6d4); }
   .info { flex: 1; }
   .question { font-size: 1rem; font-weight: 600; color: #f0f0f0; margin-bottom: 6px; line-height: 1.4; }
   .answer { font-size: 0.85rem; color: #22c55e; margin-bottom: 4px; }
   .answer strong { color: #4ade80; }
   .filename { font-size: 0.75rem; color: #666; font-family: monospace; }
+  .filename-ok { color: #22c55e; }
   .wrong { font-size: 0.8rem; color: #888; margin-top: 4px; }
   .wrong span { color: #ef4444; }
 </style>
 </head>
 <body>
 <h1>🧠 Întrebări Capcană</h1>
-<p class="subtitle">100 întrebări — imaginea trebuie numită exact ca în coloana "Fișier imagine"</p>
+<p class="subtitle">99 întrebări — verde = are imagine atașată</p>
 <div class="grid">
-  <div class="card">
-    <div class="num">1</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">1</div>
     <div class="info">
       <div class="question">Un tren electric merge cu 100 km/h de la vest la est. În ce direcție merge fumul?</div>
       <div class="answer">✅ <strong>Nu există fum</strong></div>
       <div class="wrong">❌ <span>Spre est, evident</span> · <span>Spre nord, de la munte</span> · <span>Se risipește instant</span></div>
-      <div class="filename">📁 Fișier imagine: <b>1.png</b></div>
+      <div class="filename filename-ok">📁 1.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">2</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">2</div>
     <div class="info">
       <div class="question">Dacă un cocoș face un ou pe acoperiș, în ce parte cade oul?</div>
       <div class="answer">✅ <strong>Cocoșul nu face ouă</strong></div>
       <div class="wrong">❌ <span>În stânga, logic</span> · <span>Pe partea cu vântul</span> · <span>Se rostogolește pe acoperiș</span></div>
-      <div class="filename">📁 Fișier imagine: <b>2.png</b></div>
+      <div class="filename filename-ok">📁 2.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">3</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">3</div>
     <div class="info">
       <div class="question">Câte luni au 28 de zile?</div>
       <div class="answer">✅ <strong>Toate</strong></div>
       <div class="wrong">❌ <span>Doar februarie, geniu</span> · <span>Nici una, doar 30 și 31</span> · <span>Două, anii bisecți</span></div>
-      <div class="filename">📁 Fișier imagine: <b>3.png</b></div>
+      <div class="filename filename-ok">📁 3.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">4</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">4</div>
     <div class="info">
       <div class="question">Dacă ai 3 mere și iei 2, câte ai?</div>
       <div class="answer">✅ <strong>2</strong></div>
       <div class="wrong">❌ <span>1, că ai dat 2</span> · <span>3, ca la început</span> · <span>5, cu tot cu bonus</span></div>
-      <div class="filename">📁 Fișier imagine: <b>4.png</b></div>
+      <div class="filename filename-ok">📁 4.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">5</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">5</div>
     <div class="info">
       <div class="question">Tatăl Mariei are 5 fete: Ana, Ioana, Elena, Dana și...?</div>
       <div class="answer">✅ <strong>Maria</strong></div>
       <div class="wrong">❌ <span>Dana, era ultima</span> · <span>Ioana, sigur ea</span> · <span>Nicoleta, sună bine</span></div>
-      <div class="filename">📁 Fișier imagine: <b>5.png</b></div>
+      <div class="filename filename-ok">📁 5.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">6</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">6</div>
     <div class="info">
       <div class="question">Un avion se prăbușește la granița dintre România și Bulgaria. Unde sunt îngropați supraviețuitorii?</div>
       <div class="answer">✅ <strong>Nicăieri</strong></div>
       <div class="wrong">❌ <span>În țara cea mai apropiată</span> · <span>La graniță, logic</span> · <span>Fiecare în țara lui</span></div>
-      <div class="filename">📁 Fișier imagine: <b>6.png</b></div>
+      <div class="filename filename-ok">📁 6.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">7</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">7</div>
     <div class="info">
       <div class="question">Ce e mai greu: un kilogram de fier sau un kilogram de pene?</div>
       <div class="answer">✅ <strong>Sunt la fel</strong></div>
       <div class="wrong">❌ <span>Fierul, că-i fier, nu?</span> · <span>Penele, au volum mai mare</span> · <span>Depinde de vânt</span></div>
-      <div class="filename">📁 Fișier imagine: <b>7.png</b></div>
+      <div class="filename filename-ok">📁 7.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">8</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">8</div>
     <div class="info">
       <div class="question">Dacă alergi și depășești locul 2, pe ce loc ești?</div>
       <div class="answer">✅ <strong>Locul 2</strong></div>
       <div class="wrong">❌ <span>Locul 1, ești campion</span> · <span>Locul 3, modest</span> · <span>Ultimul, de oboseală</span></div>
-      <div class="filename">📁 Fișier imagine: <b>8.png</b></div>
+      <div class="filename filename-ok">📁 8.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">9</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">9</div>
     <div class="info">
       <div class="question">Câte animale din fiecare specie a luat Moise pe arcă?</div>
       <div class="answer">✅ <strong>Niciunul</strong></div>
       <div class="wrong">❌ <span>Câte 2, clasic</span> · <span>Câte 7, biblic</span> · <span>Câte 40, exagerăm</span></div>
-      <div class="filename">📁 Fișier imagine: <b>9.png</b></div>
+      <div class="filename filename-ok">📁 9.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">10</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">10</div>
     <div class="info">
       <div class="question">Înainte să fie descoperit Everestul, care era cel mai înalt munte din lume?</div>
       <div class="answer">✅ <strong>Tot Everestul</strong></div>
       <div class="wrong">❌ <span>K2, evident</span> · <span>Mont Blanc, e în Europa</span> · <span>Nu existau munți atunci</span></div>
-      <div class="filename">📁 Fișier imagine: <b>10.png</b></div>
+      <div class="filename filename-ok">📁 10.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">11</div>
+  <div class="card ">
+    <div class="num ">11</div>
     <div class="info">
       <div class="question">Dacă un doctor îți dă 3 pastile și îți spune să iei una la fiecare jumătate de oră, în cât timp le termini?</div>
       <div class="answer">✅ <strong>Într-o oră</strong></div>
       <div class="wrong">❌ <span>O oră și jumătate</span> · <span>30 de minute, rapid</span> · <span>2 ore, cu pauze</span></div>
-      <div class="filename">📁 Fișier imagine: <b>11.png</b></div>
+      <div class="filename ">📁 11.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">12</div>
-    <div class="info">
-      <div class="question">Câte perechi de animale a luat Noe pe arcă?</div>
-      <div class="answer">✅ <strong>Câte o pereche din fiecare specie</strong></div>
-      <div class="wrong">❌ <span>Câte 2, dublu sigur</span> · <span>Câte 7, număr norocos</span> · <span>Câte 10, să fie bine</span></div>
-      <div class="filename">📁 Fișier imagine: <b>12.png</b></div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="num">13</div>
+  <div class="card ">
+    <div class="num ">12</div>
     <div class="info">
       <div class="question">Dacă 2 oameni construiesc un zid în 2 zile, câți oameni trebuie pentru același zid în 1 zi?</div>
       <div class="answer">✅ <strong>Nu se poate ști</strong></div>
       <div class="wrong">❌ <span>4 oameni, dublu</span> · <span>1 om super-rapid</span> · <span>8, ca la comandă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>13.png</b></div>
+      <div class="filename ">📁 12.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">14</div>
+  <div class="card ">
+    <div class="num ">13</div>
     <div class="info">
       <div class="question">Un fermier are 17 oi. Toate mor în afară de 9. Câte rămân?</div>
       <div class="answer">✅ <strong>9</strong></div>
       <div class="wrong">❌ <span>8, simplu ca bună ziua</span> · <span>17, toate trăiesc</span> · <span>0, toate au murit</span></div>
-      <div class="filename">📁 Fișier imagine: <b>14.png</b></div>
+      <div class="filename ">📁 13.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">15</div>
+  <div class="card ">
+    <div class="num ">14</div>
     <div class="info">
       <div class="question">Câte degete ai la două mâini și două picioare?</div>
       <div class="answer">✅ <strong>20</strong></div>
       <div class="wrong">❌ <span>40, zece pe fiecare</span> · <span>10, doar mâinile</span> · <span>8, doar degetele mari</span></div>
-      <div class="filename">📁 Fișier imagine: <b>15.png</b></div>
+      <div class="filename ">📁 14.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">16</div>
+  <div class="card ">
+    <div class="num ">15</div>
     <div class="info">
       <div class="question">Dacă săpi o groapă de 1 metru lățime, 2 metri lungime și 3 metri adâncime, cât pământ este în ea?</div>
       <div class="answer">✅ <strong>Deloc</strong></div>
       <div class="wrong">❌ <span>Un metru cub, logic</span> · <span>Depinde de groapă</span> · <span>Cât sapi, atâta e</span></div>
-      <div class="filename">📁 Fișier imagine: <b>16.png</b></div>
+      <div class="filename ">📁 15.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">17</div>
+  <div class="card ">
+    <div class="num ">16</div>
     <div class="info">
       <div class="question">Dacă un ceas bate de 6 ori în 5 secunde, în câte secunde bate de 12 ori?</div>
       <div class="answer">✅ <strong>11 secunde</strong></div>
       <div class="wrong">❌ <span>10 secunde, proporțional</span> · <span>6 secunde, pe repede</span> · <span>12, una pe secundă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>17.png</b></div>
+      <div class="filename ">📁 16.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">18</div>
+  <div class="card ">
+    <div class="num ">17</div>
     <div class="info">
       <div class="question">Ce cuvânt este scris greșit în dicționar?</div>
       <div class="answer">✅ <strong>Greșit</strong></div>
       <div class="wrong">❌ <span>Niciun cuvânt, e dicționar</span> · <span>Supercalifragilistic</span> · <span>Pneumonoultramicro...</span></div>
-      <div class="filename">📁 Fișier imagine: <b>18.png</b></div>
+      <div class="filename ">📁 17.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">19</div>
+  <div class="card ">
+    <div class="num ">18</div>
     <div class="info">
       <div class="question">Câte litere are alfabetul?</div>
       <div class="answer">✅ <strong>8</strong></div>
       <div class="wrong">❌ <span>26, ca un elev bun</span> · <span>30, cu diacritice</span> · <span>31, cu ă, â, î, ș, ț</span></div>
-      <div class="filename">📁 Fișier imagine: <b>19.png</b></div>
+      <div class="filename ">📁 18.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">20</div>
+  <div class="card ">
+    <div class="num ">19</div>
     <div class="info">
       <div class="question">Dacă o barcă are 10 oameni și 5 sar din ea, câți rămân?</div>
       <div class="answer">✅ <strong>Nu se poate ști sigur</strong></div>
       <div class="wrong">❌ <span>5, matematică ușoară</span> · <span>0, toți au sărit</span> · <span>10, nimeni nu sare</span></div>
-      <div class="filename">📁 Fișier imagine: <b>20.png</b></div>
+      <div class="filename ">📁 19.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">21</div>
+  <div class="card ">
+    <div class="num ">20</div>
     <div class="info">
       <div class="question">Ce apare o dată într-un minut, de două ori într-un moment și niciodată într-o mie de ani?</div>
       <div class="answer">✅ <strong>Litera M</strong></div>
       <div class="wrong">❌ <span>Secundul, evident</span> · <span>Sufletul, profund</span> · <span>Inspirația divină</span></div>
-      <div class="filename">📁 Fișier imagine: <b>21.png</b></div>
+      <div class="filename ">📁 20.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">22</div>
+  <div class="card ">
+    <div class="num ">21</div>
     <div class="info">
       <div class="question">Un bărbat se rade de mai multe ori pe zi, dar tot are barbă. Cum e posibil?</div>
       <div class="answer">✅ <strong>Este frizer</strong></div>
       <div class="wrong">❌ <span>E vrăjitor, clar</span> · <span>Barbă magică</span> · <span>Crește ultra-rapid</span></div>
-      <div class="filename">📁 Fișier imagine: <b>22.png</b></div>
+      <div class="filename ">📁 21.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">23</div>
+  <div class="card ">
+    <div class="num ">22</div>
     <div class="info">
       <div class="question">Dacă ai un chibrit și intri într-o cameră întunecată unde sunt o lampă, o sobă și o lumânare, ce aprinzi prima dată?</div>
       <div class="answer">✅ <strong>Chibritul</strong></div>
       <div class="wrong">❌ <span>Lumânarea, romantic</span> · <span>Soba, că-i frig</span> · <span>Lampa, logic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>23.png</b></div>
+      <div class="filename ">📁 22.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">24</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">23</div>
     <div class="info">
       <div class="question">Câte ouă poți mânca pe stomacul gol?</div>
       <div class="answer">✅ <strong>Unul</strong></div>
       <div class="wrong">❌ <span>Câte vrei, campionule</span> · <span>10, dacă ești flămând</span> · <span>3, ca un om normal</span></div>
-      <div class="filename">📁 Fișier imagine: <b>24.png</b></div>
+      <div class="filename filename-ok">📁 23.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">25</div>
+  <div class="card ">
+    <div class="num ">24</div>
     <div class="info">
       <div class="question">Dacă arunci o piatră albastră în Marea Roșie, ce devine?</div>
       <div class="answer">✅ <strong>Udă</strong></div>
       <div class="wrong">❌ <span>Roșie, de la mare</span> · <span>Albastră-roșie, mov</span> · <span>Se dizolvă instant</span></div>
-      <div class="filename">📁 Fișier imagine: <b>25.png</b></div>
+      <div class="filename ">📁 24.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">26</div>
+  <div class="card ">
+    <div class="num ">25</div>
     <div class="info">
       <div class="question">Ce are cap și coadă, dar nu are corp?</div>
       <div class="answer">✅ <strong>O monedă</strong></div>
       <div class="wrong">❌ <span>Un șarpe, firesc</span> · <span>O cometă, astronomic</span> · <span>O panglică misterioasă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>26.png</b></div>
+      <div class="filename ">📁 25.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">27</div>
+  <div class="card ">
+    <div class="num ">26</div>
     <div class="info">
       <div class="question">Dacă ieri aveai 25 de ani și anul viitor faci 28, în ce zi te-ai născut?</div>
       <div class="answer">✅ <strong>31 decembrie</strong></div>
       <div class="wrong">❌ <span>1 ianuarie, Anul Nou</span> · <span>29 februarie, bisect</span> · <span>Nu se poate, magie</span></div>
-      <div class="filename">📁 Fișier imagine: <b>27.png</b></div>
+      <div class="filename ">📁 26.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">28</div>
+  <div class="card ">
+    <div class="num ">27</div>
     <div class="info">
       <div class="question">Unde vine ziua de joi înaintea zilei de miercuri?</div>
       <div class="answer">✅ <strong>În dicționar</strong></div>
       <div class="wrong">❌ <span>În Australia, inversă</span> · <span>Nicăieri, imposibil</span> · <span>Pe altă planetă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>28.png</b></div>
+      <div class="filename ">📁 27.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">29</div>
+  <div class="card ">
+    <div class="num ">28</div>
     <div class="info">
       <div class="question">Ce urcă, dar nu coboară niciodată?</div>
       <div class="answer">✅ <strong>Vârsta</strong></div>
       <div class="wrong">❌ <span>Fumul, evident</span> · <span>Prețurile, mereu</span> · <span>Heliul din baloane</span></div>
-      <div class="filename">📁 Fișier imagine: <b>29.png</b></div>
+      <div class="filename ">📁 28.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">30</div>
+  <div class="card ">
+    <div class="num ">29</div>
     <div class="info">
       <div class="question">Câte mere cresc într-un copac?</div>
       <div class="answer">✅ <strong>Niciunul</strong></div>
       <div class="wrong">❌ <span>Toate, sunt mere</span> · <span>Câteva zeci, normal</span> · <span>Depinde de pom</span></div>
-      <div class="filename">📁 Fișier imagine: <b>30.png</b></div>
+      <div class="filename ">📁 29.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">31</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">30</div>
     <div class="info">
       <div class="question">Poți scrie 'sub apă' cu un creion?</div>
       <div class="answer">✅ <strong>Da</strong></div>
       <div class="wrong">❌ <span>Nu, se udă creionul</span> · <span>Doar cu unul special</span> · <span>Imposibil, scrii bulbuci</span></div>
-      <div class="filename">📁 Fișier imagine: <b>31.png</b></div>
+      <div class="filename filename-ok">📁 30.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">32</div>
+  <div class="card ">
+    <div class="num ">31</div>
     <div class="info">
       <div class="question">Ce se află la sfârșitul curcubeului?</div>
       <div class="answer">✅ <strong>Litera U</strong></div>
       <div class="wrong">❌ <span>Un vas cu aur</span> · <span>Leprechaunul irlandez</span> · <span>Fericirea eternă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>32.png</b></div>
+      <div class="filename ">📁 31.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">33</div>
+  <div class="card ">
+    <div class="num ">32</div>
     <div class="info">
       <div class="question">Ce poți ține în mâna dreaptă, dar nu în mâna stângă?</div>
       <div class="answer">✅ <strong>Mâna stângă</strong></div>
       <div class="wrong">❌ <span>Orice, am două mâini</span> · <span>O minge, ușor</span> · <span>Telefonul, non-stop</span></div>
-      <div class="filename">📁 Fișier imagine: <b>33.png</b></div>
+      <div class="filename ">📁 32.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">34</div>
+  <div class="card card-has-img">
+    <div class="num num-has-img">33</div>
     <div class="info">
       <div class="question">Dacă 5 pisici prind 5 șoareci în 5 minute, câte pisici îți trebuie ca să prinzi 100 de șoareci în 100 de minute?</div>
       <div class="answer">✅ <strong>5</strong></div>
       <div class="wrong">❌ <span>100, câte un șoarece</span> · <span>20, triplăm</span> · <span>50, pe repede-nainte</span></div>
-      <div class="filename">📁 Fișier imagine: <b>34.png</b></div>
+      <div class="filename filename-ok">📁 33.png ✓</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">35</div>
+  <div class="card ">
+    <div class="num ">34</div>
     <div class="info">
       <div class="question">Dacă un tată și un fiu au împreună 36 de ani și tatăl are cu 30 mai mult decât fiul, câți ani are fiul?</div>
       <div class="answer">✅ <strong>3</strong></div>
       <div class="wrong">❌ <span>6, jumătate din 36</span> · <span>33, aproape egal</span> · <span>18, la mijloc</span></div>
-      <div class="filename">📁 Fișier imagine: <b>35.png</b></div>
+      <div class="filename ">📁 34.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">36</div>
+  <div class="card ">
+    <div class="num ">35</div>
     <div class="info">
       <div class="question">Ce începe cu T, se termină cu T și are T în el?</div>
       <div class="answer">✅ <strong>Un ceainic (teapot)</strong></div>
       <div class="wrong">❌ <span>Tort, are T-uri</span> · <span>Tractor, evident</span> · <span>Telefon, simplu</span></div>
-      <div class="filename">📁 Fișier imagine: <b>36.png</b></div>
+      <div class="filename ">📁 35.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">37</div>
+  <div class="card ">
+    <div class="num ">36</div>
     <div class="info">
       <div class="question">Dacă ai 10 pești într-un acvariu și 5 se îneacă, câți rămân?</div>
       <div class="answer">✅ <strong>10</strong></div>
       <div class="wrong">❌ <span>5, s-au înecat 5</span> · <span>0, au murit toți</span> · <span>8, au scăpat câțiva</span></div>
-      <div class="filename">📁 Fișier imagine: <b>37.png</b></div>
+      <div class="filename ">📁 36.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">38</div>
+  <div class="card ">
+    <div class="num ">37</div>
     <div class="info">
       <div class="question">Care este întrebarea la care răspunzi mereu 'da' fără să minți?</div>
       <div class="answer">✅ <strong>Dormi?</strong></div>
       <div class="wrong">❌ <span>Ești deștept?</span> · <span>Respiri?</span> · <span>Ești frumos?</span></div>
-      <div class="filename">📁 Fișier imagine: <b>38.png</b></div>
+      <div class="filename ">📁 37.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">39</div>
+  <div class="card ">
+    <div class="num ">38</div>
     <div class="info">
       <div class="question">Ce poate merge prin apă, dar nu se udă?</div>
       <div class="answer">✅ <strong>Umbra</strong></div>
       <div class="wrong">❌ <span>O barcă, plutește</span> · <span>O piatră, se scufundă</span> · <span>Un pește, trăiește-n ea</span></div>
-      <div class="filename">📁 Fișier imagine: <b>39.png</b></div>
+      <div class="filename ">📁 38.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">40</div>
+  <div class="card ">
+    <div class="num ">39</div>
     <div class="info">
       <div class="question">Câte animale a luat Noe în arcă, de toate?</div>
       <div class="answer">✅ <strong>Nu se poate ști exact</strong></div>
       <div class="wrong">❌ <span>Câte 2, Biblia zice</span> · <span>Câte 7, specii pure</span> · <span>Milioane, sigur</span></div>
-      <div class="filename">📁 Fișier imagine: <b>40.png</b></div>
+      <div class="filename ">📁 39.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">41</div>
+  <div class="card ">
+    <div class="num ">40</div>
     <div class="info">
       <div class="question">Dacă un ou fierbe în 10 minute, în cât timp fierb 5 ouă?</div>
       <div class="answer">✅ <strong>Tot în 10 minute</strong></div>
       <div class="wrong">❌ <span>50 de minute, proporțional</span> · <span>30 de minute, rapid</span> · <span>2 minute pe ou</span></div>
-      <div class="filename">📁 Fișier imagine: <b>41.png</b></div>
+      <div class="filename ">📁 40.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">42</div>
+  <div class="card ">
+    <div class="num ">41</div>
     <div class="info">
       <div class="question">Dacă un copil s-a născut în Londra, poate fi îngropat în Manchester?</div>
       <div class="answer">✅ <strong>Nu, pentru că e în viață</strong></div>
       <div class="wrong">❌ <span>Da, cu transport</span> · <span>Doar cu avionul</span> · <span>Dacă vrea familia</span></div>
-      <div class="filename">📁 Fișier imagine: <b>42.png</b></div>
+      <div class="filename ">📁 41.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">43</div>
+  <div class="card ">
+    <div class="num ">42</div>
     <div class="info">
       <div class="question">Câte cuburi de zahăr poți pune într-o ceașcă goală?</div>
       <div class="answer">✅ <strong>Unul</strong></div>
       <div class="wrong">❌ <span>Cât încape, geniu</span> · <span>10, ești generos</span> · <span>Toată punga de zahăr</span></div>
-      <div class="filename">📁 Fișier imagine: <b>43.png</b></div>
+      <div class="filename ">📁 42.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">44</div>
+  <div class="card ">
+    <div class="num ">43</div>
     <div class="info">
       <div class="question">Ce are multe chei, dar nu poate deschide nicio ușă?</div>
       <div class="answer">✅ <strong>Un pian</strong></div>
       <div class="wrong">❌ <span>Un lacăt ruginit</span> · <span>Telecomanda, mereu pierdută</span> · <span>Un paznic fără ușă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>44.png</b></div>
+      <div class="filename ">📁 43.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">45</div>
+  <div class="card ">
+    <div class="num ">44</div>
     <div class="info">
       <div class="question">Ce vine o singură dată într-un an, de două ori într-o săptămână și niciodată într-o zi?</div>
       <div class="answer">✅ <strong>Litera A</strong></div>
       <div class="wrong">❌ <span>Crăciunul, festiv</span> · <span>Luna plină, mistic</span> · <span>Ziua de naștere</span></div>
-      <div class="filename">📁 Fișier imagine: <b>45.png</b></div>
+      <div class="filename ">📁 44.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">46</div>
+  <div class="card ">
+    <div class="num ">45</div>
     <div class="info">
       <div class="question">Dacă îți trebuie 10 minute să mergi într-un loc și 10 să te întorci, cât timp îți trebuie dus-întors?</div>
       <div class="answer">✅ <strong>20 de minute</strong></div>
       <div class="wrong">❌ <span>10 minute, doar dus</span> · <span>30 minute, cu pauze</span> · <span>Depinde de trafic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>46.png</b></div>
+      <div class="filename ">📁 45.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">47</div>
+  <div class="card ">
+    <div class="num ">46</div>
     <div class="info">
       <div class="question">Ce e plin de găuri, dar tot ține apa?</div>
       <div class="answer">✅ <strong>Un burete</strong></div>
       <div class="wrong">❌ <span>O plasă, evident</span> · <span>O strecurătoare</span> · <span>Un sac cu găuri</span></div>
-      <div class="filename">📁 Fișier imagine: <b>47.png</b></div>
+      <div class="filename ">📁 46.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">48</div>
+  <div class="card ">
+    <div class="num ">47</div>
     <div class="info">
       <div class="question">Dacă un buzunar are 3 monede de 1 leu și scoți 2, câte ai?</div>
       <div class="answer">✅ <strong>2</strong></div>
       <div class="wrong">❌ <span>1, a rămas una</span> · <span>3, erau acolo</span> · <span>0, le-ai pierdut</span></div>
-      <div class="filename">📁 Fișier imagine: <b>48.png</b></div>
+      <div class="filename ">📁 47.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">49</div>
+  <div class="card ">
+    <div class="num ">48</div>
     <div class="info">
       <div class="question">Un om își construiește o casă pătrată. Toate laturile au vedere spre sud. Un urs trece pe lângă casă. Ce culoare are ursul?</div>
       <div class="answer">✅ <strong>Alb</strong></div>
       <div class="wrong">❌ <span>Maro, ca toți urșii</span> · <span>Negru, e noapte</span> · <span>Cenușiu, ca blocul</span></div>
-      <div class="filename">📁 Fișier imagine: <b>49.png</b></div>
+      <div class="filename ">📁 48.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">50</div>
+  <div class="card ">
+    <div class="num ">49</div>
     <div class="info">
       <div class="question">Dacă 3 găini fac 3 ouă în 3 zile, câte ouă fac 12 găini în 12 zile?</div>
       <div class="answer">✅ <strong>48</strong></div>
       <div class="wrong">❌ <span>12, câte o găină</span> · <span>36, nu-i greu</span> · <span>144, totul x12</span></div>
-      <div class="filename">📁 Fișier imagine: <b>50.png</b></div>
+      <div class="filename ">📁 49.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">51</div>
+  <div class="card ">
+    <div class="num ">50</div>
     <div class="info">
       <div class="question">Ce poți sparge fără să atingi?</div>
       <div class="answer">✅ <strong>O promisiune</strong></div>
       <div class="wrong">❌ <span>Un ou, clasic</span> · <span>Un geam, cu piatra</span> · <span>Liniștea din casă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>51.png</b></div>
+      <div class="filename ">📁 50.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">52</div>
+  <div class="card ">
+    <div class="num ">51</div>
     <div class="info">
       <div class="question">Cine are 4 picioare dimineața, 2 la prânz și 3 seara?</div>
       <div class="answer">✅ <strong>Omul</strong></div>
       <div class="wrong">❌ <span>Un câine bătrân</span> · <span>O masă de lemn</span> · <span>Un extraterestru</span></div>
-      <div class="filename">📁 Fișier imagine: <b>52.png</b></div>
+      <div class="filename ">📁 51.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">53</div>
+  <div class="card ">
+    <div class="num ">52</div>
     <div class="info">
       <div class="question">Dacă o mașină parcurge 60 km în 1 oră, câți km parcurge în 30 de minute?</div>
       <div class="answer">✅ <strong>30 km</strong></div>
       <div class="wrong">❌ <span>60, tot parcursul</span> · <span>45, că frânează</span> · <span>90, cu NOS</span></div>
-      <div class="filename">📁 Fișier imagine: <b>53.png</b></div>
+      <div class="filename ">📁 52.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">54</div>
+  <div class="card ">
+    <div class="num ">53</div>
     <div class="info">
       <div class="question">Câte capete are un om normal?</div>
       <div class="answer">✅ <strong>Unul</strong></div>
       <div class="wrong">❌ <span>Doi, cu imaginarul</span> · <span>Zero, filozofic</span> · <span>Depinde de zi</span></div>
-      <div class="filename">📁 Fișier imagine: <b>54.png</b></div>
+      <div class="filename ">📁 53.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">55</div>
+  <div class="card ">
+    <div class="num ">54</div>
     <div class="info">
       <div class="question">Ce poți vedea o dată pe minut, de două ori pe moment și niciodată pe oră?</div>
       <div class="answer">✅ <strong>Litera M</strong></div>
       <div class="wrong">❌ <span>Timpul, filozofic</span> · <span>Iubirea, poetic</span> · <span>Sufletul, mistic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>55.png</b></div>
+      <div class="filename ">📁 54.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">56</div>
+  <div class="card ">
+    <div class="num ">55</div>
     <div class="info">
       <div class="question">Dacă o găină și jumătate face un ou și jumătate într-o zi și jumătate, câte ouă fac 3 găini în 3 zile?</div>
       <div class="answer">✅ <strong>6</strong></div>
       <div class="wrong">❌ <span>3, câte una pe zi</span> · <span>9, proporțional</span> · <span>4.5, cu virgulă</span></div>
-      <div class="filename">📁 Fișier imagine: <b>56.png</b></div>
+      <div class="filename ">📁 55.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">57</div>
+  <div class="card ">
+    <div class="num ">56</div>
     <div class="info">
       <div class="question">Dacă un lift urcă de la parter la etajul 5, pe ce etaj ajunge?</div>
       <div class="answer">✅ <strong>La 5</strong></div>
       <div class="wrong">❌ <span>La 10, a sărit</span> · <span>La parter, s-a stricat</span> · <span>La 3, s-a oprit</span></div>
-      <div class="filename">📁 Fișier imagine: <b>57.png</b></div>
+      <div class="filename ">📁 56.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">58</div>
+  <div class="card ">
+    <div class="num ">57</div>
     <div class="info">
       <div class="question">Ce se întâmplă o dată în viață, de două ori în dragoste și niciodată în căsnicie?</div>
       <div class="answer">✅ <strong>Litera A</strong></div>
       <div class="wrong">❌ <span>Fericirea, evident</span> · <span>Pasiunea, intens</span> · <span>Răbdarea, epuizată</span></div>
-      <div class="filename">📁 Fișier imagine: <b>58.png</b></div>
+      <div class="filename ">📁 57.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">59</div>
+  <div class="card ">
+    <div class="num ">58</div>
     <div class="info">
       <div class="question">Ce e al tău, dar ceilalți îl folosesc mai mult?</div>
       <div class="answer">✅ <strong>Numele tău</strong></div>
       <div class="wrong">❌ <span>Telefonul, mereu</span> · <span>Hainele, le împrumuți</span> · <span>Mașina, la toți</span></div>
-      <div class="filename">📁 Fișier imagine: <b>59.png</b></div>
+      <div class="filename ">📁 58.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">60</div>
+  <div class="card ">
+    <div class="num ">59</div>
     <div class="info">
       <div class="question">Dacă pui 2 monede într-o palmă și 3 în alta, ce ai?</div>
       <div class="answer">✅ <strong>Mâinile ocupate</strong></div>
       <div class="wrong">❌ <span>5 monede, geniu</span> · <span>Bani, evident</span> · <span>Noroc financiar</span></div>
-      <div class="filename">📁 Fișier imagine: <b>60.png</b></div>
+      <div class="filename ">📁 59.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">61</div>
+  <div class="card ">
+    <div class="num ">60</div>
     <div class="info">
       <div class="question">Când poți adăuga 2 la 11 și să obții 1?</div>
       <div class="answer">✅ <strong>La ceas</strong></div>
       <div class="wrong">❌ <span>Niciodată, imposibil</span> · <span>La matematică, nu</span> · <span>Doar în vise</span></div>
-      <div class="filename">📁 Fișier imagine: <b>61.png</b></div>
+      <div class="filename ">📁 60.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">62</div>
+  <div class="card ">
+    <div class="num ">61</div>
     <div class="info">
       <div class="question">Ce coboară, dar nu urcă niciodată?</div>
       <div class="answer">✅ <strong>Ploaia</strong></div>
       <div class="wrong">❌ <span>Un lift stricat</span> · <span>Un avion fără benzină</span> · <span>Moralul meu</span></div>
-      <div class="filename">📁 Fișier imagine: <b>62.png</b></div>
+      <div class="filename ">📁 61.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">63</div>
+  <div class="card ">
+    <div class="num ">62</div>
     <div class="info">
       <div class="question">Dacă tai un tort în 8 bucăți cu 3 tăieturi drepte, câte bucăți obții maxim?</div>
       <div class="answer">✅ <strong>8</strong></div>
       <div class="wrong">❌ <span>3, câte o tăietură</span> · <span>6, geometric</span> · <span>4, mai puține</span></div>
-      <div class="filename">📁 Fișier imagine: <b>63.png</b></div>
+      <div class="filename ">📁 62.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">64</div>
+  <div class="card ">
+    <div class="num ">63</div>
     <div class="info">
       <div class="question">Dacă un câine aleargă după o mașină parcată, o prinde?</div>
       <div class="answer">✅ <strong>Mașina e parcată, deci e deja lângă ea</strong></div>
       <div class="wrong">❌ <span>Da, aleargă tare</span> · <span>Nu, mașina e rapidă</span> · <span>Doar dacă-i BMW</span></div>
-      <div class="filename">📁 Fișier imagine: <b>64.png</b></div>
+      <div class="filename ">📁 63.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">65</div>
+  <div class="card ">
+    <div class="num ">64</div>
     <div class="info">
       <div class="question">Câte secunde sunt într-un an?</div>
       <div class="answer">✅ <strong>12</strong></div>
       <div class="wrong">❌ <span>31.536.000, corect?</span> · <span>Milioane, evident</span> · <span>Nu le numără nimeni</span></div>
-      <div class="filename">📁 Fișier imagine: <b>65.png</b></div>
+      <div class="filename ">📁 64.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">66</div>
+  <div class="card ">
+    <div class="num ">65</div>
     <div class="info">
       <div class="question">Ce nu poți mânca niciodată la micul dejun?</div>
       <div class="answer">✅ <strong>Cina</strong></div>
       <div class="wrong">❌ <span>Supa rece, bleah</span> · <span>Brânză expirată</span> · <span>Pizza de ieri</span></div>
-      <div class="filename">📁 Fișier imagine: <b>66.png</b></div>
+      <div class="filename ">📁 65.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">67</div>
+  <div class="card ">
+    <div class="num ">66</div>
     <div class="info">
       <div class="question">Dacă îți cad toate dinții, ce poți mesteca totuși?</div>
       <div class="answer">✅ <strong>Guma</strong></div>
       <div class="wrong">❌ <span>Nimic, gură goală</span> · <span>Supă, cu paiul</span> · <span>Doar iaurt</span></div>
-      <div class="filename">📁 Fișier imagine: <b>67.png</b></div>
+      <div class="filename ">📁 66.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">68</div>
+  <div class="card ">
+    <div class="num ">67</div>
     <div class="info">
       <div class="question">Ce se rupe dacă îl spui?</div>
       <div class="answer">✅ <strong>Tăcerea</strong></div>
       <div class="wrong">❌ <span>Geamul, cu piatra</span> · <span>Inima, romantic</span> · <span>Un balon, poc</span></div>
-      <div class="filename">📁 Fișier imagine: <b>68.png</b></div>
+      <div class="filename ">📁 67.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">69</div>
+  <div class="card ">
+    <div class="num ">68</div>
     <div class="info">
       <div class="question">Câte persoane sunt într-o duzină?</div>
       <div class="answer">✅ <strong>12</strong></div>
       <div class="wrong">❌ <span>13, una bonus</span> · <span>6, jumătate</span> · <span>10, rotunjim</span></div>
-      <div class="filename">📁 Fișier imagine: <b>69.png</b></div>
+      <div class="filename ">📁 68.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">70</div>
+  <div class="card ">
+    <div class="num ">69</div>
     <div class="info">
       <div class="question">Dacă un om trăiește 8 zile fără somn, cum e posibil?</div>
       <div class="answer">✅ <strong>Doarme noaptea</strong></div>
       <div class="wrong">❌ <span>E supraom, evident</span> · <span>Bea 10 cafele pe zi</span> · <span>Are superputeri</span></div>
-      <div class="filename">📁 Fișier imagine: <b>70.png</b></div>
+      <div class="filename ">📁 69.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">71</div>
+  <div class="card ">
+    <div class="num ">70</div>
     <div class="info">
       <div class="question">Ce poate fi mai mare decât Dumnezeu, mai rău decât diavolul, săracii îl au, bogații au nevoie de el, iar dacă mănânci din el mori?</div>
       <div class="answer">✅ <strong>Nimic</strong></div>
       <div class="wrong">❌ <span>Iubirea, ce frumos</span> · <span>Banii, capitalism</span> · <span>Pizza, universală</span></div>
-      <div class="filename">📁 Fișier imagine: <b>71.png</b></div>
+      <div class="filename ">📁 70.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">72</div>
+  <div class="card ">
+    <div class="num ">71</div>
     <div class="info">
       <div class="question">Dacă ai o singură brichetă și alegi între foc, sobă și lumânare, ce aprinzi prima dată?</div>
       <div class="answer">✅ <strong>Bricheta</strong></div>
       <div class="wrong">❌ <span>Focul, exista deja</span> · <span>Soba, că-i frig</span> · <span>Lumânarea, romantic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>72.png</b></div>
+      <div class="filename ">📁 71.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">73</div>
+  <div class="card ">
+    <div class="num ">72</div>
     <div class="info">
       <div class="question">Cu ce mână e mai bine să amesteci ceaiul?</div>
       <div class="answer">✅ <strong>Cu o lingurită</strong></div>
       <div class="wrong">❌ <span>Cu dreapta, ești dreptaci</span> · <span>Cu stânga, ești rebel</span> · <span>Cu ambele, eficient</span></div>
-      <div class="filename">📁 Fișier imagine: <b>73.png</b></div>
+      <div class="filename ">📁 72.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">74</div>
+  <div class="card ">
+    <div class="num ">73</div>
     <div class="info">
       <div class="question">Ce are un gât, dar nu are cap?</div>
       <div class="answer">✅ <strong>O sticlă</strong></div>
       <div class="wrong">❌ <span>Un șarpe, reptilă</span> · <span>O chitară, muzical</span> · <span>Un fulg de nea</span></div>
-      <div class="filename">📁 Fișier imagine: <b>74.png</b></div>
+      <div class="filename ">📁 73.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">75</div>
+  <div class="card ">
+    <div class="num ">74</div>
     <div class="info">
       <div class="question">Cum poate un bărbat să stea 8 zile fără să doarmă?</div>
       <div class="answer">✅ <strong>Doarme noaptea</strong></div>
       <div class="wrong">❌ <span>E robot, nu doarme</span> · <span>Meditație transcendentală</span> · <span>Cafea neagră non-stop</span></div>
-      <div class="filename">📁 Fișier imagine: <b>75.png</b></div>
+      <div class="filename ">📁 74.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">76</div>
+  <div class="card ">
+    <div class="num ">75</div>
     <div class="info">
       <div class="question">Câte animale a luat Adam pe arcă?</div>
       <div class="answer">✅ <strong>Niciunul</strong></div>
       <div class="wrong">❌ <span>Câte 2, ca Noe</span> · <span>Toate, grădina zoo</span> · <span>7 din fiecare</span></div>
-      <div class="filename">📁 Fișier imagine: <b>76.png</b></div>
+      <div class="filename ">📁 75.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">77</div>
+  <div class="card ">
+    <div class="num ">76</div>
     <div class="info">
       <div class="question">Ce devine mai ud pe măsură ce usucă?</div>
       <div class="answer">✅ <strong>Prosopul</strong></div>
       <div class="wrong">❌ <span>Nisipul, absoarbe</span> · <span>Soarele, evaporă</span> · <span>Hârtia, logic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>77.png</b></div>
+      <div class="filename ">📁 76.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">78</div>
+  <div class="card ">
+    <div class="num ">77</div>
     <div class="info">
       <div class="question">Dacă un perete are 8 metri, câți metri are jumătate de perete?</div>
       <div class="answer">✅ <strong>Tot 8 metri</strong></div>
       <div class="wrong">❌ <span>4 metri, jumătate</span> · <span>2 metri, sfert</span> · <span>6 metri, aproape</span></div>
-      <div class="filename">📁 Fișier imagine: <b>78.png</b></div>
+      <div class="filename ">📁 77.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">79</div>
+  <div class="card ">
+    <div class="num ">78</div>
     <div class="info">
       <div class="question">Ce are un ochi, dar nu poate vedea?</div>
       <div class="answer">✅ <strong>Acul</strong></div>
       <div class="wrong">❌ <span>Un ciclop trist</span> · <span>Un pește adânc</span> · <span>Un cartof, dacă vrei</span></div>
-      <div class="filename">📁 Fișier imagine: <b>79.png</b></div>
+      <div class="filename ">📁 78.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">80</div>
+  <div class="card ">
+    <div class="num ">79</div>
     <div class="info">
       <div class="question">Dacă 7 oameni sapă 7 gropi în 7 ore, cât timp îi ia unui om să sape o groapă?</div>
       <div class="answer">✅ <strong>7 ore</strong></div>
       <div class="wrong">❌ <span>1 oră, proporțional</span> · <span>49 de ore, tot</span> · <span>3.5 ore, rapid</span></div>
-      <div class="filename">📁 Fișier imagine: <b>80.png</b></div>
+      <div class="filename ">📁 79.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">81</div>
+  <div class="card ">
+    <div class="num ">80</div>
     <div class="info">
       <div class="question">Dacă o ușă este descuiată, de ce folosești cheia?</div>
       <div class="answer">✅ <strong>Să o încui</strong></div>
       <div class="wrong">❌ <span>Din obișnuință, geniu</span> · <span>Că așa am învățat</span> · <span>Să impresionez vecinii</span></div>
-      <div class="filename">📁 Fișier imagine: <b>81.png</b></div>
+      <div class="filename ">📁 80.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">82</div>
+  <div class="card ">
+    <div class="num ">81</div>
     <div class="info">
       <div class="question">Cum poți arunca o minge cât poți de tare și să se întoarcă singură la tine fără să lovească nimic?</div>
       <div class="answer">✅ <strong>O arunci în sus</strong></div>
       <div class="wrong">❌ <span>Imposibil, nu se poate</span> · <span>Cu efect, ca Beckham</span> · <span>Doar în desene animate</span></div>
-      <div class="filename">📁 Fișier imagine: <b>82.png</b></div>
+      <div class="filename ">📁 81.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">83</div>
+  <div class="card ">
+    <div class="num ">82</div>
     <div class="info">
       <div class="question">Ce cuvânt din limba română se pronunță la fel și când îl citești invers?</div>
       <div class="answer">✅ <strong>Capac</strong></div>
       <div class="wrong">❌ <span>Madam, franțuzește</span> · <span>Apa, scurt și clar</span> · <span>Tot, totul invers</span></div>
-      <div class="filename">📁 Fișier imagine: <b>83.png</b></div>
+      <div class="filename ">📁 82.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">84</div>
+  <div class="card ">
+    <div class="num ">83</div>
     <div class="info">
       <div class="question">Ce e negru când îl cumperi, roșu când îl folosești și gri când îl arunci?</div>
       <div class="answer">✅ <strong>Cărbunele</strong></div>
       <div class="wrong">❌ <span>O cireașă, fructul</span> · <span>Sângele, dramatic</span> · <span>Un rac, zodiacal</span></div>
-      <div class="filename">📁 Fișier imagine: <b>84.png</b></div>
+      <div class="filename ">📁 83.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">85</div>
+  <div class="card ">
+    <div class="num ">84</div>
     <div class="info">
       <div class="question">Dacă un doctor are 3 surori și fiecare soră are un frate, câți frați sunt în familie?</div>
       <div class="answer">✅ <strong>Unul</strong></div>
       <div class="wrong">❌ <span>3, câte una-un frate</span> · <span>0, doar surori</span> · <span>6, familie mare</span></div>
-      <div class="filename">📁 Fișier imagine: <b>85.png</b></div>
+      <div class="filename ">📁 84.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">86</div>
+  <div class="card ">
+    <div class="num ">85</div>
     <div class="info">
       <div class="question">Ce zboară fără aripi și plânge fără ochi?</div>
       <div class="answer">✅ <strong>Norul</strong></div>
       <div class="wrong">❌ <span>O muscă tristă</span> · <span>Superman fără costum</span> · <span>Un avion de hârtie</span></div>
-      <div class="filename">📁 Fișier imagine: <b>86.png</b></div>
+      <div class="filename ">📁 85.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">87</div>
+  <div class="card ">
+    <div class="num ">86</div>
     <div class="info">
       <div class="question">Ce poate umple o cameră fără să ocupe spațiu?</div>
       <div class="answer">✅ <strong>Lumina</strong></div>
       <div class="wrong">❌ <span>Apa, până la tavan</span> · <span>Aerul, tehnic vorbind</span> · <span>Mobilă IKEA</span></div>
-      <div class="filename">📁 Fișier imagine: <b>87.png</b></div>
+      <div class="filename ">📁 86.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">88</div>
+  <div class="card ">
+    <div class="num ">87</div>
     <div class="info">
       <div class="question">Dacă ai 6 ouă, spargi 2, prăjești 2 și mănânci 2, câte ouă îți rămân?</div>
       <div class="answer">✅ <strong>4</strong></div>
       <div class="wrong">❌ <span>0, le-ai folosit pe toate</span> · <span>2, uite matematica</span> · <span>6, n-ai spart nimic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>88.png</b></div>
+      <div class="filename ">📁 87.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">89</div>
+  <div class="card ">
+    <div class="num ">88</div>
     <div class="info">
       <div class="question">Ce are 13 inimi, dar niciun organ?</div>
       <div class="answer">✅ <strong>Un pachet de cărți</strong></div>
       <div class="wrong">❌ <span>Un doctor, anatomie</span> · <span>O caracatiță, aproape</span> · <span>Un vampir sentimental</span></div>
-      <div class="filename">📁 Fișier imagine: <b>89.png</b></div>
+      <div class="filename ">📁 88.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">90</div>
+  <div class="card ">
+    <div class="num ">89</div>
     <div class="info">
       <div class="question">Ce vine după 999?</div>
       <div class="answer">✅ <strong>1000</strong></div>
       <div class="wrong">❌ <span>9910, ai citit greșit</span> · <span>9100, logică ciudată</span> · <span>Infinit, ca visele</span></div>
-      <div class="filename">📁 Fișier imagine: <b>90.png</b></div>
+      <div class="filename ">📁 89.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">91</div>
+  <div class="card ">
+    <div class="num ">90</div>
     <div class="info">
       <div class="question">Dacă un tren pleacă din București la 8 și altul din Cluj la 8, care e mai aproape de București când se întâlnesc?</div>
       <div class="answer">✅ <strong>La aceeași distanță</strong></div>
       <div class="wrong">❌ <span>Cel din București, pleacă</span> · <span>Cel din Cluj, mai rapid</span> · <span>Niciunul, s-au pierdut</span></div>
-      <div class="filename">📁 Fișier imagine: <b>91.png</b></div>
+      <div class="filename ">📁 90.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">92</div>
+  <div class="card ">
+    <div class="num ">91</div>
     <div class="info">
       <div class="question">Ce poate călători în jurul lumii în timp ce stă într-un colț?</div>
       <div class="answer">✅ <strong>Timbrul</strong></div>
       <div class="wrong">❌ <span>Un avion, evident</span> · <span>Internetul, modern</span> · <span>Elon Musk</span></div>
-      <div class="filename">📁 Fișier imagine: <b>92.png</b></div>
+      <div class="filename ">📁 91.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">93</div>
+  <div class="card ">
+    <div class="num ">92</div>
     <div class="info">
       <div class="question">Ce are dinți, dar nu mușcă?</div>
       <div class="answer">✅ <strong>Pieptenele</strong></div>
       <div class="wrong">❌ <span>Un crocodil bătrân</span> · <span>Bunica, doar gingii</span> · <span>Un vampir vegetarian</span></div>
-      <div class="filename">📁 Fișier imagine: <b>93.png</b></div>
+      <div class="filename ">📁 92.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">94</div>
+  <div class="card ">
+    <div class="num ">93</div>
     <div class="info">
       <div class="question">Dacă un copil cade dintr-o casă cu 20 de etaje și nu pățește nimic, cum e posibil?</div>
       <div class="answer">✅ <strong>Cade de la primul etaj</strong></div>
       <div class="wrong">❌ <span>E Superman, zboară</span> · <span>A căzut pe saltea</span> · <span>Norocul începătorului</span></div>
-      <div class="filename">📁 Fișier imagine: <b>94.png</b></div>
+      <div class="filename ">📁 93.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">95</div>
+  <div class="card ">
+    <div class="num ">94</div>
     <div class="info">
       <div class="question">Dacă ești într-o cursă și depășești ultimul loc, pe ce loc ești?</div>
       <div class="answer">✅ <strong>Nu poți depăși ultimul loc</strong></div>
       <div class="wrong">❌ <span>Ultimul, l-ai depășit</span> · <span>Penultimul, aproape</span> · <span>Primul, ești rapid</span></div>
-      <div class="filename">📁 Fișier imagine: <b>95.png</b></div>
+      <div class="filename ">📁 94.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">96</div>
+  <div class="card ">
+    <div class="num ">95</div>
     <div class="info">
       <div class="question">Ce e mai util când este spart?</div>
       <div class="answer">✅ <strong>Oul</strong></div>
       <div class="wrong">❌ <span>Un telefon, ecranul</span> · <span>O farfurie, cioburi</span> · <span>Inima mea, romantic</span></div>
-      <div class="filename">📁 Fișier imagine: <b>96.png</b></div>
+      <div class="filename ">📁 95.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">97</div>
+  <div class="card ">
+    <div class="num ">96</div>
     <div class="info">
       <div class="question">Ce se mișcă mereu, dar nu pleacă nicăieri?</div>
       <div class="answer">✅ <strong>Ceasul</strong></div>
       <div class="wrong">❌ <span>Pământul, se rotește</span> · <span>Un hamster în roată</span> · <span>Trenul, dar ajunge</span></div>
-      <div class="filename">📁 Fișier imagine: <b>97.png</b></div>
+      <div class="filename ">📁 96.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">98</div>
+  <div class="card ">
+    <div class="num ">97</div>
     <div class="info">
       <div class="question">Ce are multe ace, dar nu coase?</div>
       <div class="answer">✅ <strong>Bradul</strong></div>
       <div class="wrong">❌ <span>Un arici supărat</span> · <span>Un croitor nebun</span> · <span>Un cactus agresiv</span></div>
-      <div class="filename">📁 Fișier imagine: <b>98.png</b></div>
+      <div class="filename ">📁 97.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">99</div>
+  <div class="card ">
+    <div class="num ">98</div>
     <div class="info">
       <div class="question">Câte părți are un cerc?</div>
       <div class="answer">✅ <strong>Două</strong></div>
       <div class="wrong">❌ <span>Una, e cerc, nu?</span> · <span>Infinit, matematic</span> · <span>Pi, nerd alert</span></div>
-      <div class="filename">📁 Fișier imagine: <b>99.png</b></div>
+      <div class="filename ">📁 98.png — lipsește</div>
     </div>
   </div>
-  <div class="card">
-    <div class="num">100</div>
+  <div class="card ">
+    <div class="num ">99</div>
     <div class="info">
       <div class="question">Ce fel de cameră nu are uși sau ferestre?</div>
       <div class="answer">✅ <strong>Camera foto</strong></div>
       <div class="wrong">❌ <span>Dormitorul, are pat</span> · <span>Camera de zi, evident</span> · <span>Baia, cu perdea</span></div>
-      <div class="filename">📁 Fișier imagine: <b>100.png</b></div>
+      <div class="filename ">📁 99.png — lipsește</div>
     </div>
   </div>
-</div>
-</body>
-</html>
+</div></body></html>

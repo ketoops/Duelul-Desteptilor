@@ -143,7 +143,7 @@
     "imagine": null
   },
   {
-    "id": 13,
+    "id": 12,
     "intrebare": "Dacă 2 oameni construiesc un zid în 2 zile, câți oameni trebuie pentru același zid în 1 zi?",
     "raspuns": "Nu se poate ști",
     "explicatie": "Nu avem suficiente detalii despre cum se împarte munca.",
@@ -156,7 +156,7 @@
     "imagine": null
   },
   {
-    "id": 14,
+    "id": 13,
     "intrebare": "Un fermier are 17 oi. Toate mor în afară de 9. Câte rămân?",
     "raspuns": "9",
     "explicatie": "\"În afară de 9\" înseamnă că 9 supraviețuiesc.",
@@ -169,7 +169,7 @@
     "imagine": null
   },
   {
-    "id": 15,
+    "id": 14,
     "intrebare": "Câte degete ai la două mâini și două picioare?",
     "raspuns": "20",
     "explicatie": "10 la mâini + 10 la picioare.",
@@ -182,7 +182,7 @@
     "imagine": null
   },
   {
-    "id": 16,
+    "id": 15,
     "intrebare": "Dacă săpi o groapă de 1 metru lățime, 2 metri lungime și 3 metri adâncime, cât pământ este în ea?",
     "raspuns": "Deloc",
     "explicatie": "E groapă, nu depozit de pământ.",
@@ -195,7 +195,7 @@
     "imagine": null
   },
   {
-    "id": 17,
+    "id": 16,
     "intrebare": "Dacă un ceas bate de 6 ori în 5 secunde, în câte secunde bate de 12 ori?",
     "raspuns": "11 secunde",
     "explicatie": "6 bătăi = 5 intervale. 12 bătăi = 11 intervale.",
@@ -208,7 +208,7 @@
     "imagine": null
   },
   {
-    "id": 18,
+    "id": 17,
     "intrebare": "Ce cuvânt este scris greșit în dicționar?",
     "raspuns": "Greșit",
     "explicatie": "Cuvântul 'greșit' este scris greșit... sau corect, depinde cum privești.",
@@ -221,7 +221,7 @@
     "imagine": null
   },
   {
-    "id": 19,
+    "id": 18,
     "intrebare": "Câte litere are alfabetul?",
     "raspuns": "8",
     "explicatie": "Cuvântul 'alfabetul' are 9 litere. Dar 'alfabet' are 7.",
@@ -234,7 +234,7 @@
     "imagine": null
   },
   {
-    "id": 20,
+    "id": 19,
     "intrebare": "Dacă o barcă are 10 oameni și 5 sar din ea, câți rămân?",
     "raspuns": "Nu se poate ști sigur",
     "explicatie": "Depinde dacă cei care au sărit pot înota sau se țin de barcă.",
@@ -247,7 +247,7 @@
     "imagine": null
   },
   {
-    "id": 21,
+    "id": 20,
     "intrebare": "Ce apare o dată într-un minut, de două ori într-un moment și niciodată într-o mie de ani?",
     "raspuns": "Litera M",
     "explicatie": "M apare o dată în 'minut', de două ori în 'moment', niciodată în 'mie de ani'.",
@@ -260,7 +260,7 @@
     "imagine": null
   },
   {
-    "id": 22,
+    "id": 21,
     "intrebare": "Un bărbat se rade de mai multe ori pe zi, dar tot are barbă. Cum e posibil?",
     "raspuns": "Este frizer",
     "explicatie": "El radé alți oameni, nu pe sine.",
@@ -273,7 +273,7 @@
     "imagine": null
   },
   {
-    "id": 23,
+    "id": 22,
     "intrebare": "Dacă ai un chibrit și intri într-o cameră întunecată unde sunt o lampă, o sobă și o lumânare, ce aprinzi prima dată?",
     "raspuns": "Chibritul",
     "explicatie": "Trebuie să aprinzi chibritul înainte de orice altceva.",
@@ -286,7 +286,7 @@
     "imagine": null
   },
   {
-    "id": 24,
+    "id": 23,
     "intrebare": "Câte ouă poți mânca pe stomacul gol?",
     "raspuns": "Unul",
     "explicatie": "După primul ou, stomacul nu mai e gol.",
@@ -296,10 +296,10 @@
       "10, dacă ești flămând",
       "3, ca un om normal"
     ],
-    "imagine": "24.png"
+    "imagine": "23.png"
   },
   {
-    "id": 25,
+    "id": 24,
     "intrebare": "Dacă arunci o piatră albastră în Marea Roșie, ce devine?",
     "raspuns": "Udă",
     "explicatie": "Piatra devine udă, indiferent de culoare sau mare.",
@@ -312,7 +312,7 @@
     "imagine": null
   },
   {
-    "id": 26,
+    "id": 25,
     "intrebare": "Ce are cap și coadă, dar nu are corp?",
     "raspuns": "O monedă",
     "explicatie": "Moneda are cap și pajură (coadă), dar nu are corp.",
@@ -325,7 +325,7 @@
     "imagine": null
   },
   {
-    "id": 27,
+    "id": 26,
     "intrebare": "Dacă ieri aveai 25 de ani și anul viitor faci 28, în ce zi te-ai născut?",
     "raspuns": "31 decembrie",
     "explicatie": "Azi e 1 ianuarie: ieri aveai 25, azi faci 26, anul ăsta 27, anul viitor 28.",
@@ -338,7 +338,7 @@
     "imagine": null
   },
   {
-    "id": 28,
+    "id": 27,
     "intrebare": "Unde vine ziua de joi înaintea zilei de miercuri?",
     "raspuns": "În dicționar",
     "explicatie": "Alfabetic, J vine înaintea lui M.",
@@ -351,7 +351,7 @@
     "imagine": null
   },
   {
-    "id": 29,
+    "id": 28,
     "intrebare": "Ce urcă, dar nu coboară niciodată?",
     "raspuns": "Vârsta",
     "explicatie": "Vârsta crește mereu.",
@@ -364,7 +364,7 @@
     "imagine": null
   },
   {
-    "id": 30,
+    "id": 29,
     "intrebare": "Câte mere cresc într-un copac?",
     "raspuns": "Niciunul",
     "explicatie": "Merele cresc pe măr, nu în copac.",
@@ -377,7 +377,7 @@
     "imagine": null
   },
   {
-    "id": 31,
+    "id": 30,
     "intrebare": "Poți scrie 'sub apă' cu un creion?",
     "raspuns": "Da",
     "explicatie": "Poți scrie cuvintele 'sub apă' pe hârtie cu un creion.",
@@ -387,10 +387,10 @@
       "Doar cu unul special",
       "Imposibil, scrii bulbuci"
     ],
-    "imagine": "31.png"
+    "imagine": "30.png"
   },
   {
-    "id": 32,
+    "id": 31,
     "intrebare": "Ce se află la sfârșitul curcubeului?",
     "raspuns": "Litera U",
     "explicatie": "Ultimul caracter din cuvântul 'curcubeu' e U.",
@@ -403,7 +403,7 @@
     "imagine": null
   },
   {
-    "id": 33,
+    "id": 32,
     "intrebare": "Ce poți ține în mâna dreaptă, dar nu în mâna stângă?",
     "raspuns": "Mâna stângă",
     "explicatie": "Nu poți ține mâna stângă în ea însăși.",
@@ -416,7 +416,7 @@
     "imagine": null
   },
   {
-    "id": 34,
+    "id": 33,
     "intrebare": "Dacă 5 pisici prind 5 șoareci în 5 minute, câte pisici îți trebuie ca să prinzi 100 de șoareci în 100 de minute?",
     "raspuns": "5",
     "explicatie": "Fiecare pisică prinde un șoarece în 5 minute, deci în 100 de minute prinde 20.",
@@ -426,10 +426,10 @@
       "20, triplăm",
       "50, pe repede-nainte"
     ],
-    "imagine": "34.png"
+    "imagine": "33.png"
   },
   {
-    "id": 35,
+    "id": 34,
     "intrebare": "Dacă un tată și un fiu au împreună 36 de ani și tatăl are cu 30 mai mult decât fiul, câți ani are fiul?",
     "raspuns": "3",
     "explicatie": "Fiul = 3, tatăl = 33. 3 + 33 = 36.",
@@ -442,7 +442,7 @@
     "imagine": null
   },
   {
-    "id": 36,
+    "id": 35,
     "intrebare": "Ce începe cu T, se termină cu T și are T în el?",
     "raspuns": "Un ceainic (teapot)",
     "explicatie": "Ceainicul (teapot) are ceai (tea/T) în el.",
@@ -455,7 +455,7 @@
     "imagine": null
   },
   {
-    "id": 37,
+    "id": 36,
     "intrebare": "Dacă ai 10 pești într-un acvariu și 5 se îneacă, câți rămân?",
     "raspuns": "10",
     "explicatie": "Peștii nu se îneacă.",
@@ -468,7 +468,7 @@
     "imagine": null
   },
   {
-    "id": 38,
+    "id": 37,
     "intrebare": "Care este întrebarea la care răspunzi mereu 'da' fără să minți?",
     "raspuns": "Dormi?",
     "explicatie": "Dacă răspunzi, înseamnă că nu dormi.",
@@ -481,7 +481,7 @@
     "imagine": null
   },
   {
-    "id": 39,
+    "id": 38,
     "intrebare": "Ce poate merge prin apă, dar nu se udă?",
     "raspuns": "Umbra",
     "explicatie": "Umbra trece prin orice fără să se ude.",
@@ -494,7 +494,7 @@
     "imagine": null
   },
   {
-    "id": 40,
+    "id": 39,
     "intrebare": "Câte animale a luat Noe în arcă, de toate?",
     "raspuns": "Nu se poate ști exact",
     "explicatie": "Întrebarea nu specifică suficiente detalii.",
@@ -507,7 +507,7 @@
     "imagine": null
   },
   {
-    "id": 41,
+    "id": 40,
     "intrebare": "Dacă un ou fierbe în 10 minute, în cât timp fierb 5 ouă?",
     "raspuns": "Tot în 10 minute",
     "explicatie": "Toate ouăle fierb în același timp în aceeași cratiță.",
@@ -520,7 +520,7 @@
     "imagine": null
   },
   {
-    "id": 42,
+    "id": 41,
     "intrebare": "Dacă un copil s-a născut în Londra, poate fi îngropat în Manchester?",
     "raspuns": "Nu, pentru că e în viață",
     "explicatie": "Copilul s-a născut, deci e în viață.",
@@ -533,7 +533,7 @@
     "imagine": null
   },
   {
-    "id": 43,
+    "id": 42,
     "intrebare": "Câte cuburi de zahăr poți pune într-o ceașcă goală?",
     "raspuns": "Unul",
     "explicatie": "După primul cub, ceașca nu mai e goală.",
@@ -546,7 +546,7 @@
     "imagine": null
   },
   {
-    "id": 44,
+    "id": 43,
     "intrebare": "Ce are multe chei, dar nu poate deschide nicio ușă?",
     "raspuns": "Un pian",
     "explicatie": "Pianul are clape (chei), dar nu deschide uși.",
@@ -559,7 +559,7 @@
     "imagine": null
   },
   {
-    "id": 45,
+    "id": 44,
     "intrebare": "Ce vine o singură dată într-un an, de două ori într-o săptămână și niciodată într-o zi?",
     "raspuns": "Litera A",
     "explicatie": "A apare o dată în 'an', de două ori în 'săptămână', niciodată în 'zi'.",
@@ -572,7 +572,7 @@
     "imagine": null
   },
   {
-    "id": 46,
+    "id": 45,
     "intrebare": "Dacă îți trebuie 10 minute să mergi într-un loc și 10 să te întorci, cât timp îți trebuie dus-întors?",
     "raspuns": "20 de minute",
     "explicatie": "Uneori capcana e că nu există capcană.",
@@ -585,7 +585,7 @@
     "imagine": null
   },
   {
-    "id": 47,
+    "id": 46,
     "intrebare": "Ce e plin de găuri, dar tot ține apa?",
     "raspuns": "Un burete",
     "explicatie": "Buretele absoarbe apa deși e plin de găuri.",
@@ -598,7 +598,7 @@
     "imagine": null
   },
   {
-    "id": 48,
+    "id": 47,
     "intrebare": "Dacă un buzunar are 3 monede de 1 leu și scoți 2, câte ai?",
     "raspuns": "2",
     "explicatie": "Ai scos 2, deci ai 2.",
@@ -611,7 +611,7 @@
     "imagine": null
   },
   {
-    "id": 49,
+    "id": 48,
     "intrebare": "Un om își construiește o casă pătrată. Toate laturile au vedere spre sud. Un urs trece pe lângă casă. Ce culoare are ursul?",
     "raspuns": "Alb",
     "explicatie": "Singura locație unde toate laturile dau spre sud e Polul Nord. Acolo sunt urși polari.",
@@ -624,7 +624,7 @@
     "imagine": null
   },
   {
-    "id": 50,
+    "id": 49,
     "intrebare": "Dacă 3 găini fac 3 ouă în 3 zile, câte ouă fac 12 găini în 12 zile?",
     "raspuns": "48",
     "explicatie": "O găină face un ou în 3 zile. 12 găini × 4 cicluri = 48 ouă.",
@@ -637,7 +637,7 @@
     "imagine": null
   },
   {
-    "id": 51,
+    "id": 50,
     "intrebare": "Ce poți sparge fără să atingi?",
     "raspuns": "O promisiune",
     "explicatie": "Promisiunile se sparg fără contact fizic.",
@@ -650,7 +650,7 @@
     "imagine": null
   },
   {
-    "id": 52,
+    "id": 51,
     "intrebare": "Cine are 4 picioare dimineața, 2 la prânz și 3 seara?",
     "raspuns": "Omul",
     "explicatie": "Ghicitoarea Sfinxului: copil, adult, bătrân cu baston.",
@@ -663,7 +663,7 @@
     "imagine": null
   },
   {
-    "id": 53,
+    "id": 52,
     "intrebare": "Dacă o mașină parcurge 60 km în 1 oră, câți km parcurge în 30 de minute?",
     "raspuns": "30 km",
     "explicatie": "Aici nu e capcană, doar verificare.",
@@ -676,7 +676,7 @@
     "imagine": null
   },
   {
-    "id": 54,
+    "id": 53,
     "intrebare": "Câte capete are un om normal?",
     "raspuns": "Unul",
     "explicatie": "Un singur cap.",
@@ -689,7 +689,7 @@
     "imagine": null
   },
   {
-    "id": 55,
+    "id": 54,
     "intrebare": "Ce poți vedea o dată pe minut, de două ori pe moment și niciodată pe oră?",
     "raspuns": "Litera M",
     "explicatie": "M apare o dată în 'minut', de două ori în 'moment', zero în 'oră'.",
@@ -702,7 +702,7 @@
     "imagine": null
   },
   {
-    "id": 56,
+    "id": 55,
     "intrebare": "Dacă o găină și jumătate face un ou și jumătate într-o zi și jumătate, câte ouă fac 3 găini în 3 zile?",
     "raspuns": "6",
     "explicatie": "O găină face un ou pe zi. 3 găini × (3÷1.5 cicluri) = 6.",
@@ -715,7 +715,7 @@
     "imagine": null
   },
   {
-    "id": 57,
+    "id": 56,
     "intrebare": "Dacă un lift urcă de la parter la etajul 5, pe ce etaj ajunge?",
     "raspuns": "La 5",
     "explicatie": "Nu e capcană, doar verificare.",
@@ -728,7 +728,7 @@
     "imagine": null
   },
   {
-    "id": 58,
+    "id": 57,
     "intrebare": "Ce se întâmplă o dată în viață, de două ori în dragoste și niciodată în căsnicie?",
     "raspuns": "Litera A",
     "explicatie": "A apare o dată în 'viață', de două ori în 'dragoste', zero în 'căsnicie'.",
@@ -741,7 +741,7 @@
     "imagine": null
   },
   {
-    "id": 59,
+    "id": 58,
     "intrebare": "Ce e al tău, dar ceilalți îl folosesc mai mult?",
     "raspuns": "Numele tău",
     "explicatie": "Alții îți rostesc numele mai des decât o faci tu.",
@@ -754,7 +754,7 @@
     "imagine": null
   },
   {
-    "id": 60,
+    "id": 59,
     "intrebare": "Dacă pui 2 monede într-o palmă și 3 în alta, ce ai?",
     "raspuns": "Mâinile ocupate",
     "explicatie": "Ai 5 monede și mâinile pline.",
@@ -767,7 +767,7 @@
     "imagine": null
   },
   {
-    "id": 61,
+    "id": 60,
     "intrebare": "Când poți adăuga 2 la 11 și să obții 1?",
     "raspuns": "La ceas",
     "explicatie": "11 + 2 ore = 1 (ora 13 = 1 pe ceas).",
@@ -780,7 +780,7 @@
     "imagine": null
   },
   {
-    "id": 62,
+    "id": 61,
     "intrebare": "Ce coboară, dar nu urcă niciodată?",
     "raspuns": "Ploaia",
     "explicatie": "Ploaia cade mereu, nu urcă.",
@@ -793,7 +793,7 @@
     "imagine": null
   },
   {
-    "id": 63,
+    "id": 62,
     "intrebare": "Dacă tai un tort în 8 bucăți cu 3 tăieturi drepte, câte bucăți obții maxim?",
     "raspuns": "8",
     "explicatie": "Cu 3 tăieturi 3D poți obține 8 bucăți.",
@@ -806,7 +806,7 @@
     "imagine": null
   },
   {
-    "id": 64,
+    "id": 63,
     "intrebare": "Dacă un câine aleargă după o mașină parcată, o prinde?",
     "raspuns": "Mașina e parcată, deci e deja lângă ea",
     "explicatie": "Mașina nu se mișcă.",
@@ -819,7 +819,7 @@
     "imagine": null
   },
   {
-    "id": 65,
+    "id": 64,
     "intrebare": "Câte secunde sunt într-un an?",
     "raspuns": "12",
     "explicatie": "Câte un 'al doilea' (secund) în fiecare lună: 2 ianuarie, 2 februarie etc.",
@@ -832,7 +832,7 @@
     "imagine": null
   },
   {
-    "id": 66,
+    "id": 65,
     "intrebare": "Ce nu poți mânca niciodată la micul dejun?",
     "raspuns": "Cina",
     "explicatie": "Nu poți mânca cina la micul dejun — ar fi micul dejun.",
@@ -845,7 +845,7 @@
     "imagine": null
   },
   {
-    "id": 67,
+    "id": 66,
     "intrebare": "Dacă îți cad toate dinții, ce poți mesteca totuși?",
     "raspuns": "Guma",
     "explicatie": "Poți mesteca gumă și fără dinți.",
@@ -858,7 +858,7 @@
     "imagine": null
   },
   {
-    "id": 68,
+    "id": 67,
     "intrebare": "Ce se rupe dacă îl spui?",
     "raspuns": "Tăcerea",
     "explicatie": "Dacă vorbești, tăcerea se rupe.",
@@ -871,7 +871,7 @@
     "imagine": null
   },
   {
-    "id": 69,
+    "id": 68,
     "intrebare": "Câte persoane sunt într-o duzină?",
     "raspuns": "12",
     "explicatie": "O duzină = 12.",
@@ -884,7 +884,7 @@
     "imagine": null
   },
   {
-    "id": 70,
+    "id": 69,
     "intrebare": "Dacă un om trăiește 8 zile fără somn, cum e posibil?",
     "raspuns": "Doarme noaptea",
     "explicatie": "Întrebarea spune 8 zile, nu 8 zile și nopți.",
@@ -897,7 +897,7 @@
     "imagine": null
   },
   {
-    "id": 71,
+    "id": 70,
     "intrebare": "Ce poate fi mai mare decât Dumnezeu, mai rău decât diavolul, săracii îl au, bogații au nevoie de el, iar dacă mănânci din el mori?",
     "raspuns": "Nimic",
     "explicatie": "Nimic nu e mai mare ca Dumnezeu, mai rău ca diavolul, săracii au nimic, etc.",
@@ -910,7 +910,7 @@
     "imagine": null
   },
   {
-    "id": 72,
+    "id": 71,
     "intrebare": "Dacă ai o singură brichetă și alegi între foc, sobă și lumânare, ce aprinzi prima dată?",
     "raspuns": "Bricheta",
     "explicatie": "Trebuie să aprinzi bricheta mai întâi.",
@@ -923,7 +923,7 @@
     "imagine": null
   },
   {
-    "id": 73,
+    "id": 72,
     "intrebare": "Cu ce mână e mai bine să amesteci ceaiul?",
     "raspuns": "Cu o lingurită",
     "explicatie": "Amesteci cu lingurița, nu cu mâna.",
@@ -936,7 +936,7 @@
     "imagine": null
   },
   {
-    "id": 74,
+    "id": 73,
     "intrebare": "Ce are un gât, dar nu are cap?",
     "raspuns": "O sticlă",
     "explicatie": "Sticla are gât, dar nu cap.",
@@ -949,7 +949,7 @@
     "imagine": null
   },
   {
-    "id": 75,
+    "id": 74,
     "intrebare": "Cum poate un bărbat să stea 8 zile fără să doarmă?",
     "raspuns": "Doarme noaptea",
     "explicatie": "Stă treaz ziua, doarme noaptea.",
@@ -962,7 +962,7 @@
     "imagine": null
   },
   {
-    "id": 76,
+    "id": 75,
     "intrebare": "Câte animale a luat Adam pe arcă?",
     "raspuns": "Niciunul",
     "explicatie": "Noe a construit arca, nu Adam.",
@@ -975,7 +975,7 @@
     "imagine": null
   },
   {
-    "id": 77,
+    "id": 76,
     "intrebare": "Ce devine mai ud pe măsură ce usucă?",
     "raspuns": "Prosopul",
     "explicatie": "Prosopul absoarbe apa când te usucă.",
@@ -988,7 +988,7 @@
     "imagine": null
   },
   {
-    "id": 78,
+    "id": 77,
     "intrebare": "Dacă un perete are 8 metri, câți metri are jumătate de perete?",
     "raspuns": "Tot 8 metri",
     "explicatie": "Jumătate de perete ca înălțime e tot 8 metri lungime.",
@@ -1001,7 +1001,7 @@
     "imagine": null
   },
   {
-    "id": 79,
+    "id": 78,
     "intrebare": "Ce are un ochi, dar nu poate vedea?",
     "raspuns": "Acul",
     "explicatie": "Acul are ochi pentru ață, dar nu vede.",
@@ -1014,7 +1014,7 @@
     "imagine": null
   },
   {
-    "id": 80,
+    "id": 79,
     "intrebare": "Dacă 7 oameni sapă 7 gropi în 7 ore, cât timp îi ia unui om să sape o groapă?",
     "raspuns": "7 ore",
     "explicatie": "Fiecare om sapă o groapă în 7 ore.",
@@ -1027,7 +1027,7 @@
     "imagine": null
   },
   {
-    "id": 81,
+    "id": 80,
     "intrebare": "Dacă o ușă este descuiată, de ce folosești cheia?",
     "raspuns": "Să o încui",
     "explicatie": "Cheia nu e doar pentru descuiat.",
@@ -1040,7 +1040,7 @@
     "imagine": null
   },
   {
-    "id": 82,
+    "id": 81,
     "intrebare": "Cum poți arunca o minge cât poți de tare și să se întoarcă singură la tine fără să lovească nimic?",
     "raspuns": "O arunci în sus",
     "explicatie": "Gravitația o aduce înapoi.",
@@ -1053,7 +1053,7 @@
     "imagine": null
   },
   {
-    "id": 83,
+    "id": 82,
     "intrebare": "Ce cuvânt din limba română se pronunță la fel și când îl citești invers?",
     "raspuns": "Capac",
     "explicatie": "Capac este un palindrom.",
@@ -1066,7 +1066,7 @@
     "imagine": null
   },
   {
-    "id": 84,
+    "id": 83,
     "intrebare": "Ce e negru când îl cumperi, roșu când îl folosești și gri când îl arunci?",
     "raspuns": "Cărbunele",
     "explicatie": "Negru la cumpărare, roșu aprins, cenușă gri la final.",
@@ -1079,7 +1079,7 @@
     "imagine": null
   },
   {
-    "id": 85,
+    "id": 84,
     "intrebare": "Dacă un doctor are 3 surori și fiecare soră are un frate, câți frați sunt în familie?",
     "raspuns": "Unul",
     "explicatie": "Toate surorile au același frate — doctorul.",
@@ -1092,7 +1092,7 @@
     "imagine": null
   },
   {
-    "id": 86,
+    "id": 85,
     "intrebare": "Ce zboară fără aripi și plânge fără ochi?",
     "raspuns": "Norul",
     "explicatie": "Norul plutește și plouă.",
@@ -1105,7 +1105,7 @@
     "imagine": null
   },
   {
-    "id": 87,
+    "id": 86,
     "intrebare": "Ce poate umple o cameră fără să ocupe spațiu?",
     "raspuns": "Lumina",
     "explicatie": "Lumina umple camera fără masă sau volum perceptibil.",
@@ -1118,7 +1118,7 @@
     "imagine": null
   },
   {
-    "id": 88,
+    "id": 87,
     "intrebare": "Dacă ai 6 ouă, spargi 2, prăjești 2 și mănânci 2, câte ouă îți rămân?",
     "raspuns": "4",
     "explicatie": "Aceleași 2 ouă au fost sparte, prăjite și mâncate.",
@@ -1131,7 +1131,7 @@
     "imagine": null
   },
   {
-    "id": 89,
+    "id": 88,
     "intrebare": "Ce are 13 inimi, dar niciun organ?",
     "raspuns": "Un pachet de cărți",
     "explicatie": "Pachetul de cărți are 13 cărți de inimă.",
@@ -1144,7 +1144,7 @@
     "imagine": null
   },
   {
-    "id": 90,
+    "id": 89,
     "intrebare": "Ce vine după 999?",
     "raspuns": "1000",
     "explicatie": "Uneori nu e capcană.",
@@ -1157,7 +1157,7 @@
     "imagine": null
   },
   {
-    "id": 91,
+    "id": 90,
     "intrebare": "Dacă un tren pleacă din București la 8 și altul din Cluj la 8, care e mai aproape de București când se întâlnesc?",
     "raspuns": "La aceeași distanță",
     "explicatie": "Când se întâlnesc, sunt în același punct.",
@@ -1170,7 +1170,7 @@
     "imagine": null
   },
   {
-    "id": 92,
+    "id": 91,
     "intrebare": "Ce poate călători în jurul lumii în timp ce stă într-un colț?",
     "raspuns": "Timbrul",
     "explicatie": "Timbrul stă pe plic, dar plicul călătorește.",
@@ -1183,7 +1183,7 @@
     "imagine": null
   },
   {
-    "id": 93,
+    "id": 92,
     "intrebare": "Ce are dinți, dar nu mușcă?",
     "raspuns": "Pieptenele",
     "explicatie": "Pieptenele are dinți pentru pieptănat.",
@@ -1196,7 +1196,7 @@
     "imagine": null
   },
   {
-    "id": 94,
+    "id": 93,
     "intrebare": "Dacă un copil cade dintr-o casă cu 20 de etaje și nu pățește nimic, cum e posibil?",
     "raspuns": "Cade de la primul etaj",
     "explicatie": "Nu se specifică de la ce etaj cade.",
@@ -1209,7 +1209,7 @@
     "imagine": null
   },
   {
-    "id": 95,
+    "id": 94,
     "intrebare": "Dacă ești într-o cursă și depășești ultimul loc, pe ce loc ești?",
     "raspuns": "Nu poți depăși ultimul loc",
     "explicatie": "Dacă ești pe ultimul loc, nu ai pe cine depăși.",
@@ -1222,7 +1222,7 @@
     "imagine": null
   },
   {
-    "id": 96,
+    "id": 95,
     "intrebare": "Ce e mai util când este spart?",
     "raspuns": "Oul",
     "explicatie": "Oul trebuie spart ca să fie gătit.",
@@ -1235,7 +1235,7 @@
     "imagine": null
   },
   {
-    "id": 97,
+    "id": 96,
     "intrebare": "Ce se mișcă mereu, dar nu pleacă nicăieri?",
     "raspuns": "Ceasul",
     "explicatie": "Ceasul se mișcă constant, dar stă pe loc.",
@@ -1248,7 +1248,7 @@
     "imagine": null
   },
   {
-    "id": 98,
+    "id": 97,
     "intrebare": "Ce are multe ace, dar nu coase?",
     "raspuns": "Bradul",
     "explicatie": "Bradul are ace, dar nu coase.",
@@ -1261,7 +1261,7 @@
     "imagine": null
   },
   {
-    "id": 99,
+    "id": 98,
     "intrebare": "Câte părți are un cerc?",
     "raspuns": "Două",
     "explicatie": "Interior și exterior.",
@@ -1274,7 +1274,7 @@
     "imagine": null
   },
   {
-    "id": 100,
+    "id": 99,
     "intrebare": "Ce fel de cameră nu are uși sau ferestre?",
     "raspuns": "Camera foto",
     "explicatie": "Camera foto nu are uși sau ferestre.",
