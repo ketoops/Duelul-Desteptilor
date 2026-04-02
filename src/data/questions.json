@@ -261,10 +261,10 @@
   },
   {
     "id": 21,
-    "intrebare": "Un bărbat se rade de mai multe ori pe zi, dar tot are barbă. Cum e posibil?",
+    "intrebare": "Un bărbat rade mai multe persoane pe zi, dar are mereu barbă. Cum e posibil?",
     "raspuns": "Este frizer",
-    "explicatie": "El radé alți oameni, nu pe sine.",
-    "replica_ironica": "Barba nu dispare doar pentru că ai gândit foarte intens.",
+    "explicatie": "El e frizer — rade alți oameni, nu pe sine.",
+    "replica_ironica": "Rade alți oameni, nu pe sine. Barba lui e în siguranță.",
     "variante_gresite": [
       "E vrăjitor, clar",
       "Barbă magică",
