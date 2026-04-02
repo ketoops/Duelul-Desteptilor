@@ -10,6 +10,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
+  transition: background 0.5s ease;
 }
 
 /* Header */
@@ -21,8 +22,8 @@
 }
 
 .wg-quit {
-  background: var(--bg-card);
-  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 1rem;
   width: 36px;
   height: 36px;
@@ -30,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .wg-theme {
@@ -41,7 +42,8 @@
   gap: 8px;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-bright);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .wg-theme-icon {
@@ -51,9 +53,10 @@
 .wg-timer {
   font-size: 1rem;
   font-weight: 800;
-  color: var(--text-bright);
+  color: #fff;
   min-width: 44px;
   text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .wg-timer-urgent {
@@ -71,8 +74,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 6px 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
   font-size: 0.75rem;
@@ -125,14 +128,15 @@
 }
 
 .wg-cell-hidden {
-  background: var(--bg-card);
-  border: 1.5px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
 }
 
 .wg-cell-revealed {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.15));
-  border: 1.5px solid rgba(139, 92, 246, 0.4);
-  color: var(--text-bright);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
   animation: cellReveal 0.3s ease;
 }
 
@@ -146,11 +150,12 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--text-bright);
+  color: #fff;
   letter-spacing: 6px;
   padding: 8px;
   min-height: 44px;
   transition: color 0.2s;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .wg-flash-correct { color: var(--green) !important; }
@@ -195,9 +200,9 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 2.5px solid var(--border-glass);
-  color: var(--text-bright);
+  background: rgba(0, 0, 0, 0.4);
+  border: 2.5px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
   font-size: 1.3rem;
   font-weight: 800;
   display: flex;
@@ -207,6 +212,7 @@
   transition: background 0.1s, border-color 0.1s, box-shadow 0.1s;
   z-index: 2;
   cursor: pointer;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .wg-letter-selected {

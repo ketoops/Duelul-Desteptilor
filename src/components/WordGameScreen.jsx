@@ -211,7 +211,7 @@ export default function WordGameScreen({ onEnd, onQuit }) {
   const lines = selected.length >= 2 ? getLinePoints() : []
 
   return (
-    <div className="wg">
+    <div className="wg" style={{ background: puzzle.bgGradient }}>
       <div className="wg-header">
         <button className="wg-quit" onClick={onQuit}>✕</button>
         <div className="wg-theme">

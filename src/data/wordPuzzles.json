@@ -1,67 +1,82 @@
 [
   {
     "id": 1,
-    "theme": "Apus de Soare",
+    "theme": "Soare",
     "image": "🌅",
-    "letters": ["S", "O", "A", "R", "E"],
+    "bgGradient": "linear-gradient(180deg, #f97316 0%, #dc2626 50%, #7c2d12 100%)",
+    "letters": ["S", "O", "A", "R", "E", "L"],
     "words": [
       { "word": "SOARE", "row": 0, "col": 0, "dir": "h" },
-      { "word": "ORAS", "row": 0, "col": 1, "dir": "v" },
-      { "word": "SARE", "row": 3, "col": 1, "dir": "h" }
+      { "word": "SOLAR", "row": 0, "col": 0, "dir": "v" },
+      { "word": "ORE",   "row": 0, "col": 1, "dir": "v" },
+      { "word": "ARS",   "row": 0, "col": 2, "dir": "v" },
+      { "word": "SERA",  "row": 2, "col": 2, "dir": "h" }
     ],
-    "gridRows": 4,
-    "gridCols": 5
+    "gridRows": 5,
+    "gridCols": 6
   },
   {
     "id": 2,
-    "theme": "Biblioteca",
+    "theme": "Lectură",
     "image": "📚",
-    "letters": ["C", "A", "R", "T", "E"],
+    "bgGradient": "linear-gradient(180deg, #7c3aed 0%, #4c1d95 50%, #1e1b4b 100%)",
+    "letters": ["C", "A", "R", "T", "E", "I", "S"],
     "words": [
       { "word": "CARTE", "row": 0, "col": 0, "dir": "h" },
-      { "word": "CRET", "row": 0, "col": 0, "dir": "v" },
-      { "word": "TARE", "row": 3, "col": 0, "dir": "h" }
+      { "word": "CIRES", "row": 0, "col": 0, "dir": "v" },
+      { "word": "ACE",   "row": 0, "col": 1, "dir": "v" },
+      { "word": "TARE",  "row": 0, "col": 3, "dir": "v" },
+      { "word": "ERA",   "row": 3, "col": 0, "dir": "h" }
     ],
-    "gridRows": 4,
+    "gridRows": 5,
     "gridCols": 5
   },
   {
     "id": 3,
     "theme": "Grădina",
     "image": "🌸",
-    "letters": ["F", "L", "O", "R", "I"],
+    "bgGradient": "linear-gradient(180deg, #22c55e 0%, #15803d 50%, #052e16 100%)",
+    "letters": ["F", "L", "O", "R", "I", "N"],
     "words": [
-      { "word": "FLORI", "row": 0, "col": 0, "dir": "h" },
-      { "word": "FIR", "row": 0, "col": 0, "dir": "v" },
-      { "word": "ROL", "row": 0, "col": 3, "dir": "v" }
+      { "word": "FLORI", "row": 1, "col": 0, "dir": "h" },
+      { "word": "FIR",   "row": 1, "col": 0, "dir": "v" },
+      { "word": "NOR",   "row": 0, "col": 2, "dir": "v" },
+      { "word": "ROI",   "row": 1, "col": 3, "dir": "v" },
+      { "word": "LIN",   "row": 1, "col": 1, "dir": "v" }
     ],
-    "gridRows": 3,
+    "gridRows": 4,
     "gridCols": 5
   },
   {
     "id": 4,
     "theme": "Călătorie",
     "image": "🚗",
-    "letters": ["D", "R", "U", "M", "E"],
+    "bgGradient": "linear-gradient(180deg, #0ea5e9 0%, #0369a1 50%, #0c4a6e 100%)",
+    "letters": ["D", "R", "U", "M", "E", "I", "N"],
     "words": [
-      { "word": "DRUM", "row": 0, "col": 0, "dir": "h" },
-      { "word": "RUDE", "row": 0, "col": 1, "dir": "v" },
-      { "word": "MURE", "row": 0, "col": 3, "dir": "v" }
+      { "word": "DRUM",  "row": 0, "col": 0, "dir": "h" },
+      { "word": "DUNE",  "row": 0, "col": 0, "dir": "v" },
+      { "word": "RUINE", "row": 0, "col": 1, "dir": "v" },
+      { "word": "UNIRE", "row": 0, "col": 2, "dir": "v" },
+      { "word": "MINER", "row": 0, "col": 3, "dir": "v" }
     ],
-    "gridRows": 4,
+    "gridRows": 5,
     "gridCols": 4
   },
   {
     "id": 5,
     "theme": "Muzică",
     "image": "🎵",
-    "letters": ["P", "I", "A", "N", "O"],
+    "bgGradient": "linear-gradient(180deg, #ec4899 0%, #9d174d 50%, #500724 100%)",
+    "letters": ["P", "I", "A", "N", "O", "T"],
     "words": [
       { "word": "PIANO", "row": 0, "col": 0, "dir": "h" },
-      { "word": "ION", "row": 0, "col": 1, "dir": "v" },
-      { "word": "NAP", "row": 0, "col": 3, "dir": "v" }
+      { "word": "PONT",  "row": 0, "col": 0, "dir": "v" },
+      { "word": "ION",   "row": 0, "col": 1, "dir": "v" },
+      { "word": "NOTA",  "row": 0, "col": 3, "dir": "v" },
+      { "word": "TIP",   "row": 3, "col": 0, "dir": "h" }
     ],
-    "gridRows": 3,
+    "gridRows": 4,
     "gridCols": 5
   }
 ]

@@ -38,8 +38,8 @@ export default function HomeScreen({ username, onStart, onSettings, onFriends, o
         </div>
 
         <button className="mode-btn mode-words" onClick={() => onStart('words')}>
-          <span className="mode-btn-icon">🔤</span>
-          <span className="mode-btn-label">Cuvinte Amestecate</span>
+          <span className="mode-btn-icon">⚔️</span>
+          <span className="mode-btn-label">Războiul Cuvintelor</span>
         </button>
 
         <div className="home-nav">
