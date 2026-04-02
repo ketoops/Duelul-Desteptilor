@@ -68,7 +68,7 @@
 }
 
 .home-mascot-img {
-  width: 320px;
+  width: 256px;
   height: auto;
   filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
   animation: mascotFloat 3s ease-in-out infinite;
