@@ -1,5 +1,5 @@
 import { db } from './firebase'
-import { ref, set, get, update, onValue, off, runTransaction } from 'firebase/database'
+import { ref, set, get, update, remove, onValue, off, runTransaction } from 'firebase/database'
 import questions from '../data/questions.json'
 
 function generateCode() {
@@ -93,6 +93,10 @@ export async function advanceQuestion(code, nextIndex) {
 
 export async function setRoomStatus(code, status) {
   await update(ref(db, `rooms/${code}`), { status })
+}
+
+export async function deleteRoom(code) {
+  await remove(ref(db, `rooms/${code}`))
 }
 
 export function getQuestionsById(ids) {

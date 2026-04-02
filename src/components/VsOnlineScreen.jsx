@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import {
   listenToRoom, submitAnswer, updateScore,
-  advanceQuestion, setRoomStatus, getQuestionsById
+  advanceQuestion, setRoomStatus, deleteRoom, getQuestionsById
 } from '../services/roomService'
 import './VsOnlineScreen.css'
 
@@ -111,20 +111,26 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     return () => clearTimeout(advanceRef.current)
   }, [bothAnswered, currentIndex, question, roomCode])
 
-  // Game finished
+  // Game finished — save results, delete room, navigate
   useEffect(() => {
     if (room?.status === 'finished' && gameQuestions) {
       clearInterval(timerRef.current)
       clearTimeout(advanceRef.current)
-      onEnd({
+      const result = {
         score: null,
         total: TOTAL_QUESTIONS,
         vsScores: [room.player1?.score ?? 0, room.player2?.score ?? 0],
         vsNames: [room.player1?.name ?? 'J1', room.player2?.name ?? 'J2'],
         mode: 'vs',
-      })
+      }
+      // Unsubscribe before deleting to avoid errors
+      unsubRef.current?.()
+      unsubRef.current = null
+      // Delete the room from Firebase
+      deleteRoom(roomCode)
+      onEnd(result)
     }
-  }, [room?.status, gameQuestions, onEnd, room?.player1, room?.player2])
+  }, [room?.status, gameQuestions, onEnd, room?.player1, room?.player2, roomCode])
 
   function handleAnswer(answer) {
     if (localAnswer || !question) return
