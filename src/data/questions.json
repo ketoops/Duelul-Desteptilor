@@ -235,14 +235,14 @@
   },
   {
     "id": 19,
-    "intrebare": "Dacă o barcă are 10 oameni și 5 sar din ea, câți rămân?",
-    "raspuns": "Nu se poate ști sigur",
-    "explicatie": "Depinde dacă cei care au sărit pot înota sau se țin de barcă.",
-    "replica_ironica": "Graba e bună doar la maratoane, nu la capcane.",
+    "intrebare": "Un șofer de camion intră pe o stradă cu sens unic și merge în direcția greșită. El trece pe lângă două echipaje de poliție, dar oamenii legii nu îl opresc. De ce?",
+    "raspuns": "Pentru că merge pe jos",
+    "explicatie": "E șofer de camion, dar acum merge pe jos, nu conduce.",
+    "replica_ironica": "Nu conducea, campionule. Și șoferii au picioare.",
     "variante_gresite": [
-      "5, matematică ușoară",
-      "0, toți au sărit",
-      "10, nimeni nu sare"
+      "Era invizibil, clar",
+      "Polițiștii dormeau",
+      "Avea permis VIP"
     ],
     "imagine": null
   },
