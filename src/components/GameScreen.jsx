@@ -13,7 +13,7 @@ function shuffleArray(arr) {
 }
 
 const TOTAL_QUESTIONS = 10
-const TIME_LIMIT = 10
+const TIME_LIMIT = 20
 
 export default function GameScreen({ mode, onEnd, onQuit }) {
   const [gameQuestions] = useState(() => shuffleArray(questions).slice(0, TOTAL_QUESTIONS))
@@ -141,7 +141,7 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   }
 
   const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
-  const timerUrgent = timeLeft <= 3
+  const timerUrgent = timeLeft <= 5
 
   return (
     <div className="game">

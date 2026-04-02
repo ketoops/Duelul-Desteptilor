@@ -4,7 +4,7 @@ import { matchAnswer } from '../utils/matchAnswer'
 import './VsOnlineScreen.css'
 
 const TOTAL_QUESTIONS = 10
-const TIME_LIMIT = 10
+const TIME_LIMIT = 20
 
 export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, onQuit }) {
   const [room, setRoom] = useState(null)
@@ -18,6 +18,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   const inputRef = useRef(null)
   const timerRef = useRef(null)
   const unsubRef = useRef(null)
+  const handledTimeUp = useRef(false)
 
   const opponentSlot = playerSlot === 'player1' ? 'player2' : 'player1'
 
@@ -32,30 +33,18 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   }, [roomCode, gameQuestions])
 
   const question = gameQuestions?.[currentIndex]
-  const myData = room?.[playerSlot]
   const opponentData = room?.[opponentSlot]
   const opponentName = opponentData?.name || 'Adversar'
   const myName = username
 
-  const handleTimeUp = useCallback(() => {
-    if (!question) return
-    updatePlayer(roomCode, playerSlot, {
-      score,
-      current: currentIndex,
-      lastResult: 'timeout',
-    })
-    setFeedback({
-      correct: false,
-      message: '⏰ Timpul a expirat! ' + question.replica_ironica
-    })
-  }, [question, roomCode, playerSlot, score, currentIndex])
-
+  // Start/restart timer when question changes or feedback clears
   useEffect(() => {
-    if (feedback || !gameQuestions || finished) {
-      clearInterval(timerRef.current)
-      return
-    }
+    clearInterval(timerRef.current)
+    if (feedback || !gameQuestions || finished) return
+
+    handledTimeUp.current = false
     setTimeLeft(TIME_LIMIT)
+
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -65,14 +54,25 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         return prev - 1
       })
     }, 1000)
+
     return () => clearInterval(timerRef.current)
   }, [currentIndex, feedback, gameQuestions, finished])
 
+  // Handle time up — guarded by ref to prevent double fire
   useEffect(() => {
-    if (timeLeft === 0 && !feedback && !finished) {
-      handleTimeUp()
+    if (timeLeft === 0 && !feedback && !finished && !handledTimeUp.current && question) {
+      handledTimeUp.current = true
+      updatePlayer(roomCode, playerSlot, {
+        score,
+        current: currentIndex,
+        lastResult: 'timeout',
+      })
+      setFeedback({
+        correct: false,
+        message: '⏰ Timpul a expirat! ' + question.replica_ironica
+      })
     }
-  }, [timeLeft, feedback, finished, handleTimeUp])
+  }, [timeLeft, feedback, finished, question, roomCode, playerSlot, score, currentIndex])
 
   useEffect(() => {
     if (!feedback && !finished && inputRef.current) {
@@ -108,9 +108,9 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
       updatePlayer(roomCode, playerSlot, { finished: true, score })
       return
     }
-    setCurrentIndex(nextIndex)
     setUserAnswer('')
     setFeedback(null)
+    setCurrentIndex(nextIndex)
   }
 
   function handleKeyDown(e) {
@@ -180,7 +180,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   }
 
   const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
-  const timerUrgent = timeLeft <= 3
+  const timerUrgent = timeLeft <= 5
   const opCurrent = opponentData?.current ?? 0
   const opLastResult = opponentData?.lastResult
 
@@ -218,17 +218,17 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
                   <stop offset="100%" stopColor="#06b6d4" />
                 </linearGradient>
               </defs>
-              <circle className="countdown-track" cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+              <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
               <circle
-                className="countdown-value"
+                className={`vs-countdown-arc ${timerUrgent && !feedback ? 'arc-urgent' : ''}`}
                 cx="30" cy="30" r="26"
                 fill="none"
-                stroke="url(#cg)"
+                stroke={timerUrgent && !feedback ? '#ef4444' : 'url(#cg)'}
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={2 * Math.PI * 26}
                 strokeDashoffset={2 * Math.PI * 26 * (1 - timeLeft / TIME_LIMIT)}
-                style={{ transition: 'stroke-dashoffset 0.3s linear' }}
+                style={{ transition: feedback ? 'none' : 'stroke-dashoffset 1s linear' }}
               />
             </svg>
             <span className="countdown-number">{timeLeft}</span>
@@ -264,7 +264,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           {feedback && (
             <div className={`vs-feedback ${feedback.correct ? 'vs-feedback-correct' : 'vs-feedback-wrong'}`}>
               <p className="vs-feedback-msg">{feedback.message}</p>
-              <p className="vs-feedback-answer">Răspuns: <strong>{question.raspuns}</strong></p>
+              <p className="vs-feedback-answer">Răspuns corect: <strong>{question.raspuns}</strong></p>
               <button className="vs-next-btn" onClick={nextQuestion}>
                 {currentIndex + 1 >= TOTAL_QUESTIONS ? 'Finalizează' : 'Următoarea →'}
               </button>
@@ -292,25 +292,15 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
 
           <div className="vs-opp-activity">
             {opponentData?.finished ? (
-              <div className="vs-opp-event vs-opp-finished">
-                🏁 A terminat!
-              </div>
+              <div className="vs-opp-event vs-opp-finished">🏁 A terminat!</div>
             ) : opLastResult === 'correct' ? (
-              <div className="vs-opp-event vs-opp-correct">
-                ✅ A răspuns corect!
-              </div>
+              <div className="vs-opp-event vs-opp-correct">✅ A răspuns corect!</div>
             ) : opLastResult === 'wrong' ? (
-              <div className="vs-opp-event vs-opp-wrong">
-                ❌ A greșit!
-              </div>
+              <div className="vs-opp-event vs-opp-wrong">❌ A greșit!</div>
             ) : opLastResult === 'timeout' ? (
-              <div className="vs-opp-event vs-opp-wrong">
-                ⏰ I-a expirat timpul!
-              </div>
+              <div className="vs-opp-event vs-opp-wrong">⏰ I-a expirat timpul!</div>
             ) : (
-              <div className="vs-opp-event vs-opp-thinking">
-                💭 Se gândește...
-              </div>
+              <div className="vs-opp-event vs-opp-thinking">💭 Se gândește...</div>
             )}
           </div>
 
