@@ -1,5 +1,5 @@
 import { db } from './firebase'
-import { ref, set, get, update, onValue, off } from 'firebase/database'
+import { ref, set, get, update, onValue, off, runTransaction } from 'firebase/database'
 import questions from '../data/questions.json'
 
 function generateCode() {
@@ -27,8 +27,9 @@ export async function createRoom(username) {
   await set(ref(db, `rooms/${code}`), {
     status: 'waiting',
     questionIds,
+    currentQuestion: 0,
     createdAt: Date.now(),
-    player1: { name: username, score: 0, current: 0, finished: false, lastResult: null },
+    player1: { name: username, score: 0, answer: null },
     player2: null,
   })
 
@@ -50,7 +51,7 @@ export async function joinRoom(code, username) {
 
   await update(roomRef, {
     status: 'playing',
-    player2: { name: username, score: 0, current: 0, finished: false, lastResult: null },
+    player2: { name: username, score: 0, answer: null },
   })
 
   return room.questionIds
@@ -66,8 +67,28 @@ export function listenToRoom(code, callback) {
   return () => off(roomRef)
 }
 
-export async function updatePlayer(code, playerSlot, data) {
-  await update(ref(db, `rooms/${code}/${playerSlot}`), data)
+export async function submitAnswer(code, playerSlot, answer) {
+  await update(ref(db, `rooms/${code}/${playerSlot}`), { answer })
+}
+
+export async function updateScore(code, playerSlot, score) {
+  await update(ref(db, `rooms/${code}/${playerSlot}`), { score })
+}
+
+export async function advanceQuestion(code, nextIndex) {
+  const roomRef = ref(db, `rooms/${code}`)
+  // Use transaction to prevent double-advance
+  await runTransaction(ref(db, `rooms/${code}/currentQuestion`), (current) => {
+    if (current === nextIndex - 1) {
+      return nextIndex
+    }
+    return current // abort if already advanced
+  })
+  // Clear answers for new question
+  await update(roomRef, {
+    'player1/answer': null,
+    'player2/answer': null,
+  })
 }
 
 export async function setRoomStatus(code, status) {

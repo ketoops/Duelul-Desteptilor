@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { listenToRoom, updatePlayer, getQuestionsById } from '../services/roomService'
+import {
+  listenToRoom, submitAnswer, updateScore,
+  advanceQuestion, setRoomStatus, getQuestionsById
+} from '../services/roomService'
 import './VsOnlineScreen.css'
 
 const TOTAL_QUESTIONS = 10
 const TIME_LIMIT = 20
+const RESULTS_DELAY = 4000
 
 function shuffleArray(arr) {
   const shuffled = [...arr]
@@ -17,18 +21,17 @@ function shuffleArray(arr) {
 export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, onQuit }) {
   const [room, setRoom] = useState(null)
   const [gameQuestions, setGameQuestions] = useState(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState(null)
-  const [feedback, setFeedback] = useState(null)
-  const [score, setScore] = useState(0)
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
-  const [finished, setFinished] = useState(false)
+  const [localAnswer, setLocalAnswer] = useState(null)
   const timerRef = useRef(null)
-  const unsubRef = useRef(null)
+  const advanceRef = useRef(null)
   const handledTimeUp = useRef(false)
+  const unsubRef = useRef(null)
+  const prevQuestionRef = useRef(-1)
 
   const opponentSlot = playerSlot === 'player1' ? 'player2' : 'player1'
 
+  // Listen to room
   useEffect(() => {
     unsubRef.current = listenToRoom(roomCode, (roomData) => {
       setRoom(roomData)
@@ -36,107 +39,113 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         setGameQuestions(getQuestionsById(roomData.questionIds))
       }
     })
-    return () => unsubRef.current?.()
+    return () => {
+      unsubRef.current?.()
+      clearInterval(timerRef.current)
+      clearTimeout(advanceRef.current)
+    }
   }, [roomCode, gameQuestions])
 
+  const currentIndex = room?.currentQuestion ?? 0
   const question = gameQuestions?.[currentIndex]
+  const myData = room?.[playerSlot]
   const opponentData = room?.[opponentSlot]
-  const opponentName = opponentData?.name || 'Adversar'
+  const myAnswer = myData?.answer
+  const opAnswer = opponentData?.answer
+  const bothAnswered = myAnswer !== null && myAnswer !== undefined &&
+                       opAnswer !== null && opAnswer !== undefined
   const myName = username
+  const opponentName = opponentData?.name || 'Adversar'
 
+  // Shuffle options per question (stable per currentIndex)
   const options = useMemo(() => {
     if (!question) return []
     return shuffleArray([question.raspuns, ...question.variante_gresite])
-  }, [question])
+    // eslint-disable-next-line
+  }, [currentIndex, question?.id])
 
-  // Timer
+  // Reset state when question changes (from Firebase)
   useEffect(() => {
-    clearInterval(timerRef.current)
-    if (feedback || !gameQuestions || finished) return
+    if (currentIndex !== prevQuestionRef.current) {
+      prevQuestionRef.current = currentIndex
+      setLocalAnswer(null)
+      handledTimeUp.current = false
+      clearTimeout(advanceRef.current)
 
-    handledTimeUp.current = false
-    setTimeLeft(TIME_LIMIT)
-    timerRef.current = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-    return () => clearInterval(timerRef.current)
-  }, [currentIndex, feedback, gameQuestions, finished])
+      // Restart timer
+      clearInterval(timerRef.current)
+      if (currentIndex < TOTAL_QUESTIONS && room?.status === 'playing') {
+        setTimeLeft(TIME_LIMIT)
+        timerRef.current = setInterval(() => {
+          setTimeLeft(prev => {
+            if (prev <= 1) {
+              clearInterval(timerRef.current)
+              return 0
+            }
+            return prev - 1
+          })
+        }, 1000)
+      }
+    }
+  }, [currentIndex, room?.status])
 
+  // Handle timeout
   useEffect(() => {
-    if (timeLeft === 0 && !feedback && !finished && !handledTimeUp.current && question) {
+    if (timeLeft === 0 && !handledTimeUp.current && !myAnswer && question) {
       handledTimeUp.current = true
-      updatePlayer(roomCode, playerSlot, {
-        score,
-        current: currentIndex,
-        lastResult: 'timeout',
-      })
-      setFeedback({
-        correct: false,
-        message: '⏰ Timpul a expirat! ' + question.replica_ironica
-      })
+      setLocalAnswer('_timeout_')
+      submitAnswer(roomCode, playerSlot, '_timeout_')
     }
-  }, [timeLeft, feedback, finished, question, roomCode, playerSlot, score, currentIndex])
+  }, [timeLeft, myAnswer, question, roomCode, playerSlot])
 
-  function handleAnswer(answer) {
-    if (feedback) return
-    clearInterval(timerRef.current)
-    setSelectedAnswer(answer)
-
-    const correct = answer === question.raspuns
-    const newScore = correct ? score + 1 : score
-    if (correct) setScore(newScore)
-
-    updatePlayer(roomCode, playerSlot, {
-      score: newScore,
-      current: currentIndex,
-      lastResult: correct ? 'correct' : 'wrong',
-    })
-
-    setFeedback({
-      correct,
-      message: correct
-        ? '✅ Corect! ' + (question.explicatie || '')
-        : '❌ Greșit! ' + question.replica_ironica
-    })
-  }
-
-  function nextQuestion() {
-    const nextIndex = currentIndex + 1
-    if (nextIndex >= TOTAL_QUESTIONS) {
-      setFinished(true)
-      updatePlayer(roomCode, playerSlot, { finished: true, score })
-      return
-    }
-    setSelectedAnswer(null)
-    setFeedback(null)
-    setCurrentIndex(nextIndex)
-  }
-
-  const bothFinished = finished && opponentData?.finished
-
+  // Auto-advance after both answered
   useEffect(() => {
-    if (bothFinished) {
+    if (!bothAnswered || !question) return
+
+    clearInterval(timerRef.current)
+
+    // Auto-advance after delay
+    advanceRef.current = setTimeout(() => {
+      const nextIndex = currentIndex + 1
+      if (nextIndex >= TOTAL_QUESTIONS) {
+        setRoomStatus(roomCode, 'finished')
+      } else {
+        advanceQuestion(roomCode, nextIndex)
+      }
+    }, RESULTS_DELAY)
+
+    return () => clearTimeout(advanceRef.current)
+  }, [bothAnswered, currentIndex, question, roomCode])
+
+  // Detect game finished
+  useEffect(() => {
+    if (room?.status === 'finished' && gameQuestions) {
+      clearInterval(timerRef.current)
+      clearTimeout(advanceRef.current)
       onEnd({
         score: null,
         total: TOTAL_QUESTIONS,
-        vsScores: playerSlot === 'player1'
-          ? [score, opponentData.score]
-          : [opponentData.score, score],
-        vsNames: playerSlot === 'player1'
-          ? [myName, opponentName]
-          : [opponentName, myName],
+        vsScores: [room.player1?.score ?? 0, room.player2?.score ?? 0],
+        vsNames: [room.player1?.name ?? 'J1', room.player2?.name ?? 'J2'],
         mode: 'vs',
       })
     }
-  }, [bothFinished, score, opponentData, onEnd, playerSlot, myName, opponentName])
+  }, [room?.status, gameQuestions, onEnd, room?.player1, room?.player2])
 
-  // Waiting screens
+  function handleAnswer(answer) {
+    if (localAnswer || !question) return
+    setLocalAnswer(answer)
+
+    const correct = answer === question.raspuns
+    const newScore = (myData?.score ?? 0) + (correct ? 1 : 0)
+
+    submitAnswer(roomCode, playerSlot, answer)
+    if (correct) {
+      updateScore(roomCode, playerSlot, newScore)
+    }
+  }
+
+  // Waiting for opponent to join
   if (!room || room.status === 'waiting') {
     return (
       <div className="vs-lobby-wait">
@@ -161,35 +170,22 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     )
   }
 
-  if (finished && !bothFinished) {
-    return (
-      <div className="vs-lobby-wait">
-        <div className="lobby-content">
-          <div className="lobby-emoji">⏳</div>
-          <h2 className="lobby-title">Ai terminat!</h2>
-          <p className="online-final-score">Scorul tău: <strong>{score}/{TOTAL_QUESTIONS}</strong></p>
-          <p className="lobby-hint">Așteptăm pe {opponentName} să termine...</p>
-          <div className="opponent-progress">
-            {opponentName}: întrebarea {Math.min((opponentData?.current || 0) + 1, TOTAL_QUESTIONS)}/{TOTAL_QUESTIONS}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
   const timerUrgent = timeLeft <= 5
-  const opCurrent = opponentData?.current ?? 0
-  const opLastResult = opponentData?.lastResult
+  const showResults = bothAnswered
+  const myCorrect = myAnswer === question.raspuns
+  const opCorrect = opAnswer === question.raspuns
+  const myTimedOut = myAnswer === '_timeout_'
+  const opTimedOut = opAnswer === '_timeout_'
 
   return (
     <div className="vs-screen">
+      {/* VS Header */}
       <div className="vs-header">
         <button className="vs-quit-btn" onClick={onQuit}>✕</button>
         <div className="vs-matchup">
           <div className="vs-player vs-player-me">
             <span className="vs-player-name vs-name-me">{myName}</span>
-            <span className="vs-player-score vs-score-me">{score}</span>
+            <span className="vs-player-score vs-score-me">{myData?.score ?? 0}</span>
           </div>
           <span className="vs-versus">VS</span>
           <div className="vs-player vs-player-opp">
@@ -199,112 +195,99 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         </div>
       </div>
 
+      {/* Progress */}
       <div className="vs-progress-bar">
-        <div className="vs-progress-fill" style={{ width: `${progress}%` }} />
+        <div className="vs-progress-fill" style={{ width: `${((currentIndex + 1) / TOTAL_QUESTIONS) * 100}%` }} />
       </div>
 
-      <div className="vs-split">
-        {/* My half */}
-        <div className="vs-half vs-half-mine">
-          <div className={`vs-countdown ${timerUrgent ? 'countdown-urgent' : ''} ${feedback ? 'countdown-done' : ''}`}>
-            <svg className="countdown-ring" viewBox="0 0 60 60">
-              <defs>
-                <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8b5cf6" />
-                  <stop offset="100%" stopColor="#06b6d4" />
-                </linearGradient>
-              </defs>
-              <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
-              <circle
-                cx="30" cy="30" r="26"
-                fill="none"
-                stroke={timerUrgent && !feedback ? '#ef4444' : 'url(#cg)'}
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray={2 * Math.PI * 26}
-                strokeDashoffset={2 * Math.PI * 26 * (1 - timeLeft / TIME_LIMIT)}
-                style={{ transition: feedback ? 'none' : 'stroke-dashoffset 1s linear' }}
-              />
-            </svg>
-            <span className="countdown-number">{timeLeft}</span>
-          </div>
+      {/* Countdown */}
+      <div className={`vs-countdown ${timerUrgent && !showResults ? 'countdown-urgent' : ''} ${showResults ? 'countdown-done' : ''}`}>
+        <svg className="countdown-ring" viewBox="0 0 60 60">
+          <defs>
+            <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#06b6d4" />
+            </linearGradient>
+          </defs>
+          <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+          <circle
+            cx="30" cy="30" r="26"
+            fill="none"
+            stroke={timerUrgent && !showResults ? '#ef4444' : 'url(#cg)'}
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={2 * Math.PI * 26}
+            strokeDashoffset={2 * Math.PI * 26 * (1 - timeLeft / TIME_LIMIT)}
+            style={{ transition: showResults ? 'none' : 'stroke-dashoffset 1s linear' }}
+          />
+        </svg>
+        <span className="countdown-number">{showResults ? '✓' : timeLeft}</span>
+      </div>
 
-          <div className="vs-question-label">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
-          <h2 className="vs-question-text">{question.intrebare}</h2>
+      {/* Question */}
+      <div className="vs-game-body">
+        <div className="vs-question-label">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
+        <h2 className="vs-question-text">{question.intrebare}</h2>
 
-          <div className="vs-options-grid">
-            {options.map((option, i) => {
-              const isCorrect = option === question.raspuns
-              const isSelected = option === selectedAnswer
-              let btnClass = 'vs-option-btn'
-              if (feedback) {
-                if (isCorrect) btnClass += ' option-correct'
-                else if (isSelected && !isCorrect) btnClass += ' option-wrong'
-                else btnClass += ' option-dimmed'
-              }
-              return (
-                <button
-                  key={`${currentIndex}-${i}`}
-                  className={btnClass}
-                  onClick={() => handleAnswer(option)}
-                  disabled={!!feedback}
-                >
-                  <span className="option-letter">{String.fromCharCode(65 + i)}</span>
-                  <span className="option-text">{option}</span>
-                </button>
-              )
-            })}
-          </div>
+        {/* Options */}
+        <div className="vs-options-grid">
+          {options.map((option, i) => {
+            const isCorrect = option === question.raspuns
+            const isMyPick = option === localAnswer
+            const isOpPick = showResults && option === opAnswer
+            let btnClass = 'vs-option-btn'
 
-          {feedback && (
-            <div className={`vs-feedback ${feedback.correct ? 'vs-feedback-correct' : 'vs-feedback-wrong'}`}>
-              <p className="vs-feedback-msg">{feedback.message}</p>
-              <button className="vs-next-btn" onClick={nextQuestion}>
-                {currentIndex + 1 >= TOTAL_QUESTIONS ? 'Finalizează' : 'Următoarea →'}
+            if (showResults) {
+              if (isCorrect) btnClass += ' option-correct'
+              else if (isMyPick && !isCorrect) btnClass += ' option-wrong'
+              else btnClass += ' option-dimmed'
+            } else if (isMyPick) {
+              btnClass += ' option-selected'
+            }
+
+            return (
+              <button
+                key={`${currentIndex}-${i}`}
+                className={btnClass}
+                onClick={() => handleAnswer(option)}
+                disabled={!!localAnswer}
+              >
+                <span className="option-letter">{String.fromCharCode(65 + i)}</span>
+                <span className="option-text">{option}</span>
+                {showResults && isMyPick && <span className="option-tag tag-me">Tu</span>}
+                {showResults && isOpPick && !isMyPick && <span className="option-tag tag-opp">{opponentName.slice(0, 6)}</span>}
+                {showResults && isOpPick && isMyPick && <span className="option-tag tag-opp">Ambii</span>}
               </button>
-            </div>
-          )}
+            )
+          })}
         </div>
 
-        {/* Opponent half */}
-        <div className="vs-half vs-half-opponent">
-          <div className="vs-opp-header">
-            <span className="vs-opp-avatar">👤</span>
-            <span className="vs-opp-name">{opponentName}</span>
+        {/* Waiting / Results */}
+        {localAnswer && !showResults && (
+          <div className="vs-waiting-badge">
+            <span className="vs-waiting-dot" />
+            Așteptăm pe {opponentName}...
           </div>
+        )}
 
-          <div className="vs-opp-status">
-            <div className="vs-opp-stat">
-              <span className="vs-opp-stat-label">Întrebarea</span>
-              <span className="vs-opp-stat-value">{Math.min(opCurrent + 1, TOTAL_QUESTIONS)}/{TOTAL_QUESTIONS}</span>
+        {showResults && (
+          <div className="vs-round-result">
+            <div className={`vs-result-row ${myCorrect ? 'result-correct' : 'result-wrong'}`}>
+              <span className="vs-result-name">{myName}</span>
+              <span className="vs-result-icon">
+                {myTimedOut ? '⏰' : myCorrect ? '✅' : '❌'}
+              </span>
             </div>
-            <div className="vs-opp-stat">
-              <span className="vs-opp-stat-label">Scor</span>
-              <span className="vs-opp-stat-value">{opponentData?.score ?? 0}</span>
+            <div className={`vs-result-row ${opCorrect ? 'result-correct' : 'result-wrong'}`}>
+              <span className="vs-result-name">{opponentName}</span>
+              <span className="vs-result-icon">
+                {opTimedOut ? '⏰' : opCorrect ? '✅' : '❌'}
+              </span>
             </div>
+            <p className="vs-result-answer">Răspuns corect: <strong>{question.raspuns}</strong></p>
+            <div className="vs-auto-advance">Următoarea întrebare în câteva secunde...</div>
           </div>
-
-          <div className="vs-opp-activity">
-            {opponentData?.finished ? (
-              <div className="vs-opp-event vs-opp-finished">🏁 A terminat!</div>
-            ) : opLastResult === 'correct' ? (
-              <div className="vs-opp-event vs-opp-correct">✅ A răspuns corect!</div>
-            ) : opLastResult === 'wrong' ? (
-              <div className="vs-opp-event vs-opp-wrong">❌ A greșit!</div>
-            ) : opLastResult === 'timeout' ? (
-              <div className="vs-opp-event vs-opp-wrong">⏰ I-a expirat timpul!</div>
-            ) : (
-              <div className="vs-opp-event vs-opp-thinking">💭 Se gândește...</div>
-            )}
-          </div>
-
-          <div className="vs-opp-progress-bar">
-            <div
-              className="vs-opp-progress-fill"
-              style={{ width: `${(Math.min(opCurrent + 1, TOTAL_QUESTIONS) / TOTAL_QUESTIONS) * 100}%` }}
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )
