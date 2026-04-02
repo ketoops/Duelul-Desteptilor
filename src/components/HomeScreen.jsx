@@ -23,28 +23,14 @@ export default function HomeScreen({ username, onStart }) {
         </p>
 
         <div className="home-modes">
-          <button className="mode-card" onClick={() => onStart('normal')}>
-            <div className="mode-card-glow mode-glow-purple" />
-            <div className="mode-card-inner">
-              <div className="mode-header">
-                <span className="mode-icon">⚡</span>
-                <span className="mode-badge">SOLO</span>
-              </div>
-              <span className="mode-name">Mod Normal</span>
-              <span className="mode-desc">10 întrebări · 10 secunde · o singură șansă</span>
-            </div>
+          <button className="mode-btn mode-solo" onClick={() => onStart('normal')}>
+            <span className="mode-btn-icon">⚡</span>
+            <span className="mode-btn-label">Mod Normal</span>
           </button>
 
-          <button className="mode-card" onClick={() => onStart('vs')}>
-            <div className="mode-card-glow mode-glow-orange" />
-            <div className="mode-card-inner">
-              <div className="mode-header">
-                <span className="mode-icon">⚔️</span>
-                <span className="mode-badge badge-vs">ONLINE</span>
-              </div>
-              <span className="mode-name">1 vs 1</span>
-              <span className="mode-desc">Provoacă un prieten — de pe orice telefon</span>
-            </div>
+          <button className="mode-btn mode-vs" onClick={() => onStart('vs')}>
+            <span className="mode-btn-icon">⚔️</span>
+            <span className="mode-btn-label">1 vs 1 Online</span>
           </button>
         </div>
 
