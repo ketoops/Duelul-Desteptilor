@@ -1,7 +1,8 @@
 [
   {
     "id": 1,
-    "theme": "Soare și natură",
+    "theme": "Apus de Soare",
+    "image": "🌅",
     "letters": ["S", "O", "A", "R", "E"],
     "words": [
       { "word": "SOARE", "row": 0, "col": 0, "dir": "h" },
@@ -13,26 +14,54 @@
   },
   {
     "id": 2,
-    "theme": "Lectură",
+    "theme": "Biblioteca",
+    "image": "📚",
     "letters": ["C", "A", "R", "T", "E"],
     "words": [
       { "word": "CARTE", "row": 0, "col": 0, "dir": "h" },
-      { "word": "CARE", "row": 0, "col": 0, "dir": "v" },
-      { "word": "ARC", "row": 0, "col": 1, "dir": "v" }
+      { "word": "CRET", "row": 0, "col": 0, "dir": "v" },
+      { "word": "TARE", "row": 3, "col": 0, "dir": "h" }
     ],
     "gridRows": 4,
     "gridCols": 5
   },
   {
     "id": 3,
-    "theme": "Marea",
-    "letters": ["M", "A", "R", "E"],
+    "theme": "Grădina",
+    "image": "🌸",
+    "letters": ["F", "L", "O", "R", "I"],
     "words": [
-      { "word": "MARE", "row": 0, "col": 0, "dir": "h" },
-      { "word": "ERA", "row": 0, "col": 3, "dir": "v" },
-      { "word": "ARMA", "row": 0, "col": 1, "dir": "v" }
+      { "word": "FLORI", "row": 0, "col": 0, "dir": "h" },
+      { "word": "FIR", "row": 0, "col": 0, "dir": "v" },
+      { "word": "ROL", "row": 0, "col": 3, "dir": "v" }
+    ],
+    "gridRows": 3,
+    "gridCols": 5
+  },
+  {
+    "id": 4,
+    "theme": "Călătorie",
+    "image": "🚗",
+    "letters": ["D", "R", "U", "M", "E"],
+    "words": [
+      { "word": "DRUM", "row": 0, "col": 0, "dir": "h" },
+      { "word": "RUDE", "row": 0, "col": 1, "dir": "v" },
+      { "word": "MURE", "row": 0, "col": 3, "dir": "v" }
     ],
     "gridRows": 4,
     "gridCols": 4
+  },
+  {
+    "id": 5,
+    "theme": "Muzică",
+    "image": "🎵",
+    "letters": ["P", "I", "A", "N", "O"],
+    "words": [
+      { "word": "PIANO", "row": 0, "col": 0, "dir": "h" },
+      { "word": "ION", "row": 0, "col": 1, "dir": "v" },
+      { "word": "NAP", "row": 0, "col": 3, "dir": "v" }
+    ],
+    "gridRows": 3,
+    "gridCols": 5
   }
 ]

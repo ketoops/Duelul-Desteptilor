@@ -7,6 +7,9 @@
   width: 100%;
   padding: 12px 16px;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 /* Header */
@@ -32,10 +35,17 @@
 
 .wg-theme {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-bright);
-  text-align: center;
+}
+
+.wg-theme-icon {
+  font-size: 1.3rem;
 }
 
 .wg-timer {
@@ -65,11 +75,16 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .wg-found {
   color: var(--text-muted);
+  font-weight: 600;
+}
+
+.wg-puzzle-num {
+  color: var(--text-dim);
   font-weight: 600;
 }
 
@@ -95,12 +110,12 @@
 }
 
 .wg-cell {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 800;
   border-radius: 8px;
 }
@@ -132,19 +147,14 @@
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--text-bright);
-  letter-spacing: 4px;
-  padding: 10px;
-  min-height: 48px;
+  letter-spacing: 6px;
+  padding: 8px;
+  min-height: 44px;
   transition: color 0.2s;
 }
 
-.wg-flash-correct {
-  color: var(--green) !important;
-}
-
-.wg-flash-wrong {
-  color: var(--red) !important;
-}
+.wg-flash-correct { color: var(--green) !important; }
+.wg-flash-wrong { color: var(--red) !important; }
 
 .wg-shake {
   animation: shake 0.4s ease;
@@ -162,77 +172,49 @@
 .wg-circle-area {
   display: flex;
   justify-content: center;
-  padding: 8px 0;
+  padding: 8px 0 24px;
 }
 
 .wg-circle {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
+}
+
+.wg-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .wg-letter {
   position: absolute;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--bg-card);
-  border: 2px solid var(--border-glass);
+  border: 2.5px solid var(--border-glass);
   color: var(--text-bright);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
-  transition: background 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s;
-}
-
-.wg-letter:active {
-  transform: translate(-50%, -50%) scale(0.92);
+  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .wg-letter-selected {
   background: var(--accent);
   border-color: var(--accent-light);
   color: #fff;
-  box-shadow: 0 0 16px var(--accent-glow);
-}
-
-/* Action buttons */
-.wg-actions {
-  display: flex;
-  gap: 10px;
-  padding: 8px 0 16px;
-}
-
-.wg-action-btn {
-  flex: 1;
-  padding: 14px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  border-radius: var(--radius-md);
-  transition: opacity 0.15s, transform 0.1s;
-}
-
-.wg-action-btn:active {
-  transform: scale(0.97);
-}
-
-.wg-clear {
-  background: var(--bg-card);
-  color: var(--text);
-  border: 1px solid var(--border-subtle);
-}
-
-.wg-submit {
-  background: var(--gradient-primary);
-  color: var(--text-bright);
-}
-
-.wg-submit:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 /* Complete overlay */
@@ -243,15 +225,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 10, 15, 0.85);
+  background: rgba(10, 10, 15, 0.88);
   z-index: 10;
   animation: fadeIn 0.3s ease;
   gap: 8px;
 }
 
-.wg-complete-icon {
-  font-size: 4rem;
-}
+.wg-complete-icon { font-size: 4rem; }
 
 .wg-complete-text {
   font-size: 1.5rem;

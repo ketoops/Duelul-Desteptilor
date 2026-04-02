@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import puzzles from '../data/wordPuzzles.json'
 import './WordGameScreen.css'
 
@@ -27,10 +27,13 @@ export default function WordGameScreen({ onEnd, onQuit }) {
   const [selected, setSelected] = useState([])
   const [timeLeft, setTimeLeft] = useState(GAME_TIME)
   const [shake, setShake] = useState(false)
-  const [flash, setFlash] = useState(null) // 'correct' | 'wrong'
+  const [flash, setFlash] = useState(null)
   const [totalScore, setTotalScore] = useState(0)
   const [gameOver, setGameOver] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
   const timerRef = useRef(null)
+  const letterRefs = useRef([])
+  const circleRef = useRef(null)
 
   const allWords = puzzle.words.map(w => w.word)
   const allFound = foundWords.length === allWords.length
@@ -50,21 +53,14 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     return () => clearInterval(timerRef.current)
   }, [puzzleIndex])
 
-  // Time up or all found → next puzzle or end
+  // Time up or all found
   useEffect(() => {
     if (timeLeft === 0 || allFound) {
       clearInterval(timerRef.current)
       const score = foundWords.length
-      const newTotal = totalScore + score
+      const newTotal = totalScore + score + (allFound ? Math.floor(timeLeft / 5) : 0)
+      setTotalScore(newTotal)
 
-      if (allFound) {
-        // Bonus for finishing early
-        setTotalScore(newTotal + Math.floor(timeLeft / 5))
-      } else {
-        setTotalScore(newTotal)
-      }
-
-      // Move to next puzzle or end
       setTimeout(() => {
         const nextIndex = puzzleIndex + 1
         if (nextIndex >= puzzles.length) {
@@ -79,7 +75,6 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     }
   }, [timeLeft, allFound])
 
-  // Game over
   useEffect(() => {
     if (gameOver) {
       onEnd({
@@ -90,41 +85,76 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     }
   }, [gameOver, totalScore, onEnd])
 
-  function toggleLetter(index) {
-    if (gameOver || timeLeft === 0) return
-
-    if (selected.includes(index)) {
-      // Deselect from this point on
-      const pos = selected.indexOf(index)
-      setSelected(selected.slice(0, pos))
-    } else {
-      setSelected([...selected, index])
+  // Find which letter index is at given coordinates
+  const getLetterAtPoint = useCallback((x, y) => {
+    for (let i = 0; i < letterRefs.current.length; i++) {
+      const el = letterRefs.current[i]
+      if (!el) continue
+      const rect = el.getBoundingClientRect()
+      const cx = rect.left + rect.width / 2
+      const cy = rect.top + rect.height / 2
+      const dist = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2)
+      if (dist < rect.width * 0.6) return i
     }
+    return -1
+  }, [])
+
+  // Drag/swipe handlers
+  function handlePointerDown(e, index) {
+    e.preventDefault()
+    setIsDragging(true)
+    setSelected([index])
   }
 
-  function submitWord() {
-    const word = selected.map(i => puzzle.letters[i]).join('')
+  const handlePointerMove = useCallback((e) => {
+    if (!isDragging) return
+    e.preventDefault()
 
+    const x = e.touches ? e.touches[0].clientX : e.clientX
+    const y = e.touches ? e.touches[0].clientY : e.clientY
+    const idx = getLetterAtPoint(x, y)
+
+    if (idx >= 0 && !selected.includes(idx)) {
+      setSelected(prev => [...prev, idx])
+    }
+  }, [isDragging, selected, getLetterAtPoint])
+
+  const handlePointerUp = useCallback(() => {
+    if (!isDragging) return
+    setIsDragging(false)
+
+    // Submit the word
+    const word = selected.map(i => puzzle.letters[i]).join('')
     if (allWords.includes(word) && !foundWords.includes(word)) {
-      setFoundWords([...foundWords, word])
+      setFoundWords(prev => [...prev, word])
       setFlash('correct')
       setTimeout(() => setFlash(null), 600)
-    } else {
+    } else if (selected.length >= 2) {
       setShake(true)
       setFlash('wrong')
       setTimeout(() => { setShake(false); setFlash(null) }, 500)
     }
     setSelected([])
-  }
+  }, [isDragging, selected, puzzle.letters, allWords, foundWords])
 
-  function clearSelection() {
-    setSelected([])
-  }
+  // Global move/up listeners
+  useEffect(() => {
+    const moveHandler = (e) => handlePointerMove(e)
+    const upHandler = () => handlePointerUp()
 
-  const currentWord = selected.map(i => puzzle.letters[i]).join('')
-  const timerUrgent = timeLeft <= 10
+    window.addEventListener('mousemove', moveHandler)
+    window.addEventListener('mouseup', upHandler)
+    window.addEventListener('touchmove', moveHandler, { passive: false })
+    window.addEventListener('touchend', upHandler)
 
-  // Check which cells are revealed
+    return () => {
+      window.removeEventListener('mousemove', moveHandler)
+      window.removeEventListener('mouseup', upHandler)
+      window.removeEventListener('touchmove', moveHandler)
+      window.removeEventListener('touchend', upHandler)
+    }
+  }, [handlePointerMove, handlePointerUp])
+
   function isCellRevealed(row, col) {
     for (const w of puzzle.words) {
       if (!foundWords.includes(w.word)) continue
@@ -137,11 +167,40 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     return false
   }
 
+  const currentWord = selected.map(i => puzzle.letters[i]).join('')
+  const timerUrgent = timeLeft <= 10
+
+  // SVG lines between selected letters
+  function getLinePoints() {
+    if (selected.length < 2) return []
+    const lines = []
+    for (let i = 1; i < selected.length; i++) {
+      const a = letterRefs.current[selected[i - 1]]
+      const b = letterRefs.current[selected[i]]
+      if (!a || !b || !circleRef.current) continue
+      const cr = circleRef.current.getBoundingClientRect()
+      const ar = a.getBoundingClientRect()
+      const br = b.getBoundingClientRect()
+      lines.push({
+        x1: ar.left + ar.width / 2 - cr.left,
+        y1: ar.top + ar.height / 2 - cr.top,
+        x2: br.left + br.width / 2 - cr.left,
+        y2: br.top + br.height / 2 - cr.top,
+      })
+    }
+    return lines
+  }
+
+  const lines = selected.length >= 2 ? getLinePoints() : []
+
   return (
     <div className="wg">
       <div className="wg-header">
         <button className="wg-quit" onClick={onQuit}>✕</button>
-        <div className="wg-theme">{puzzle.theme}</div>
+        <div className="wg-theme">
+          <span className="wg-theme-icon">{puzzle.image}</span>
+          <span>{puzzle.theme}</span>
+        </div>
         <div className={`wg-timer ${timerUrgent ? 'wg-timer-urgent' : ''}`}>
           {timeLeft}s
         </div>
@@ -149,6 +208,7 @@ export default function WordGameScreen({ onEnd, onQuit }) {
 
       <div className="wg-score-bar">
         <span className="wg-found">{foundWords.length}/{allWords.length} cuvinte</span>
+        <span className="wg-puzzle-num">Nivel {puzzleIndex + 1}/{puzzles.length}</span>
         <span className="wg-total-score">⭐ {totalScore}</span>
       </div>
 
@@ -180,9 +240,22 @@ export default function WordGameScreen({ onEnd, onQuit }) {
         {currentWord || '···'}
       </div>
 
-      {/* Letter Circle */}
+      {/* Letter Circle with drag */}
       <div className="wg-circle-area">
-        <div className="wg-circle">
+        <div className="wg-circle" ref={circleRef}>
+          {/* SVG connection lines */}
+          <svg className="wg-lines">
+            {lines.map((l, i) => (
+              <line
+                key={i}
+                x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
+                stroke="rgba(139, 92, 246, 0.6)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            ))}
+          </svg>
+
           {puzzle.letters.map((letter, i) => {
             const angle = (i / puzzle.letters.length) * 2 * Math.PI - Math.PI / 2
             const radius = 38
@@ -191,31 +264,19 @@ export default function WordGameScreen({ onEnd, onQuit }) {
             const isSelected = selected.includes(i)
 
             return (
-              <button
-                key={i}
+              <div
+                key={`${puzzleIndex}-${i}`}
+                ref={el => letterRefs.current[i] = el}
                 className={`wg-letter ${isSelected ? 'wg-letter-selected' : ''}`}
                 style={{ left: `${x}%`, top: `${y}%` }}
-                onClick={() => toggleLetter(i)}
+                onMouseDown={(e) => handlePointerDown(e, i)}
+                onTouchStart={(e) => handlePointerDown(e, i)}
               >
                 {letter}
-              </button>
+              </div>
             )
           })}
         </div>
-      </div>
-
-      {/* Action buttons */}
-      <div className="wg-actions">
-        <button className="wg-action-btn wg-clear" onClick={clearSelection}>
-          Șterge
-        </button>
-        <button
-          className="wg-action-btn wg-submit"
-          onClick={submitWord}
-          disabled={selected.length < 2}
-        >
-          Verifică
-        </button>
       </div>
 
       {/* All found overlay */}
