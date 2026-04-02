@@ -214,9 +214,9 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     <div className="wg" style={{ background: puzzle.bgGradient }}>
       <div className="wg-header">
         <button className="wg-quit" onClick={onQuit}>✕</button>
-        <div className="wg-theme">
-          <span className="wg-theme-icon">{puzzle.image}</span>
-          <span>{puzzle.theme}</span>
+        <div className="wg-level">
+          <span className="wg-level-icon">{puzzle.image}</span>
+          <span>{puzzle.level}</span>
         </div>
         <div className={`wg-timer ${timerUrgent ? 'wg-timer-urgent' : ''}`}>
           {timeLeft}s

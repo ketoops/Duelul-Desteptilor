@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "theme": "Soare",
+    "level": "Nivel 1",
     "image": "🌅",
     "bgGradient": "linear-gradient(180deg, #f97316 0%, #dc2626 50%, #7c2d12 100%)",
     "letters": ["S", "O", "A", "R", "E", "L"],
@@ -17,10 +17,10 @@
   },
   {
     "id": 2,
-    "theme": "Lectură",
+    "level": "Nivel 2",
     "image": "📚",
     "bgGradient": "linear-gradient(180deg, #7c3aed 0%, #4c1d95 50%, #1e1b4b 100%)",
-    "letters": ["C", "A", "R", "T", "E", "I", "S"],
+    "letters": ["C", "A", "R", "T", "E", "I"],
     "words": [
       { "word": "CARTE", "row": 0, "col": 0, "dir": "h" },
       { "word": "CIRES", "row": 0, "col": 0, "dir": "v" },
@@ -33,7 +33,7 @@
   },
   {
     "id": 3,
-    "theme": "Grădina",
+    "level": "Nivel 3",
     "image": "🌸",
     "bgGradient": "linear-gradient(180deg, #22c55e 0%, #15803d 50%, #052e16 100%)",
     "letters": ["F", "L", "O", "R", "I", "N"],
@@ -49,7 +49,7 @@
   },
   {
     "id": 4,
-    "theme": "Călătorie",
+    "level": "Nivel 4",
     "image": "🚗",
     "bgGradient": "linear-gradient(180deg, #0ea5e9 0%, #0369a1 50%, #0c4a6e 100%)",
     "letters": ["D", "R", "U", "M", "E", "I", "N"],
@@ -65,7 +65,7 @@
   },
   {
     "id": 5,
-    "theme": "Muzică",
+    "level": "Nivel 5",
     "image": "🎵",
     "bgGradient": "linear-gradient(180deg, #ec4899 0%, #9d174d 50%, #500724 100%)",
     "letters": ["P", "I", "A", "N", "O", "T"],
