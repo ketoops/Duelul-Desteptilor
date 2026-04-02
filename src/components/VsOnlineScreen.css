@@ -1,0 +1,18 @@
+.online-final-score {
+  font-size: 1.3rem;
+  color: var(--text-bright);
+  margin-bottom: 12px;
+}
+
+.online-final-score strong {
+  color: var(--accent);
+}
+
+.opponent-progress {
+  background: var(--bg-card);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 16px;
+}

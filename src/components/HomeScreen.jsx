@@ -22,8 +22,8 @@ export default function HomeScreen({ onStart }) {
           <button className="mode-btn mode-vs" onClick={() => onStart('vs')}>
             <span className="mode-icon">⚔️</span>
             <div className="mode-info">
-              <span className="mode-name">1 vs 1</span>
-              <span className="mode-desc">Provoacă un prieten</span>
+              <span className="mode-name">1 vs 1 Online</span>
+              <span className="mode-desc">Provoacă un prieten — de pe orice telefon</span>
             </div>
           </button>
         </div>

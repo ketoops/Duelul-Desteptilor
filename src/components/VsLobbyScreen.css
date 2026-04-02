@@ -1,0 +1,126 @@
+.lobby {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lobby-content {
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+}
+
+.lobby-emoji {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
+
+.lobby-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-bright);
+  margin-bottom: 32px;
+}
+
+.lobby-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.lobby-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 14px;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.lobby-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.lobby-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.create-btn {
+  background: var(--accent);
+  color: var(--text-bright);
+}
+
+.join-btn {
+  background: var(--bg-card);
+  color: var(--text-bright);
+}
+
+.lobby-divider {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 4px 0;
+}
+
+.room-code {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: var(--accent);
+  background: var(--bg-card);
+  padding: 20px 32px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  font-family: monospace;
+}
+
+.lobby-hint {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.code-input {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 8px;
+  padding: 16px;
+  background: var(--bg-input);
+  color: var(--text-bright);
+  border-radius: 14px;
+  border: 2px solid transparent;
+  margin-bottom: 16px;
+  font-family: monospace;
+}
+
+.code-input:focus {
+  border-color: var(--accent);
+}
+
+.code-input::placeholder {
+  color: var(--text-dim);
+  letter-spacing: 8px;
+}
+
+.lobby-error {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.back-link {
+  background: none;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 16px;
+  padding: 8px;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
