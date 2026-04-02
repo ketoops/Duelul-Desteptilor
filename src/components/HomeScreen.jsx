@@ -1,3 +1,4 @@
+import geniusImg from '../assets/genius.png'
 import './HomeScreen.css'
 
 export default function HomeScreen({ username, onStart }) {
@@ -9,9 +10,8 @@ export default function HomeScreen({ username, onStart }) {
       <div className="home-content">
         <div className="home-welcome">Salut, <strong>{username}</strong></div>
 
-        <div className="home-logo">
-          <span className="home-logo-icon">🧠</span>
-          <div className="home-logo-ring" />
+        <div className="home-mascot">
+          <img src={geniusImg} alt="Genius" className="home-mascot-img" />
         </div>
 
         <h1 className="home-title">

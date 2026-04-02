@@ -63,38 +63,26 @@
   font-weight: 600;
 }
 
-.home-logo {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+.home-mascot {
+  margin-bottom: 12px;
 }
 
-.home-logo-icon {
-  font-size: 56px;
-  position: relative;
-  z-index: 1;
-  animation: pulseGlow 3s ease-in-out infinite;
+.home-mascot-img {
+  width: 160px;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+  animation: mascotFloat 3s ease-in-out infinite;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.3)); }
-  50% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.6)); }
-}
-
-.home-logo-ring {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 2px solid rgba(139, 92, 246, 0.2);
-  animation: spin 12s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes mascotFloat {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.3));
+  }
+  50% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 0 28px rgba(139, 92, 246, 0.5));
+  }
 }
 
 .home-title {
