@@ -22,7 +22,8 @@ function shuffleArray(arr) {
 
 export async function createRoom(username) {
   const code = generateCode()
-  const questionIds = shuffleArray(questions.map(q => q.id)).slice(0, 10)
+  const withImages = questions.filter(q => q.imagine)
+  const questionIds = shuffleArray(withImages.map(q => q.id)).slice(0, 10)
 
   await set(ref(db, `rooms/${code}`), {
     status: 'waiting',

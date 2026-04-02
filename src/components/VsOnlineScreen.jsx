@@ -7,7 +7,7 @@ import { saveDuelResult } from '../services/userService'
 import './VsOnlineScreen.css'
 
 const TOTAL_QUESTIONS = 10
-const TIME_LIMIT = 20
+const TIME_LIMIT = 15
 const RESULTS_DELAY = 4000
 
 function shuffleArray(arr) {
