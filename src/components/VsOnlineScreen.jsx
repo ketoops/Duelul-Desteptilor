@@ -208,60 +208,78 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           </div>
         )}
 
-        {/* Results flash with image popup */}
-        {showResults && (
-          <div className="duel-result-flash">
-            {question.imagine && (
-              <div className="duel-result-image">
-                <img
-                  src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
-                  alt=""
-                  className="duel-result-img"
-                />
+        {showResults && question.imagine ? (
+          /* Image takes over when results show */
+          <div className="duel-fullscreen-result">
+            <div className="duel-result-image">
+              <img
+                src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
+                alt=""
+                className="duel-result-img"
+              />
+            </div>
+            <div className="duel-result-flash">
+              <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
+            </div>
+            <div className="duel-result-players">
+              <div className={`vs-result-row ${myCorrect ? 'result-correct' : 'result-wrong'}`}>
+                <span>{myName}</span>
+                <span>{myTimedOut ? '⏰' : myCorrect ? '✅' : '❌'}</span>
+              </div>
+              <div className={`vs-result-row ${opCorrect ? 'result-correct' : 'result-wrong'}`}>
+                <span>{opponentName}</span>
+                <span>{opTimedOut ? '⏰' : opCorrect ? '✅' : '❌'}</span>
+              </div>
+            </div>
+            <div className="duel-auto-next-centered">Următoarea în câteva secunde...</div>
+          </div>
+        ) : (
+          /* Normal: question + options */
+          <>
+            {showResults && (
+              <div className="duel-result-flash">
+                <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
               </div>
             )}
-            <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
-          </div>
+
+            <div className="duel-question-card">
+              <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
+              <h2 className="duel-question-text">{question.intrebare}</h2>
+            </div>
+
+            <div className="duel-options">
+              {options.map((option, i) => {
+                const isCorrect = option === question.raspuns
+                const isMyPick = option === localAnswer
+                const isOpPick = showResults && option === opAnswer
+                let cls = 'duel-opt'
+
+                if (showResults) {
+                  if (isCorrect) cls += ' duel-opt-correct'
+                  else if (isMyPick) cls += ' duel-opt-wrong'
+                  else cls += ' duel-opt-dim'
+                } else if (isMyPick) {
+                  cls += ' duel-opt-picked'
+                }
+
+                return (
+                  <button
+                    key={`${currentIndex}-${i}`}
+                    className={cls}
+                    onClick={() => handleAnswer(option)}
+                    disabled={!!localAnswer}
+                  >
+                    <span className="duel-opt-letter">{String.fromCharCode(65 + i)}</span>
+                    <span className="duel-opt-text">{option}</span>
+                    {showResults && isMyPick && !isOpPick && <span className="duel-opt-tag tag-me">Tu</span>}
+                    {showResults && isOpPick && !isMyPick && <span className="duel-opt-tag tag-opp">{opponentName.slice(0,8)}</span>}
+                    {showResults && isMyPick && isOpPick && <span className="duel-opt-tag tag-both">Ambii</span>}
+                  </button>
+                )
+              })}
+            </div>
+          </>
         )}
-
-        {/* Question card — right above options */}
-        <div className="duel-question-card">
-          <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
-          <h2 className="duel-question-text">{question.intrebare}</h2>
-        </div>
-
-        {/* 4 Answer options */}
-        <div className="duel-options">
-        {options.map((option, i) => {
-          const isCorrect = option === question.raspuns
-          const isMyPick = option === localAnswer
-          const isOpPick = showResults && option === opAnswer
-          let cls = 'duel-opt'
-
-          if (showResults) {
-            if (isCorrect) cls += ' duel-opt-correct'
-            else if (isMyPick) cls += ' duel-opt-wrong'
-            else cls += ' duel-opt-dim'
-          } else if (isMyPick) {
-            cls += ' duel-opt-picked'
-          }
-
-          return (
-            <button
-              key={`${currentIndex}-${i}`}
-              className={cls}
-              onClick={() => handleAnswer(option)}
-              disabled={!!localAnswer}
-            >
-              <span className="duel-opt-letter">{String.fromCharCode(65 + i)}</span>
-              <span className="duel-opt-text">{option}</span>
-              {showResults && isMyPick && !isOpPick && <span className="duel-opt-tag tag-me">Tu</span>}
-              {showResults && isOpPick && !isMyPick && <span className="duel-opt-tag tag-opp">{opponentName.slice(0,8)}</span>}
-              {showResults && isMyPick && isOpPick && <span className="duel-opt-tag tag-both">Ambii</span>}
-            </button>
-          )
-        })}
-      </div>
 
       </div>{/* end duel-bottom */}
 

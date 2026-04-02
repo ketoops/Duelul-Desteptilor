@@ -148,49 +148,62 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
       </div>
 
       <div className="game-content">
-        <div className="question-card">
-          <div className="question-number">
-            Întrebarea {currentIndex + 1}/{totalQuestions}
-          </div>
-          <h2 className="question-text">{question.intrebare}</h2>
-        </div>
-
-        <div className="options-grid">
-          {options.map((option, i) => {
-            const isCorrect = option === question.raspuns
-            const isSelected = option === selectedAnswer
-            let btnClass = 'option-btn'
-            if (feedback) {
-              if (isCorrect) btnClass += ' option-correct'
-              else if (isSelected && !isCorrect) btnClass += ' option-wrong'
-              else btnClass += ' option-dimmed'
-            }
-            return (
-              <button
-                key={`${currentIndex}-${i}`}
-                className={btnClass}
-                onClick={() => handleAnswer(option)}
-                disabled={!!feedback}
-              >
-                <span className="option-letter">{String.fromCharCode(65 + i)}</span>
-                <span className="option-text">{option}</span>
+        {feedback && imageUrl ? (
+          /* After answer: image takes over, question & options hidden */
+          <div className="feedback-fullscreen">
+            <div className="feedback-image-popup">
+              <img src={imageUrl} alt="" className="feedback-image" />
+            </div>
+            <div className={`feedback ${feedback.correct ? 'feedback-correct' : 'feedback-wrong'}`}>
+              <p className="feedback-message">{feedback.message}</p>
+              <button className="next-btn" onClick={nextQuestion}>
+                {currentIndex + 1 >= totalQuestions ? 'Vezi rezultatul' : 'Următoarea →'}
               </button>
-            )
-          })}
-        </div>
+            </div>
+          </div>
+        ) : (
+          /* Normal: question + options (+ feedback without image) */
+          <>
+            <div className="question-card">
+              <div className="question-number">
+                Întrebarea {currentIndex + 1}/{totalQuestions}
+              </div>
+              <h2 className="question-text">{question.intrebare}</h2>
+            </div>
 
-        {feedback && (
-          <div className={`feedback ${feedback.correct ? 'feedback-correct' : 'feedback-wrong'}`}>
-            {imageUrl && (
-              <div className="feedback-image-popup">
-                <img src={imageUrl} alt="" className="feedback-image" />
+            <div className="options-grid">
+              {options.map((option, i) => {
+                const isCorrect = option === question.raspuns
+                const isSelected = option === selectedAnswer
+                let btnClass = 'option-btn'
+                if (feedback) {
+                  if (isCorrect) btnClass += ' option-correct'
+                  else if (isSelected && !isCorrect) btnClass += ' option-wrong'
+                  else btnClass += ' option-dimmed'
+                }
+                return (
+                  <button
+                    key={`${currentIndex}-${i}`}
+                    className={btnClass}
+                    onClick={() => handleAnswer(option)}
+                    disabled={!!feedback}
+                  >
+                    <span className="option-letter">{String.fromCharCode(65 + i)}</span>
+                    <span className="option-text">{option}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {feedback && (
+              <div className={`feedback ${feedback.correct ? 'feedback-correct' : 'feedback-wrong'}`}>
+                <p className="feedback-message">{feedback.message}</p>
+                <button className="next-btn" onClick={nextQuestion}>
+                  {currentIndex + 1 >= totalQuestions ? 'Vezi rezultatul' : 'Următoarea →'}
+                </button>
               </div>
             )}
-            <p className="feedback-message">{feedback.message}</p>
-            <button className="next-btn" onClick={nextQuestion}>
-              {currentIndex + 1 >= totalQuestions ? 'Vezi rezultatul' : 'Următoarea →'}
-            </button>
-          </div>
+          </>
         )}
       </div>
     </div>
