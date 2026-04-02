@@ -10,6 +10,7 @@ import VsLobbyScreen from './components/VsLobbyScreen'
 import VsOnlineScreen from './components/VsOnlineScreen'
 import SettingsScreen from './components/SettingsScreen'
 import FriendsScreen from './components/FriendsScreen'
+import WordGameScreen from './components/WordGameScreen'
 import WallScreen from './components/WallScreen'
 
 function App() {
@@ -42,6 +43,12 @@ function App() {
       setGameMode('vs')
       return
     }
+    if (mode === 'words') {
+      setGameMode('words')
+      setResult(null)
+      setScreen('wordGame')
+      return
+    }
     setGameMode(mode)
     setResult(null)
     setScreen('game')
@@ -64,6 +71,10 @@ function App() {
     setResult(null)
     setRoomCode(null)
     setPlayerSlot(null)
+  }
+
+  if (screen === 'wordGame') {
+    return <WordGameScreen onEnd={endGame} onQuit={goHome} />
   }
 
   if (screen === 'settings') {

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "theme": "Soare și natură",
+    "letters": ["S", "O", "A", "R", "E"],
+    "words": [
+      { "word": "SOARE", "row": 0, "col": 0, "dir": "h" },
+      { "word": "ORAS", "row": 0, "col": 1, "dir": "v" },
+      { "word": "SARE", "row": 3, "col": 1, "dir": "h" }
+    ],
+    "gridRows": 4,
+    "gridCols": 5
+  },
+  {
+    "id": 2,
+    "theme": "Lectură",
+    "letters": ["C", "A", "R", "T", "E"],
+    "words": [
+      { "word": "CARTE", "row": 0, "col": 0, "dir": "h" },
+      { "word": "CARE", "row": 0, "col": 0, "dir": "v" },
+      { "word": "ARC", "row": 0, "col": 1, "dir": "v" }
+    ],
+    "gridRows": 4,
+    "gridCols": 5
+  },
+  {
+    "id": 3,
+    "theme": "Marea",
+    "letters": ["M", "A", "R", "E"],
+    "words": [
+      { "word": "MARE", "row": 0, "col": 0, "dir": "h" },
+      { "word": "ERA", "row": 0, "col": 3, "dir": "v" },
+      { "word": "ARMA", "row": 0, "col": 1, "dir": "v" }
+    ],
+    "gridRows": 4,
+    "gridCols": 4
+  }
+]

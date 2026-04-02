@@ -28,7 +28,7 @@ export default function HomeScreen({ username, onStart, onSettings, onFriends, o
         <div className="home-modes">
           <button className="mode-btn mode-solo" onClick={() => onStart('normal')}>
             <span className="mode-btn-icon">⚡</span>
-            <span className="mode-btn-label">Mod Normal</span>
+            <span className="mode-btn-label">Întrebări Capcană</span>
           </button>
 
           <button className="mode-btn mode-vs" onClick={() => onStart('vs')}>
@@ -36,6 +36,11 @@ export default function HomeScreen({ username, onStart, onSettings, onFriends, o
             <span className="mode-btn-label">1 vs 1 Online</span>
           </button>
         </div>
+
+        <button className="mode-btn mode-words" onClick={() => onStart('words')}>
+          <span className="mode-btn-icon">🔤</span>
+          <span className="mode-btn-label">Cuvinte Amestecate</span>
+        </button>
 
         <div className="home-nav">
           <button className="nav-btn" onClick={onFriends}>
