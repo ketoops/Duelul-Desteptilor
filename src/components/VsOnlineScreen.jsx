@@ -1,21 +1,28 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { listenToRoom, updatePlayer, getQuestionsById } from '../services/roomService'
-import { matchAnswer } from '../utils/matchAnswer'
 import './VsOnlineScreen.css'
 
 const TOTAL_QUESTIONS = 10
 const TIME_LIMIT = 20
 
+function shuffleArray(arr) {
+  const shuffled = [...arr]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, onQuit }) {
   const [room, setRoom] = useState(null)
   const [gameQuestions, setGameQuestions] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userAnswer, setUserAnswer] = useState('')
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [feedback, setFeedback] = useState(null)
   const [score, setScore] = useState(0)
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
   const [finished, setFinished] = useState(false)
-  const inputRef = useRef(null)
   const timerRef = useRef(null)
   const unsubRef = useRef(null)
   const handledTimeUp = useRef(false)
@@ -37,14 +44,18 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   const opponentName = opponentData?.name || 'Adversar'
   const myName = username
 
-  // Start/restart timer when question changes or feedback clears
+  const options = useMemo(() => {
+    if (!question) return []
+    return shuffleArray([question.raspuns, ...question.variante_gresite])
+  }, [question])
+
+  // Timer
   useEffect(() => {
     clearInterval(timerRef.current)
     if (feedback || !gameQuestions || finished) return
 
     handledTimeUp.current = false
     setTimeLeft(TIME_LIMIT)
-
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -54,11 +65,9 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         return prev - 1
       })
     }, 1000)
-
     return () => clearInterval(timerRef.current)
   }, [currentIndex, feedback, gameQuestions, finished])
 
-  // Handle time up — guarded by ref to prevent double fire
   useEffect(() => {
     if (timeLeft === 0 && !feedback && !finished && !handledTimeUp.current && question) {
       handledTimeUp.current = true
@@ -74,16 +83,12 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     }
   }, [timeLeft, feedback, finished, question, roomCode, playerSlot, score, currentIndex])
 
-  useEffect(() => {
-    if (!feedback && !finished && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [currentIndex, feedback, finished])
-
-  const submitAnswer = useCallback(() => {
-    if (!userAnswer.trim() || feedback || !question) return
+  function handleAnswer(answer) {
+    if (feedback) return
     clearInterval(timerRef.current)
-    const correct = matchAnswer(userAnswer, question.raspuns)
+    setSelectedAnswer(answer)
+
+    const correct = answer === question.raspuns
     const newScore = correct ? score + 1 : score
     if (correct) setScore(newScore)
 
@@ -99,7 +104,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         ? '✅ Corect! ' + (question.explicatie || '')
         : '❌ Greșit! ' + question.replica_ironica
     })
-  }, [userAnswer, feedback, question, score, roomCode, playerSlot, currentIndex])
+  }
 
   function nextQuestion() {
     const nextIndex = currentIndex + 1
@@ -108,16 +113,9 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
       updatePlayer(roomCode, playerSlot, { finished: true, score })
       return
     }
-    setUserAnswer('')
+    setSelectedAnswer(null)
     setFeedback(null)
     setCurrentIndex(nextIndex)
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === 'Enter') {
-      if (feedback) nextQuestion()
-      else submitAnswer()
-    }
   }
 
   const bothFinished = finished && opponentData?.finished
@@ -186,7 +184,6 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
 
   return (
     <div className="vs-screen">
-      {/* VS Header */}
       <div className="vs-header">
         <button className="vs-quit-btn" onClick={onQuit}>✕</button>
         <div className="vs-matchup">
@@ -206,7 +203,6 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         <div className="vs-progress-fill" style={{ width: `${progress}%` }} />
       </div>
 
-      {/* Split screen */}
       <div className="vs-split">
         {/* My half */}
         <div className="vs-half vs-half-mine">
@@ -220,7 +216,6 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
               </defs>
               <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
               <circle
-                className={`vs-countdown-arc ${timerUrgent && !feedback ? 'arc-urgent' : ''}`}
                 cx="30" cy="30" r="26"
                 fill="none"
                 stroke={timerUrgent && !feedback ? '#ef4444' : 'url(#cg)'}
@@ -237,34 +232,33 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           <div className="vs-question-label">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
           <h2 className="vs-question-text">{question.intrebare}</h2>
 
-          <div className="vs-answer-area">
-            <input
-              ref={inputRef}
-              type="text"
-              className={`vs-answer-input ${feedback ? (feedback.correct ? 'input-correct' : 'input-wrong') : ''}`}
-              placeholder="Scrie răspunsul..."
-              value={userAnswer}
-              onChange={e => setUserAnswer(e.target.value)}
-              onKeyDown={handleKeyDown}
-              disabled={!!feedback}
-              autoComplete="off"
-              autoCapitalize="off"
-            />
-            {!feedback && (
-              <button
-                className="vs-submit-btn"
-                onClick={submitAnswer}
-                disabled={!userAnswer.trim()}
-              >
-                Verifică
-              </button>
-            )}
+          <div className="vs-options-grid">
+            {options.map((option, i) => {
+              const isCorrect = option === question.raspuns
+              const isSelected = option === selectedAnswer
+              let btnClass = 'vs-option-btn'
+              if (feedback) {
+                if (isCorrect) btnClass += ' option-correct'
+                else if (isSelected && !isCorrect) btnClass += ' option-wrong'
+                else btnClass += ' option-dimmed'
+              }
+              return (
+                <button
+                  key={`${currentIndex}-${i}`}
+                  className={btnClass}
+                  onClick={() => handleAnswer(option)}
+                  disabled={!!feedback}
+                >
+                  <span className="option-letter">{String.fromCharCode(65 + i)}</span>
+                  <span className="option-text">{option}</span>
+                </button>
+              )
+            })}
           </div>
 
           {feedback && (
             <div className={`vs-feedback ${feedback.correct ? 'vs-feedback-correct' : 'vs-feedback-wrong'}`}>
               <p className="vs-feedback-msg">{feedback.message}</p>
-              <p className="vs-feedback-answer">Răspuns corect: <strong>{question.raspuns}</strong></p>
               <button className="vs-next-btn" onClick={nextQuestion}>
                 {currentIndex + 1 >= TOTAL_QUESTIONS ? 'Finalizează' : 'Următoarea →'}
               </button>

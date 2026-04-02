@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import questions from '../data/questions.json'
-import { matchAnswer } from '../utils/matchAnswer'
 import './GameScreen.css'
 
 function shuffleArray(arr) {
@@ -18,34 +17,28 @@ const TIME_LIMIT = 20
 export default function GameScreen({ mode, onEnd, onQuit }) {
   const [gameQuestions] = useState(() => shuffleArray(questions).slice(0, TOTAL_QUESTIONS))
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userAnswer, setUserAnswer] = useState('')
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [feedback, setFeedback] = useState(null)
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
-  const [vsScores, setVsScores] = useState([0, 0])
-  const [currentPlayer, setCurrentPlayer] = useState(0)
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
-  const inputRef = useRef(null)
   const timerRef = useRef(null)
+  const handledTimeUp = useRef(false)
 
-  const isVs = mode === 'vs'
   const question = gameQuestions[currentIndex]
 
-  const handleTimeUp = useCallback(() => {
-    setFeedback({
-      correct: false,
-      message: '⏰ Timpul a expirat! ' + question.replica_ironica
-    })
-    setStreak(0)
+  // Shuffle answer options once per question
+  const options = useMemo(() => {
+    if (!question) return []
+    return shuffleArray([question.raspuns, ...question.variante_gresite])
   }, [question])
 
-  // Countdown timer
+  // Timer
   useEffect(() => {
-    if (feedback) {
-      clearInterval(timerRef.current)
-      return
-    }
+    clearInterval(timerRef.current)
+    if (feedback) return
 
+    handledTimeUp.current = false
     setTimeLeft(TIME_LIMIT)
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
@@ -58,39 +51,30 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
     }, 1000)
 
     return () => clearInterval(timerRef.current)
-  }, [currentIndex, currentPlayer, feedback])
-
-  // Trigger time-up when timeLeft hits 0
-  useEffect(() => {
-    if (timeLeft === 0 && !feedback) {
-      handleTimeUp()
-    }
-  }, [timeLeft, feedback, handleTimeUp])
-
-  useEffect(() => {
-    if (!feedback && inputRef.current) {
-      inputRef.current.focus()
-    }
   }, [currentIndex, feedback])
 
-  const submitAnswer = useCallback(() => {
-    if (!userAnswer.trim() || feedback) return
+  useEffect(() => {
+    if (timeLeft === 0 && !feedback && !handledTimeUp.current) {
+      handledTimeUp.current = true
+      setStreak(0)
+      setFeedback({
+        correct: false,
+        message: '⏰ Timpul a expirat! ' + question.replica_ironica
+      })
+    }
+  }, [timeLeft, feedback, question])
 
+  function handleAnswer(answer) {
+    if (feedback) return
     clearInterval(timerRef.current)
-    const correct = matchAnswer(userAnswer, question.raspuns)
+    setSelectedAnswer(answer)
+
+    const correct = answer === question.raspuns
 
     if (correct) {
-      if (isVs) {
-        setVsScores(prev => {
-          const next = [...prev]
-          next[currentPlayer]++
-          return next
-        })
-      } else {
-        setScore(prev => prev + 1)
-        setStreak(prev => prev + 1)
-      }
-    } else if (!isVs) {
+      setScore(prev => prev + 1)
+      setStreak(prev => prev + 1)
+    } else {
       setStreak(0)
     }
 
@@ -100,44 +84,19 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
         ? '✅ Corect! ' + (question.explicatie || '')
         : '❌ Greșit! ' + question.replica_ironica
     })
-  }, [userAnswer, feedback, question, isVs, currentPlayer])
+  }
 
   function nextQuestion() {
     const nextIndex = currentIndex + 1
 
-    if (isVs) {
-      if (currentPlayer === 0) {
-        setCurrentPlayer(1)
-        setUserAnswer('')
-        setFeedback(null)
-        return
-      }
-      setCurrentPlayer(0)
-    }
-
     if (nextIndex >= TOTAL_QUESTIONS) {
-      onEnd({
-        score: isVs ? null : score,
-        total: TOTAL_QUESTIONS,
-        vsScores: isVs ? vsScores : null,
-        mode
-      })
+      onEnd({ score, total: TOTAL_QUESTIONS, mode })
       return
     }
 
     setCurrentIndex(nextIndex)
-    setUserAnswer('')
+    setSelectedAnswer(null)
     setFeedback(null)
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === 'Enter') {
-      if (feedback) {
-        nextQuestion()
-      } else {
-        submitAnswer()
-      }
-    }
   }
 
   const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
@@ -151,18 +110,8 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
           <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
         <div className="game-stats">
-          {isVs ? (
-            <span className="vs-score">
-              <span className={currentPlayer === 0 ? 'active-player' : ''}>J1: {vsScores[0]}</span>
-              {' — '}
-              <span className={currentPlayer === 1 ? 'active-player' : ''}>J2: {vsScores[1]}</span>
-            </span>
-          ) : (
-            <>
-              <span className="score">{score}/{TOTAL_QUESTIONS}</span>
-              {streak > 1 && <span className="streak">🔥 {streak}</span>}
-            </>
-          )}
+          <span className="score">{score}/{TOTAL_QUESTIONS}</span>
+          {streak > 1 && <span className="streak">🔥 {streak}</span>}
         </div>
       </div>
 
@@ -187,48 +136,40 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
 
       <div className="game-content">
         <div className="question-number">
-          {isVs && <span className="player-tag">Jucător {currentPlayer + 1}</span>}
           Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}
         </div>
 
         <h2 className="question-text">{question.intrebare}</h2>
 
-        <div className="answer-area">
-          <input
-            ref={inputRef}
-            type="text"
-            className={`answer-input ${feedback ? (feedback.correct ? 'input-correct' : 'input-wrong') : ''}`}
-            placeholder="Scrie răspunsul..."
-            value={userAnswer}
-            onChange={e => setUserAnswer(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={!!feedback}
-            autoComplete="off"
-            autoCapitalize="off"
-          />
-          {!feedback && (
-            <button
-              className="submit-btn"
-              onClick={submitAnswer}
-              disabled={!userAnswer.trim()}
-            >
-              Verifică
-            </button>
-          )}
+        <div className="options-grid">
+          {options.map((option, i) => {
+            const isCorrect = option === question.raspuns
+            const isSelected = option === selectedAnswer
+            let btnClass = 'option-btn'
+            if (feedback) {
+              if (isCorrect) btnClass += ' option-correct'
+              else if (isSelected && !isCorrect) btnClass += ' option-wrong'
+              else btnClass += ' option-dimmed'
+            }
+            return (
+              <button
+                key={`${currentIndex}-${i}`}
+                className={btnClass}
+                onClick={() => handleAnswer(option)}
+                disabled={!!feedback}
+              >
+                <span className="option-letter">{String.fromCharCode(65 + i)}</span>
+                <span className="option-text">{option}</span>
+              </button>
+            )
+          })}
         </div>
 
         {feedback && (
           <div className={`feedback ${feedback.correct ? 'feedback-correct' : 'feedback-wrong'}`}>
             <p className="feedback-message">{feedback.message}</p>
-            <p className="feedback-answer">
-              Răspuns corect: <strong>{question.raspuns}</strong>
-            </p>
             <button className="next-btn" onClick={nextQuestion}>
-              {currentIndex + 1 >= TOTAL_QUESTIONS && (!isVs || currentPlayer === 1)
-                ? 'Vezi rezultatul'
-                : isVs && currentPlayer === 0
-                  ? 'Rândul Jucătorului 2'
-                  : 'Următoarea →'}
+              {currentIndex + 1 >= TOTAL_QUESTIONS ? 'Vezi rezultatul' : 'Următoarea →'}
             </button>
           </div>
         )}
