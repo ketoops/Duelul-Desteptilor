@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,33 +7,81 @@
 }
 
 :root {
-  --bg: #0f0a1a;
-  --bg-card: #1a1229;
-  --bg-input: #251d35;
-  --accent: #a855f7;
-  --accent-glow: rgba(168, 85, 247, 0.3);
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --bg-glass: rgba(255, 255, 255, 0.06);
+  --bg-input: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.12);
+
+  --accent: #8b5cf6;
+  --accent-light: #a78bfa;
+  --accent-glow: rgba(139, 92, 246, 0.4);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  --gradient-warm: linear-gradient(135deg, #f97316, #ef4444);
+  --gradient-success: linear-gradient(135deg, #22c55e, #06b6d4);
+
   --green: #22c55e;
-  --green-glow: rgba(34, 197, 94, 0.3);
+  --green-glow: rgba(34, 197, 94, 0.25);
   --red: #ef4444;
-  --red-glow: rgba(239, 68, 68, 0.3);
-  --text: #e2e0e7;
-  --text-dim: #8b839a;
-  --text-bright: #ffffff;
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --red-glow: rgba(239, 68, 68, 0.25);
+  --orange: #f59e0b;
+
+  --text: #a1a1aa;
+  --text-dim: #52525b;
+  --text-bright: #fafafa;
+  --text-muted: #71717a;
+
+  --font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
 }
 
 body {
   font-family: var(--font);
-  background: var(--bg);
+  background: var(--bg-primary);
   color: var(--text);
   min-height: 100dvh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+/* Ambient background glow */
+#root::before {
+  content: '';
+  position: fixed;
+  top: -40%;
+  left: -20%;
+  width: 80%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root::after {
+  content: '';
+  position: fixed;
+  bottom: -40%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 button {
@@ -39,10 +89,20 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {
   font-family: var(--font);
   outline: none;
   border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Utility for glass effect */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
 }

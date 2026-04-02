@@ -168,6 +168,12 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
 
       <div className={`countdown ${timerUrgent ? 'countdown-urgent' : ''} ${feedback ? 'countdown-done' : ''}`}>
         <svg className="countdown-ring" viewBox="0 0 60 60">
+          <defs>
+            <linearGradient id="countdown-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#06b6d4" />
+            </linearGradient>
+          </defs>
           <circle className="countdown-track" cx="30" cy="30" r="26" />
           <circle
             className="countdown-value"
