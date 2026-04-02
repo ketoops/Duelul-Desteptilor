@@ -1,281 +1,307 @@
-/* VS Screen Layout */
-.vs-screen {
+/* ==================== DUEL ARENA ==================== */
+
+.duel {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   max-width: 600px;
   margin: 0 auto;
   width: 100%;
+  padding: 0;
   position: relative;
   z-index: 1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0d0818 0%, #0a0a0f 30%, #0f0a1a 100%);
 }
 
-/* VS Header */
-.vs-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
+/* Question Banner */
+.duel-question-banner {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.1));
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  padding: 14px 20px;
+  text-align: center;
 }
 
-.vs-quit-btn {
-  background: var(--bg-card);
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
+.duel-question-num {
+  font-size: 0.65rem;
+  color: var(--accent-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.duel-question-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  line-height: 1.4;
+}
+
+/* Arena — VS Section */
+.duel-arena {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--border-subtle);
-  transition: background 0.2s;
+  gap: 8px;
+  padding: 16px 20px;
 }
 
-.vs-quit-btn:hover { background: var(--bg-card-hover); }
-
-.vs-matchup {
+.duel-fighter {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  gap: 6px;
 }
 
-.vs-player {
+.duel-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  font-size: 1.6rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-subtle);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.vs-player-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  max-width: 90px;
+.avatar-ready {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.avatar-win {
+  border-color: var(--green);
+  box-shadow: 0 0 16px var(--green-glow);
+  transform: scale(1.05);
+  animation: bounceIn 0.4s ease;
+}
+
+.avatar-lose {
+  border-color: var(--red);
+  box-shadow: 0 0 12px var(--red-glow);
+  transform: scale(0.95);
+  opacity: 0.7;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1.05); }
+}
+
+.duel-fighter-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.vs-name-me { color: var(--accent-light); }
-.vs-name-opp { color: var(--red); }
+.duel-name-me { color: var(--accent-light); }
+.duel-name-opp { color: var(--red); }
 
-.vs-player-score {
-  font-size: 1.3rem;
-  font-weight: 800;
-  min-width: 24px;
-  text-align: center;
+.duel-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
-.vs-score-me { color: var(--accent-light); }
-.vs-score-opp { color: var(--red); }
-
-.vs-versus {
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: var(--text-dim);
-  letter-spacing: 2px;
-  padding: 4px 10px;
-  background: var(--bg-card);
-  border-radius: 20px;
-  border: 1px solid var(--border-subtle);
-}
-
-.vs-progress-bar {
-  height: 3px;
-  background: var(--bg-card);
-  margin: 0 16px;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.vs-progress-fill {
-  height: 100%;
-  background: var(--gradient-primary);
-  border-radius: 2px;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Countdown */
-.vs-countdown {
+.duel-timer {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  width: 64px;
-  height: 64px;
-  margin: 12px auto 8px;
-}
-
-.vs-countdown .countdown-ring {
-  width: 64px;
-  height: 64px;
-  transform: rotate(-90deg);
-}
-
-.vs-countdown .countdown-number {
-  position: absolute;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: var(--text-bright);
-  line-height: 1;
+  background: var(--bg-card);
+  border: 2px solid var(--border-glass);
+  transition: border-color 0.3s, color 0.3s;
 }
 
-.vs-countdown.countdown-urgent .countdown-number {
+.timer-urgent {
+  border-color: var(--red);
   color: var(--red);
   animation: pulse 0.5s ease-in-out infinite;
 }
 
-.vs-countdown.countdown-done .countdown-number {
-  color: var(--green);
+.timer-done {
+  border-color: var(--accent);
+  font-size: 1.4rem;
   animation: none;
-  font-size: 1.2rem;
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  50% { transform: scale(1.1); }
 }
 
-/* Game body */
-.vs-game-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 8px 16px 24px;
-  overflow-y: auto;
-}
-
-.vs-question-label {
-  font-size: 0.7rem;
+.duel-vs-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
   color: var(--text-dim);
-  text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 600;
-  text-align: center;
 }
 
-.vs-question-text {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--text-bright);
-  line-height: 1.45;
-  text-align: center;
-  padding: 18px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+/* Waiting */
+.duel-waiting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  animation: fadeIn 0.3s ease;
 }
 
-/* Options */
-.vs-options-grid {
+.duel-waiting-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* Result flash */
+.duel-result-flash {
+  text-align: center;
+  padding: 6px 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.duel-correct-answer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.duel-correct-answer strong {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* 4 Answer Options */
+.duel-options {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  padding: 8px 16px;
+  align-content: center;
 }
 
-.vs-option-btn {
+.duel-opt {
   position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 14px;
-  background: var(--bg-card);
-  border: 1.5px solid var(--border-subtle);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   color: var(--text-bright);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-align: left;
-  transition: border-color 0.2s, background 0.2s, transform 0.1s;
-  min-height: 52px;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s, box-shadow 0.15s;
+  min-height: 60px;
 }
 
-.vs-option-btn:not(:disabled):hover {
-  border-color: var(--border-glass);
-  background: var(--bg-card-hover);
+.duel-opt:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-.vs-option-btn:not(:disabled):active {
-  transform: scale(0.97);
+.duel-opt:not(:disabled):active {
+  transform: scale(0.96);
 }
 
-.vs-option-btn:disabled { cursor: default; }
+.duel-opt:disabled { cursor: default; }
 
-.option-letter {
+.duel-opt-letter {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  font-size: 0.7rem;
-  font-weight: 700;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-muted);
+  transition: background 0.2s, color 0.2s;
 }
 
-.option-text {
-  font-weight: 500;
+.duel-opt-text {
+  font-weight: 600;
   line-height: 1.3;
   flex: 1;
 }
 
-.option-selected {
+/* States */
+.duel-opt-picked {
   border-color: var(--accent) !important;
-  background: rgba(139, 92, 246, 0.1) !important;
+  background: rgba(139, 92, 246, 0.12) !important;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.2);
 }
 
-.option-selected .option-letter {
+.duel-opt-picked .duel-opt-letter {
   background: var(--accent);
   color: #fff;
 }
 
-.option-correct {
+.duel-opt-correct {
   border-color: var(--green) !important;
-  background: rgba(34, 197, 94, 0.1) !important;
+  background: rgba(34, 197, 94, 0.12) !important;
+  box-shadow: 0 0 20px var(--green-glow);
 }
 
-.option-correct .option-letter {
+.duel-opt-correct .duel-opt-letter {
   background: var(--green);
   color: #fff;
 }
 
-.option-wrong {
+.duel-opt-wrong {
   border-color: var(--red) !important;
-  background: rgba(239, 68, 68, 0.1) !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  box-shadow: 0 0 16px var(--red-glow);
   animation: shake 0.4s ease;
 }
 
-.option-wrong .option-letter {
+.duel-opt-wrong .duel-opt-letter {
   background: var(--red);
   color: #fff;
 }
 
-.option-dimmed { opacity: 0.3; }
+.duel-opt-dim {
+  opacity: 0.25;
+}
 
-.option-tag {
+.duel-opt-tag {
   position: absolute;
-  top: -6px;
-  right: 8px;
-  font-size: 0.6rem;
-  font-weight: 700;
+  top: -7px;
+  right: 10px;
+  font-size: 0.55rem;
+  font-weight: 800;
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: 8px;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.tag-me {
-  background: var(--accent);
-  color: #fff;
-}
-
-.tag-opp {
-  background: var(--red);
-  color: #fff;
-}
+.tag-me { background: var(--accent); color: #fff; }
+.tag-opp { background: var(--red); color: #fff; }
+.tag-both { background: linear-gradient(90deg, var(--accent), var(--red)); color: #fff; }
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -285,129 +311,102 @@
   80% { transform: translateX(3px); }
 }
 
-/* Waiting badge */
-.vs-waiting-badge {
+/* Score Bar */
+.duel-scorebar {
+  display: flex;
+  align-items: stretch;
+  padding: 0 16px 12px;
+  gap: 8px;
+}
+
+.duel-score-player {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.duel-score-me {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.duel-score-opp {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.duel-score-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-bright);
+}
+
+.duel-score-name {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.duel-score-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  animation: fadeIn 0.3s ease;
+  flex-shrink: 0;
+  min-width: 20px;
 }
 
-.vs-waiting-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: blink 1.2s ease-in-out infinite;
+.duel-auto-next {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-align: center;
+  animation: blink 1.5s ease-in-out infinite;
+  max-width: 80px;
+  line-height: 1.3;
+}
+
+/* Quit */
+.duel-quit {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  z-index: 10;
+  transition: color 0.2s;
+}
+
+.duel-quit:hover { color: var(--text); }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  50% { opacity: 0.3; }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Round results */
-.vs-round-result {
-  padding: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  animation: fadeIn 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.vs-result-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.result-correct {
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.15);
-  color: var(--green);
-}
-
-.result-wrong {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.15);
-  color: var(--red);
-}
-
-.vs-result-name {
-  color: var(--text-bright);
-}
-
-.vs-result-icon {
-  font-size: 1.2rem;
-}
-
-.vs-result-answer {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-align: center;
-  padding-top: 4px;
-}
-
-.vs-result-answer strong {
-  color: var(--text);
-}
-
-.vs-auto-advance {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  padding-top: 4px;
-  animation: blink 1.5s ease-in-out infinite;
-}
-
-/* Waiting states */
+/* Lobby (reused) */
 .vs-lobby-wait {
   min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
-}
-
-.online-final-score {
-  font-size: 1.4rem;
-  color: var(--text-bright);
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.online-final-score strong {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.opponent-progress {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 14px 22px;
-  border-radius: var(--radius-md);
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-top: 16px;
 }

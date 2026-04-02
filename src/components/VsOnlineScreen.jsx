@@ -31,7 +31,6 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
 
   const opponentSlot = playerSlot === 'player1' ? 'player2' : 'player1'
 
-  // Listen to room
   useEffect(() => {
     unsubRef.current = listenToRoom(roomCode, (roomData) => {
       setRoom(roomData)
@@ -52,28 +51,25 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   const opponentData = room?.[opponentSlot]
   const myAnswer = myData?.answer
   const opAnswer = opponentData?.answer
-  const bothAnswered = myAnswer !== null && myAnswer !== undefined &&
-                       opAnswer !== null && opAnswer !== undefined
+  const bothAnswered = myAnswer != null && opAnswer != null
   const myName = username
   const opponentName = opponentData?.name || 'Adversar'
 
-  // Shuffle options per question (stable per currentIndex)
   const options = useMemo(() => {
     if (!question) return []
     return shuffleArray([question.raspuns, ...question.variante_gresite])
     // eslint-disable-next-line
   }, [currentIndex, question?.id])
 
-  // Reset state when question changes (from Firebase)
+  // Reset on question change
   useEffect(() => {
     if (currentIndex !== prevQuestionRef.current) {
       prevQuestionRef.current = currentIndex
       setLocalAnswer(null)
       handledTimeUp.current = false
       clearTimeout(advanceRef.current)
-
-      // Restart timer
       clearInterval(timerRef.current)
+
       if (currentIndex < TOTAL_QUESTIONS && room?.status === 'playing') {
         setTimeLeft(TIME_LIMIT)
         timerRef.current = setInterval(() => {
@@ -89,7 +85,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     }
   }, [currentIndex, room?.status])
 
-  // Handle timeout
+  // Timeout
   useEffect(() => {
     if (timeLeft === 0 && !handledTimeUp.current && !myAnswer && question) {
       handledTimeUp.current = true
@@ -98,13 +94,11 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     }
   }, [timeLeft, myAnswer, question, roomCode, playerSlot])
 
-  // Auto-advance after both answered
+  // Auto-advance
   useEffect(() => {
     if (!bothAnswered || !question) return
-
     clearInterval(timerRef.current)
 
-    // Auto-advance after delay
     advanceRef.current = setTimeout(() => {
       const nextIndex = currentIndex + 1
       if (nextIndex >= TOTAL_QUESTIONS) {
@@ -117,7 +111,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
     return () => clearTimeout(advanceRef.current)
   }, [bothAnswered, currentIndex, question, roomCode])
 
-  // Detect game finished
+  // Game finished
   useEffect(() => {
     if (room?.status === 'finished' && gameQuestions) {
       clearInterval(timerRef.current)
@@ -135,17 +129,13 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   function handleAnswer(answer) {
     if (localAnswer || !question) return
     setLocalAnswer(answer)
-
     const correct = answer === question.raspuns
     const newScore = (myData?.score ?? 0) + (correct ? 1 : 0)
-
     submitAnswer(roomCode, playerSlot, answer)
-    if (correct) {
-      updateScore(roomCode, playerSlot, newScore)
-    }
+    if (correct) updateScore(roomCode, playerSlot, newScore)
   }
 
-  // Waiting for opponent to join
+  // Waiting
   if (!room || room.status === 'waiting') {
     return (
       <div className="vs-lobby-wait">
@@ -178,117 +168,101 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
   const opTimedOut = opAnswer === '_timeout_'
 
   return (
-    <div className="vs-screen">
-      {/* VS Header */}
-      <div className="vs-header">
-        <button className="vs-quit-btn" onClick={onQuit}>✕</button>
-        <div className="vs-matchup">
-          <div className="vs-player vs-player-me">
-            <span className="vs-player-name vs-name-me">{myName}</span>
-            <span className="vs-player-score vs-score-me">{myData?.score ?? 0}</span>
+    <div className="duel">
+      {/* Question Banner */}
+      <div className="duel-question-banner">
+        <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
+        <h2 className="duel-question-text">{question.intrebare}</h2>
+      </div>
+
+      {/* Arena — VS section */}
+      <div className="duel-arena">
+        <div className="duel-fighter duel-fighter-me">
+          <div className={`duel-avatar ${showResults ? (myCorrect ? 'avatar-win' : 'avatar-lose') : (localAnswer ? 'avatar-ready' : '')}`}>
+            {showResults ? (myTimedOut ? '⏰' : myCorrect ? '🎉' : '😵') : '🧠'}
           </div>
-          <span className="vs-versus">VS</span>
-          <div className="vs-player vs-player-opp">
-            <span className="vs-player-score vs-score-opp">{opponentData?.score ?? 0}</span>
-            <span className="vs-player-name vs-name-opp">{opponentName}</span>
+          <span className="duel-fighter-name duel-name-me">{myName}</span>
+        </div>
+
+        <div className="duel-center">
+          <div className={`duel-timer ${timerUrgent && !showResults ? 'timer-urgent' : ''} ${showResults ? 'timer-done' : ''}`}>
+            {showResults ? '⚔️' : timeLeft}
           </div>
+          <div className="duel-vs-badge">VS</div>
+        </div>
+
+        <div className="duel-fighter duel-fighter-opp">
+          <div className={`duel-avatar ${showResults ? (opCorrect ? 'avatar-win' : 'avatar-lose') : (opAnswer != null ? 'avatar-ready' : '')}`}>
+            {showResults ? (opTimedOut ? '⏰' : opCorrect ? '🎉' : '😵') : '🧠'}
+          </div>
+          <span className="duel-fighter-name duel-name-opp">{opponentName}</span>
         </div>
       </div>
 
-      {/* Progress */}
-      <div className="vs-progress-bar">
-        <div className="vs-progress-fill" style={{ width: `${((currentIndex + 1) / TOTAL_QUESTIONS) * 100}%` }} />
-      </div>
-
-      {/* Countdown */}
-      <div className={`vs-countdown ${timerUrgent && !showResults ? 'countdown-urgent' : ''} ${showResults ? 'countdown-done' : ''}`}>
-        <svg className="countdown-ring" viewBox="0 0 60 60">
-          <defs>
-            <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#06b6d4" />
-            </linearGradient>
-          </defs>
-          <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
-          <circle
-            cx="30" cy="30" r="26"
-            fill="none"
-            stroke={timerUrgent && !showResults ? '#ef4444' : 'url(#cg)'}
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeDasharray={2 * Math.PI * 26}
-            strokeDashoffset={2 * Math.PI * 26 * (1 - timeLeft / TIME_LIMIT)}
-            style={{ transition: showResults ? 'none' : 'stroke-dashoffset 1s linear' }}
-          />
-        </svg>
-        <span className="countdown-number">{showResults ? '✓' : timeLeft}</span>
-      </div>
-
-      {/* Question */}
-      <div className="vs-game-body">
-        <div className="vs-question-label">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
-        <h2 className="vs-question-text">{question.intrebare}</h2>
-
-        {/* Options */}
-        <div className="vs-options-grid">
-          {options.map((option, i) => {
-            const isCorrect = option === question.raspuns
-            const isMyPick = option === localAnswer
-            const isOpPick = showResults && option === opAnswer
-            let btnClass = 'vs-option-btn'
-
-            if (showResults) {
-              if (isCorrect) btnClass += ' option-correct'
-              else if (isMyPick && !isCorrect) btnClass += ' option-wrong'
-              else btnClass += ' option-dimmed'
-            } else if (isMyPick) {
-              btnClass += ' option-selected'
-            }
-
-            return (
-              <button
-                key={`${currentIndex}-${i}`}
-                className={btnClass}
-                onClick={() => handleAnswer(option)}
-                disabled={!!localAnswer}
-              >
-                <span className="option-letter">{String.fromCharCode(65 + i)}</span>
-                <span className="option-text">{option}</span>
-                {showResults && isMyPick && <span className="option-tag tag-me">Tu</span>}
-                {showResults && isOpPick && !isMyPick && <span className="option-tag tag-opp">{opponentName.slice(0, 6)}</span>}
-                {showResults && isOpPick && isMyPick && <span className="option-tag tag-opp">Ambii</span>}
-              </button>
-            )
-          })}
+      {/* Waiting indicator */}
+      {localAnswer && !showResults && (
+        <div className="duel-waiting">
+          <span className="duel-waiting-dot" /> Așteptăm pe {opponentName}...
         </div>
+      )}
 
-        {/* Waiting / Results */}
-        {localAnswer && !showResults && (
-          <div className="vs-waiting-badge">
-            <span className="vs-waiting-dot" />
-            Așteptăm pe {opponentName}...
-          </div>
-        )}
+      {/* Results flash */}
+      {showResults && (
+        <div className="duel-result-flash">
+          <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
+        </div>
+      )}
 
-        {showResults && (
-          <div className="vs-round-result">
-            <div className={`vs-result-row ${myCorrect ? 'result-correct' : 'result-wrong'}`}>
-              <span className="vs-result-name">{myName}</span>
-              <span className="vs-result-icon">
-                {myTimedOut ? '⏰' : myCorrect ? '✅' : '❌'}
-              </span>
-            </div>
-            <div className={`vs-result-row ${opCorrect ? 'result-correct' : 'result-wrong'}`}>
-              <span className="vs-result-name">{opponentName}</span>
-              <span className="vs-result-icon">
-                {opTimedOut ? '⏰' : opCorrect ? '✅' : '❌'}
-              </span>
-            </div>
-            <p className="vs-result-answer">Răspuns corect: <strong>{question.raspuns}</strong></p>
-            <div className="vs-auto-advance">Următoarea întrebare în câteva secunde...</div>
-          </div>
-        )}
+      {/* 4 Answer options */}
+      <div className="duel-options">
+        {options.map((option, i) => {
+          const isCorrect = option === question.raspuns
+          const isMyPick = option === localAnswer
+          const isOpPick = showResults && option === opAnswer
+          let cls = 'duel-opt'
+
+          if (showResults) {
+            if (isCorrect) cls += ' duel-opt-correct'
+            else if (isMyPick) cls += ' duel-opt-wrong'
+            else cls += ' duel-opt-dim'
+          } else if (isMyPick) {
+            cls += ' duel-opt-picked'
+          }
+
+          return (
+            <button
+              key={`${currentIndex}-${i}`}
+              className={cls}
+              onClick={() => handleAnswer(option)}
+              disabled={!!localAnswer}
+            >
+              <span className="duel-opt-letter">{String.fromCharCode(65 + i)}</span>
+              <span className="duel-opt-text">{option}</span>
+              {showResults && isMyPick && !isOpPick && <span className="duel-opt-tag tag-me">Tu</span>}
+              {showResults && isOpPick && !isMyPick && <span className="duel-opt-tag tag-opp">{opponentName.slice(0,8)}</span>}
+              {showResults && isMyPick && isOpPick && <span className="duel-opt-tag tag-both">Ambii</span>}
+            </button>
+          )
+        })}
       </div>
+
+      {/* Score bar */}
+      <div className="duel-scorebar">
+        <div className="duel-score-player duel-score-me">
+          <span className="duel-score-value">{myData?.score ?? 0}</span>
+          <span className="duel-score-name">{myName}</span>
+        </div>
+        <div className="duel-score-divider">
+          {showResults && <span className="duel-auto-next">Următoarea în câteva secunde...</span>}
+        </div>
+        <div className="duel-score-player duel-score-opp">
+          <span className="duel-score-value">{opponentData?.score ?? 0}</span>
+          <span className="duel-score-name">{opponentName}</span>
+        </div>
+      </div>
+
+      {/* Quit */}
+      <button className="duel-quit" onClick={onQuit}>✕ Ieși</button>
     </div>
   )
 }
