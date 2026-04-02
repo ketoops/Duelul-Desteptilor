@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Imagini — Întrebări Capcană</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; color: #e0e0e0; padding: 24px; }
+  h1 { text-align: center; font-size: 1.6rem; margin-bottom: 4px; color: #a78bfa; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 32px; font-size: 0.85rem; }
+  .grid { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+  .card { background: #12121a; border: 1px solid #2a2a3a; border-radius: 16px; overflow: hidden; }
+  .card-img { width: 100%; max-height: 280px; object-fit: cover; display: block; }
+  .card-body { padding: 16px 18px; }
+  .card-num { font-size: 0.65rem; color: #8b5cf6; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 6px; }
+  .card-question { font-size: 1.05rem; font-weight: 600; color: #fafafa; line-height: 1.4; margin-bottom: 10px; }
+  .card-answer { font-size: 0.85rem; color: #22c55e; }
+  .card-answer strong { color: #4ade80; }
+  .card-wrong { font-size: 0.8rem; color: #71717a; margin-top: 6px; }
+  .card-wrong span { color: #ef4444; opacity: 0.7; }
+  .card-file { font-size: 0.7rem; color: #444; font-family: monospace; margin-top: 8px; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .opt { padding: 10px 12px; background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.08); border-radius: 10px; font-size: 0.82rem; color: #e0e0e0; text-align: left; }
+  .opt-correct { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #4ade80; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>🖼️ Test Imagini</h1>
+<p class="subtitle">8 întrebări cu imagini atașate — preview cum arată în joc</p>
+<div class="grid">
+  <div class="card">
+    <img class="card-img" src="public/questions/1.png" alt="Întrebarea 1" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 1</div>
+      <div class="card-question">Un tren electric merge cu 100 km/h de la vest la est. În ce direcție merge fumul?</div>
+      <div class="opts">
+        <div class="opt opt-correct">Nu există fum</div>
+        <div class="opt ">Spre est, evident</div>
+        <div class="opt ">Spre nord, de la munte</div>
+        <div class="opt ">Se risipește instant</div>
+      </div>
+      <div class="card-file">📁 1.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/2.png" alt="Întrebarea 2" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 2</div>
+      <div class="card-question">Dacă un cocoș face un ou pe acoperiș, în ce parte cade oul?</div>
+      <div class="opts">
+        <div class="opt ">În stânga, logic</div>
+        <div class="opt ">Se rostogolește pe acoperiș</div>
+        <div class="opt opt-correct">Cocoșul nu face ouă</div>
+        <div class="opt ">Pe partea cu vântul</div>
+      </div>
+      <div class="card-file">📁 2.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/3.png" alt="Întrebarea 3" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 3</div>
+      <div class="card-question">Câte luni au 28 de zile?</div>
+      <div class="opts">
+        <div class="opt opt-correct">Toate</div>
+        <div class="opt ">Doar februarie, geniu</div>
+        <div class="opt ">Nici una, doar 30 și 31</div>
+        <div class="opt ">Două, anii bisecți</div>
+      </div>
+      <div class="card-file">📁 3.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/4.png" alt="Întrebarea 4" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 4</div>
+      <div class="card-question">Dacă ai 3 mere și iei 2, câte ai?</div>
+      <div class="opts">
+        <div class="opt ">1, că ai dat 2</div>
+        <div class="opt opt-correct">2</div>
+        <div class="opt ">5, cu tot cu bonus</div>
+        <div class="opt ">3, ca la început</div>
+      </div>
+      <div class="card-file">📁 4.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/8.png" alt="Întrebarea 8" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 8</div>
+      <div class="card-question">Dacă alergi și depășești locul 2, pe ce loc ești?</div>
+      <div class="opts">
+        <div class="opt ">Ultimul, de oboseală</div>
+        <div class="opt ">Locul 1, ești campion</div>
+        <div class="opt opt-correct">Locul 2</div>
+        <div class="opt ">Locul 3, modest</div>
+      </div>
+      <div class="card-file">📁 8.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/24.png" alt="Întrebarea 24" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 24</div>
+      <div class="card-question">Câte ouă poți mânca pe stomacul gol?</div>
+      <div class="opts">
+        <div class="opt ">10, dacă ești flămând</div>
+        <div class="opt ">3, ca un om normal</div>
+        <div class="opt ">Câte vrei, campionule</div>
+        <div class="opt opt-correct">Unul</div>
+      </div>
+      <div class="card-file">📁 24.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/31.png" alt="Întrebarea 31" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 31</div>
+      <div class="card-question">Poți scrie 'sub apă' cu un creion?</div>
+      <div class="opts">
+        <div class="opt ">Nu, se udă creionul</div>
+        <div class="opt ">Imposibil, scrii bulbuci</div>
+        <div class="opt opt-correct">Da</div>
+        <div class="opt ">Doar cu unul special</div>
+      </div>
+      <div class="card-file">📁 31.png</div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img" src="public/questions/34.png" alt="Întrebarea 34" />
+    <div class="card-body">
+      <div class="card-num">Întrebarea 34</div>
+      <div class="card-question">Dacă 5 pisici prind 5 șoareci în 5 minute, câte pisici îți trebuie ca să prinzi 100 de șoareci în 100 de minute?</div>
+      <div class="opts">
+        <div class="opt opt-correct">5</div>
+        <div class="opt ">100, câte un șoarece</div>
+        <div class="opt ">50, pe repede-nainte</div>
+        <div class="opt ">20, triplăm</div>
+      </div>
+      <div class="card-file">📁 34.png</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

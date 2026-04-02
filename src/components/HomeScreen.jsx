@@ -34,6 +34,10 @@ export default function HomeScreen({ username, onStart }) {
           </button>
         </div>
 
+        <button className="mode-test-btn" onClick={() => onStart('test')}>
+          🧪 Test Imagini
+        </button>
+
         <p className="home-footer">Scrii răspunsul. Gândești repede. Sau pierzi.</p>
       </div>
     </div>

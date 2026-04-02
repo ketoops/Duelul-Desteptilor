@@ -208,27 +208,21 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           </div>
         )}
 
-        {/* Results flash */}
+        {/* Results flash with image popup */}
         {showResults && (
           <div className="duel-result-flash">
+            {question.imagine && (
+              <div className="duel-result-image">
+                <img
+                  src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
+                  alt=""
+                  className="duel-result-img"
+                />
+              </div>
+            )}
             <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
           </div>
         )}
-
-        {/* Question image */}
-        <div className="duel-image-wrapper">
-          {question.imagine ? (
-            <img
-              src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
-              alt=""
-              className="duel-image"
-            />
-          ) : (
-            <div className="duel-image-placeholder">
-              <span className="duel-ph-icon">🔍</span>
-            </div>
-          )}
-        </div>
 
         {/* Question card — right above options */}
         <div className="duel-question-card">

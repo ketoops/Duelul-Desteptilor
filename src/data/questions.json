@@ -10,7 +10,7 @@
       "Spre nord, de la munte",
       "Se risipește instant"
     ],
-    "imagine": null
+    "imagine": "1.png"
   },
   {
     "id": 2,
@@ -23,7 +23,7 @@
       "Pe partea cu vântul",
       "Se rostogolește pe acoperiș"
     ],
-    "imagine": null
+    "imagine": "2.png"
   },
   {
     "id": 3,
@@ -36,7 +36,7 @@
       "Nici una, doar 30 și 31",
       "Două, anii bisecți"
     ],
-    "imagine": null
+    "imagine": "3.png"
   },
   {
     "id": 4,
@@ -49,7 +49,7 @@
       "3, ca la început",
       "5, cu tot cu bonus"
     ],
-    "imagine": null
+    "imagine": "4.png"
   },
   {
     "id": 5,
@@ -62,7 +62,7 @@
       "Ioana, sigur ea",
       "Nicoleta, sună bine"
     ],
-    "imagine": null
+    "imagine": "5.png"
   },
   {
     "id": 6,
@@ -75,7 +75,7 @@
       "La graniță, logic",
       "Fiecare în țara lui"
     ],
-    "imagine": null
+    "imagine": "6.png"
   },
   {
     "id": 7,
@@ -88,7 +88,7 @@
       "Penele, au volum mai mare",
       "Depinde de vânt"
     ],
-    "imagine": null
+    "imagine": "7.png"
   },
   {
     "id": 8,
@@ -101,7 +101,7 @@
       "Locul 3, modest",
       "Ultimul, de oboseală"
     ],
-    "imagine": null
+    "imagine": "8.png"
   },
   {
     "id": 9,
@@ -114,7 +114,7 @@
       "Câte 7, biblic",
       "Câte 40, exagerăm"
     ],
-    "imagine": null
+    "imagine": "9.png"
   },
   {
     "id": 10,
@@ -127,7 +127,7 @@
       "Mont Blanc, e în Europa",
       "Nu existau munți atunci"
     ],
-    "imagine": null
+    "imagine": "10.png"
   },
   {
     "id": 11,
@@ -140,7 +140,7 @@
       "30 de minute, rapid",
       "2 ore, cu pauze"
     ],
-    "imagine": null
+    "imagine": "11.png"
   },
   {
     "id": 12,
@@ -153,7 +153,7 @@
       "Câte 7, număr norocos",
       "Câte 10, să fie bine"
     ],
-    "imagine": null
+    "imagine": "12.png"
   },
   {
     "id": 13,
@@ -166,7 +166,7 @@
       "1 om super-rapid",
       "8, ca la comandă"
     ],
-    "imagine": null
+    "imagine": "13.png"
   },
   {
     "id": 14,
@@ -179,7 +179,7 @@
       "17, toate trăiesc",
       "0, toate au murit"
     ],
-    "imagine": null
+    "imagine": "14.png"
   },
   {
     "id": 15,
@@ -192,7 +192,7 @@
       "10, doar mâinile",
       "8, doar degetele mari"
     ],
-    "imagine": null
+    "imagine": "15.png"
   },
   {
     "id": 16,
@@ -205,7 +205,7 @@
       "Depinde de groapă",
       "Cât sapi, atâta e"
     ],
-    "imagine": null
+    "imagine": "16.png"
   },
   {
     "id": 17,
@@ -218,7 +218,7 @@
       "6 secunde, pe repede",
       "12, una pe secundă"
     ],
-    "imagine": null
+    "imagine": "17.png"
   },
   {
     "id": 18,
@@ -231,7 +231,7 @@
       "Supercalifragilistic",
       "Pneumonoultramicro..."
     ],
-    "imagine": null
+    "imagine": "18.png"
   },
   {
     "id": 19,
@@ -244,7 +244,7 @@
       "30, cu diacritice",
       "31, cu ă, â, î, ș, ț"
     ],
-    "imagine": null
+    "imagine": "19.png"
   },
   {
     "id": 20,
@@ -257,7 +257,7 @@
       "0, toți au sărit",
       "10, nimeni nu sare"
     ],
-    "imagine": null
+    "imagine": "20.png"
   },
   {
     "id": 21,
@@ -270,7 +270,7 @@
       "Sufletul, profund",
       "Inspirația divină"
     ],
-    "imagine": null
+    "imagine": "21.png"
   },
   {
     "id": 22,
@@ -283,7 +283,7 @@
       "Barbă magică",
       "Crește ultra-rapid"
     ],
-    "imagine": null
+    "imagine": "22.png"
   },
   {
     "id": 23,
@@ -296,7 +296,7 @@
       "Soba, că-i frig",
       "Lampa, logic"
     ],
-    "imagine": null
+    "imagine": "23.png"
   },
   {
     "id": 24,
@@ -309,7 +309,7 @@
       "10, dacă ești flămând",
       "3, ca un om normal"
     ],
-    "imagine": null
+    "imagine": "24.png"
   },
   {
     "id": 25,
@@ -322,7 +322,7 @@
       "Albastră-roșie, mov",
       "Se dizolvă instant"
     ],
-    "imagine": null
+    "imagine": "25.png"
   },
   {
     "id": 26,
@@ -335,7 +335,7 @@
       "O cometă, astronomic",
       "O panglică misterioasă"
     ],
-    "imagine": null
+    "imagine": "26.png"
   },
   {
     "id": 27,
@@ -348,7 +348,7 @@
       "29 februarie, bisect",
       "Nu se poate, magie"
     ],
-    "imagine": null
+    "imagine": "27.png"
   },
   {
     "id": 28,
@@ -361,7 +361,7 @@
       "Nicăieri, imposibil",
       "Pe altă planetă"
     ],
-    "imagine": null
+    "imagine": "28.png"
   },
   {
     "id": 29,
@@ -374,7 +374,7 @@
       "Prețurile, mereu",
       "Heliul din baloane"
     ],
-    "imagine": null
+    "imagine": "29.png"
   },
   {
     "id": 30,
@@ -387,7 +387,7 @@
       "Câteva zeci, normal",
       "Depinde de pom"
     ],
-    "imagine": null
+    "imagine": "30.png"
   },
   {
     "id": 31,
@@ -400,7 +400,7 @@
       "Doar cu unul special",
       "Imposibil, scrii bulbuci"
     ],
-    "imagine": null
+    "imagine": "31.png"
   },
   {
     "id": 32,
@@ -413,7 +413,7 @@
       "Leprechaunul irlandez",
       "Fericirea eternă"
     ],
-    "imagine": null
+    "imagine": "32.png"
   },
   {
     "id": 33,
@@ -426,7 +426,7 @@
       "O minge, ușor",
       "Telefonul, non-stop"
     ],
-    "imagine": null
+    "imagine": "33.png"
   },
   {
     "id": 34,
@@ -439,7 +439,7 @@
       "20, triplăm",
       "50, pe repede-nainte"
     ],
-    "imagine": null
+    "imagine": "34.png"
   },
   {
     "id": 35,
@@ -452,7 +452,7 @@
       "33, aproape egal",
       "18, la mijloc"
     ],
-    "imagine": null
+    "imagine": "35.png"
   },
   {
     "id": 36,
@@ -465,7 +465,7 @@
       "Tractor, evident",
       "Telefon, simplu"
     ],
-    "imagine": null
+    "imagine": "36.png"
   },
   {
     "id": 37,
@@ -478,7 +478,7 @@
       "0, au murit toți",
       "8, au scăpat câțiva"
     ],
-    "imagine": null
+    "imagine": "37.png"
   },
   {
     "id": 38,
@@ -491,7 +491,7 @@
       "Respiri?",
       "Ești frumos?"
     ],
-    "imagine": null
+    "imagine": "38.png"
   },
   {
     "id": 39,
@@ -504,7 +504,7 @@
       "O piatră, se scufundă",
       "Un pește, trăiește-n ea"
     ],
-    "imagine": null
+    "imagine": "39.png"
   },
   {
     "id": 40,
@@ -517,7 +517,7 @@
       "Câte 7, specii pure",
       "Milioane, sigur"
     ],
-    "imagine": null
+    "imagine": "40.png"
   },
   {
     "id": 41,
@@ -530,7 +530,7 @@
       "30 de minute, rapid",
       "2 minute pe ou"
     ],
-    "imagine": null
+    "imagine": "41.png"
   },
   {
     "id": 42,
@@ -543,7 +543,7 @@
       "Doar cu avionul",
       "Dacă vrea familia"
     ],
-    "imagine": null
+    "imagine": "42.png"
   },
   {
     "id": 43,
@@ -556,7 +556,7 @@
       "10, ești generos",
       "Toată punga de zahăr"
     ],
-    "imagine": null
+    "imagine": "43.png"
   },
   {
     "id": 44,
@@ -569,7 +569,7 @@
       "Telecomanda, mereu pierdută",
       "Un paznic fără ușă"
     ],
-    "imagine": null
+    "imagine": "44.png"
   },
   {
     "id": 45,
@@ -582,7 +582,7 @@
       "Luna plină, mistic",
       "Ziua de naștere"
     ],
-    "imagine": null
+    "imagine": "45.png"
   },
   {
     "id": 46,
@@ -595,7 +595,7 @@
       "30 minute, cu pauze",
       "Depinde de trafic"
     ],
-    "imagine": null
+    "imagine": "46.png"
   },
   {
     "id": 47,
@@ -608,7 +608,7 @@
       "O strecurătoare",
       "Un sac cu găuri"
     ],
-    "imagine": null
+    "imagine": "47.png"
   },
   {
     "id": 48,
@@ -621,7 +621,7 @@
       "3, erau acolo",
       "0, le-ai pierdut"
     ],
-    "imagine": null
+    "imagine": "48.png"
   },
   {
     "id": 49,
@@ -634,7 +634,7 @@
       "Negru, e noapte",
       "Cenușiu, ca blocul"
     ],
-    "imagine": null
+    "imagine": "49.png"
   },
   {
     "id": 50,
@@ -647,7 +647,7 @@
       "36, nu-i greu",
       "144, totul x12"
     ],
-    "imagine": null
+    "imagine": "50.png"
   },
   {
     "id": 51,
@@ -660,7 +660,7 @@
       "Un geam, cu piatra",
       "Liniștea din casă"
     ],
-    "imagine": null
+    "imagine": "51.png"
   },
   {
     "id": 52,
@@ -673,7 +673,7 @@
       "O masă de lemn",
       "Un extraterestru"
     ],
-    "imagine": null
+    "imagine": "52.png"
   },
   {
     "id": 53,
@@ -686,7 +686,7 @@
       "45, că frânează",
       "90, cu NOS"
     ],
-    "imagine": null
+    "imagine": "53.png"
   },
   {
     "id": 54,
@@ -699,7 +699,7 @@
       "Zero, filozofic",
       "Depinde de zi"
     ],
-    "imagine": null
+    "imagine": "54.png"
   },
   {
     "id": 55,
@@ -712,7 +712,7 @@
       "Iubirea, poetic",
       "Sufletul, mistic"
     ],
-    "imagine": null
+    "imagine": "55.png"
   },
   {
     "id": 56,
@@ -725,7 +725,7 @@
       "9, proporțional",
       "4.5, cu virgulă"
     ],
-    "imagine": null
+    "imagine": "56.png"
   },
   {
     "id": 57,
@@ -738,7 +738,7 @@
       "La parter, s-a stricat",
       "La 3, s-a oprit"
     ],
-    "imagine": null
+    "imagine": "57.png"
   },
   {
     "id": 58,
@@ -751,7 +751,7 @@
       "Pasiunea, intens",
       "Răbdarea, epuizată"
     ],
-    "imagine": null
+    "imagine": "58.png"
   },
   {
     "id": 59,
@@ -764,7 +764,7 @@
       "Hainele, le împrumuți",
       "Mașina, la toți"
     ],
-    "imagine": null
+    "imagine": "59.png"
   },
   {
     "id": 60,
@@ -777,7 +777,7 @@
       "Bani, evident",
       "Noroc financiar"
     ],
-    "imagine": null
+    "imagine": "60.png"
   },
   {
     "id": 61,
@@ -790,7 +790,7 @@
       "La matematică, nu",
       "Doar în vise"
     ],
-    "imagine": null
+    "imagine": "61.png"
   },
   {
     "id": 62,
@@ -803,7 +803,7 @@
       "Un avion fără benzină",
       "Moralul meu"
     ],
-    "imagine": null
+    "imagine": "62.png"
   },
   {
     "id": 63,
@@ -816,7 +816,7 @@
       "6, geometric",
       "4, mai puține"
     ],
-    "imagine": null
+    "imagine": "63.png"
   },
   {
     "id": 64,
@@ -829,7 +829,7 @@
       "Nu, mașina e rapidă",
       "Doar dacă-i BMW"
     ],
-    "imagine": null
+    "imagine": "64.png"
   },
   {
     "id": 65,
@@ -842,7 +842,7 @@
       "Milioane, evident",
       "Nu le numără nimeni"
     ],
-    "imagine": null
+    "imagine": "65.png"
   },
   {
     "id": 66,
@@ -855,7 +855,7 @@
       "Brânză expirată",
       "Pizza de ieri"
     ],
-    "imagine": null
+    "imagine": "66.png"
   },
   {
     "id": 67,
@@ -868,7 +868,7 @@
       "Supă, cu paiul",
       "Doar iaurt"
     ],
-    "imagine": null
+    "imagine": "67.png"
   },
   {
     "id": 68,
@@ -881,7 +881,7 @@
       "Inima, romantic",
       "Un balon, poc"
     ],
-    "imagine": null
+    "imagine": "68.png"
   },
   {
     "id": 69,
@@ -894,7 +894,7 @@
       "6, jumătate",
       "10, rotunjim"
     ],
-    "imagine": null
+    "imagine": "69.png"
   },
   {
     "id": 70,
@@ -907,7 +907,7 @@
       "Bea 10 cafele pe zi",
       "Are superputeri"
     ],
-    "imagine": null
+    "imagine": "70.png"
   },
   {
     "id": 71,
@@ -920,7 +920,7 @@
       "Banii, capitalism",
       "Pizza, universală"
     ],
-    "imagine": null
+    "imagine": "71.png"
   },
   {
     "id": 72,
@@ -933,7 +933,7 @@
       "Soba, că-i frig",
       "Lumânarea, romantic"
     ],
-    "imagine": null
+    "imagine": "72.png"
   },
   {
     "id": 73,
@@ -946,7 +946,7 @@
       "Cu stânga, ești rebel",
       "Cu ambele, eficient"
     ],
-    "imagine": null
+    "imagine": "73.png"
   },
   {
     "id": 74,
@@ -959,7 +959,7 @@
       "O chitară, muzical",
       "Un fulg de nea"
     ],
-    "imagine": null
+    "imagine": "74.png"
   },
   {
     "id": 75,
@@ -972,7 +972,7 @@
       "Meditație transcendentală",
       "Cafea neagră non-stop"
     ],
-    "imagine": null
+    "imagine": "75.png"
   },
   {
     "id": 76,
@@ -985,7 +985,7 @@
       "Toate, grădina zoo",
       "7 din fiecare"
     ],
-    "imagine": null
+    "imagine": "76.png"
   },
   {
     "id": 77,
@@ -998,7 +998,7 @@
       "Soarele, evaporă",
       "Hârtia, logic"
     ],
-    "imagine": null
+    "imagine": "77.png"
   },
   {
     "id": 78,
@@ -1011,7 +1011,7 @@
       "2 metri, sfert",
       "6 metri, aproape"
     ],
-    "imagine": null
+    "imagine": "78.png"
   },
   {
     "id": 79,
@@ -1024,7 +1024,7 @@
       "Un pește adânc",
       "Un cartof, dacă vrei"
     ],
-    "imagine": null
+    "imagine": "79.png"
   },
   {
     "id": 80,
@@ -1037,7 +1037,7 @@
       "49 de ore, tot",
       "3.5 ore, rapid"
     ],
-    "imagine": null
+    "imagine": "80.png"
   },
   {
     "id": 81,
@@ -1050,7 +1050,7 @@
       "Că așa am învățat",
       "Să impresionez vecinii"
     ],
-    "imagine": null
+    "imagine": "81.png"
   },
   {
     "id": 82,
@@ -1063,7 +1063,7 @@
       "Cu efect, ca Beckham",
       "Doar în desene animate"
     ],
-    "imagine": null
+    "imagine": "82.png"
   },
   {
     "id": 83,
@@ -1076,7 +1076,7 @@
       "Apa, scurt și clar",
       "Tot, totul invers"
     ],
-    "imagine": null
+    "imagine": "83.png"
   },
   {
     "id": 84,
@@ -1089,7 +1089,7 @@
       "Sângele, dramatic",
       "Un rac, zodiacal"
     ],
-    "imagine": null
+    "imagine": "84.png"
   },
   {
     "id": 85,
@@ -1102,7 +1102,7 @@
       "0, doar surori",
       "6, familie mare"
     ],
-    "imagine": null
+    "imagine": "85.png"
   },
   {
     "id": 86,
@@ -1115,7 +1115,7 @@
       "Superman fără costum",
       "Un avion de hârtie"
     ],
-    "imagine": null
+    "imagine": "86.png"
   },
   {
     "id": 87,
@@ -1128,7 +1128,7 @@
       "Aerul, tehnic vorbind",
       "Mobilă IKEA"
     ],
-    "imagine": null
+    "imagine": "87.png"
   },
   {
     "id": 88,
@@ -1141,7 +1141,7 @@
       "2, uite matematica",
       "6, n-ai spart nimic"
     ],
-    "imagine": null
+    "imagine": "88.png"
   },
   {
     "id": 89,
@@ -1154,7 +1154,7 @@
       "O caracatiță, aproape",
       "Un vampir sentimental"
     ],
-    "imagine": null
+    "imagine": "89.png"
   },
   {
     "id": 90,
@@ -1167,7 +1167,7 @@
       "9100, logică ciudată",
       "Infinit, ca visele"
     ],
-    "imagine": null
+    "imagine": "90.png"
   },
   {
     "id": 91,
@@ -1180,7 +1180,7 @@
       "Cel din Cluj, mai rapid",
       "Niciunul, s-au pierdut"
     ],
-    "imagine": null
+    "imagine": "91.png"
   },
   {
     "id": 92,
@@ -1193,7 +1193,7 @@
       "Internetul, modern",
       "Elon Musk"
     ],
-    "imagine": null
+    "imagine": "92.png"
   },
   {
     "id": 93,
@@ -1206,7 +1206,7 @@
       "Bunica, doar gingii",
       "Un vampir vegetarian"
     ],
-    "imagine": null
+    "imagine": "93.png"
   },
   {
     "id": 94,
@@ -1219,7 +1219,7 @@
       "A căzut pe saltea",
       "Norocul începătorului"
     ],
-    "imagine": null
+    "imagine": "94.png"
   },
   {
     "id": 95,
@@ -1232,7 +1232,7 @@
       "Penultimul, aproape",
       "Primul, ești rapid"
     ],
-    "imagine": null
+    "imagine": "95.png"
   },
   {
     "id": 96,
@@ -1245,7 +1245,7 @@
       "O farfurie, cioburi",
       "Inima mea, romantic"
     ],
-    "imagine": null
+    "imagine": "96.png"
   },
   {
     "id": 97,
@@ -1258,7 +1258,7 @@
       "Un hamster în roată",
       "Trenul, dar ajunge"
     ],
-    "imagine": null
+    "imagine": "97.png"
   },
   {
     "id": 98,
@@ -1271,7 +1271,7 @@
       "Un croitor nebun",
       "Un cactus agresiv"
     ],
-    "imagine": null
+    "imagine": "98.png"
   },
   {
     "id": 99,
@@ -1284,7 +1284,7 @@
       "Infinit, matematic",
       "Pi, nerd alert"
     ],
-    "imagine": null
+    "imagine": "99.png"
   },
   {
     "id": 100,
@@ -1297,6 +1297,6 @@
       "Camera de zi, evident",
       "Baia, cu perdea"
     ],
-    "imagine": null
+    "imagine": "100.png"
   }
 ]

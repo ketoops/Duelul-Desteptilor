@@ -11,11 +11,20 @@ function shuffleArray(arr) {
   return shuffled
 }
 
-const TOTAL_QUESTIONS = 10
 const TIME_LIMIT = 20
 
+function getGameQuestions(mode) {
+  if (mode === 'test') {
+    // Only questions that have images
+    const withImages = questions.filter(q => q.imagine)
+    return shuffleArray(withImages)
+  }
+  return shuffleArray(questions).slice(0, 10)
+}
+
 export default function GameScreen({ mode, onEnd, onQuit }) {
-  const [gameQuestions] = useState(() => shuffleArray(questions).slice(0, TOTAL_QUESTIONS))
+  const [gameQuestions] = useState(() => getGameQuestions(mode))
+  const totalQuestions = gameQuestions.length
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [feedback, setFeedback] = useState(null)
@@ -26,8 +35,8 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   const handledTimeUp = useRef(false)
 
   const question = gameQuestions[currentIndex]
+  const isTest = mode === 'test'
 
-  // Shuffle answer options once per question
   const options = useMemo(() => {
     if (!question) return []
     return shuffleArray([question.raspuns, ...question.variante_gresite])
@@ -89,8 +98,8 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   function nextQuestion() {
     const nextIndex = currentIndex + 1
 
-    if (nextIndex >= TOTAL_QUESTIONS) {
-      onEnd({ score, total: TOTAL_QUESTIONS, mode })
+    if (nextIndex >= totalQuestions) {
+      onEnd({ score, total: totalQuestions, mode })
       return
     }
 
@@ -99,8 +108,11 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
     setFeedback(null)
   }
 
-  const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
+  const progress = ((currentIndex + 1) / totalQuestions) * 100
   const timerUrgent = timeLeft <= 5
+  const imageUrl = question?.imagine
+    ? `${import.meta.env.BASE_URL}questions/${question.imagine}`
+    : null
 
   return (
     <div className="game">
@@ -110,8 +122,9 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
           <div className="progress-fill" style={{ width: `${progress}%` }} />
         </div>
         <div className="game-stats">
-          <span className="score">{score}/{TOTAL_QUESTIONS}</span>
+          <span className="score">{score}/{totalQuestions}</span>
           {streak > 1 && <span className="streak">🔥 {streak}</span>}
+          {isTest && <span className="test-badge">TEST</span>}
         </div>
       </div>
 
@@ -135,24 +148,9 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
       </div>
 
       <div className="game-content">
-        <div className="question-image-wrapper">
-          {question.imagine ? (
-            <img
-              src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
-              alt=""
-              className="question-image"
-            />
-          ) : (
-            <div className="question-image-placeholder">
-              <span className="placeholder-icon">🔍</span>
-              <span className="placeholder-text">Imaginează-ți răspunsul...</span>
-            </div>
-          )}
-        </div>
-
         <div className="question-card">
           <div className="question-number">
-            Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}
+            Întrebarea {currentIndex + 1}/{totalQuestions}
           </div>
           <h2 className="question-text">{question.intrebare}</h2>
         </div>
@@ -183,9 +181,14 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
 
         {feedback && (
           <div className={`feedback ${feedback.correct ? 'feedback-correct' : 'feedback-wrong'}`}>
+            {imageUrl && (
+              <div className="feedback-image-popup">
+                <img src={imageUrl} alt="" className="feedback-image" />
+              </div>
+            )}
             <p className="feedback-message">{feedback.message}</p>
             <button className="next-btn" onClick={nextQuestion}>
-              {currentIndex + 1 >= TOTAL_QUESTIONS ? 'Vezi rezultatul' : 'Următoarea →'}
+              {currentIndex + 1 >= totalQuestions ? 'Vezi rezultatul' : 'Următoarea →'}
             </button>
           </div>
         )}
