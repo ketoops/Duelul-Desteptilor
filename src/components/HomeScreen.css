@@ -52,6 +52,17 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+.home-welcome {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.home-welcome strong {
+  color: var(--accent-light);
+  font-weight: 600;
+}
+
 .home-logo {
   position: relative;
   display: inline-flex;

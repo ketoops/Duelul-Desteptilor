@@ -1,19 +1,22 @@
 import './ResultScreen.css'
 
 export default function ResultScreen({ result, onRestart, onHome }) {
-  const { score, total, vsScores, mode } = result
+  const { score, total, vsScores, vsNames, mode } = result
   const isVs = mode === 'vs'
 
   let emoji, title, subtitle
 
   if (isVs) {
+    const name1 = vsNames?.[0] || 'Jucător 1'
+    const name2 = vsNames?.[1] || 'Jucător 2'
+
     if (vsScores[0] > vsScores[1]) {
       emoji = '🏆'
-      title = 'Jucătorul 1 câștigă!'
+      title = `${name1} câștigă!`
       subtitle = `${vsScores[0]} - ${vsScores[1]}`
     } else if (vsScores[1] > vsScores[0]) {
       emoji = '🏆'
-      title = 'Jucătorul 2 câștigă!'
+      title = `${name2} câștigă!`
       subtitle = `${vsScores[0]} - ${vsScores[1]}`
     } else {
       emoji = '🤝'

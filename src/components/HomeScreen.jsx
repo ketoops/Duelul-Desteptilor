@@ -1,12 +1,14 @@
 import './HomeScreen.css'
 
-export default function HomeScreen({ onStart }) {
+export default function HomeScreen({ username, onStart }) {
   return (
     <div className="home">
       <div className="home-bg-orb home-bg-orb-1" />
       <div className="home-bg-orb home-bg-orb-2" />
 
       <div className="home-content">
+        <div className="home-welcome">Salut, <strong>{username}</strong></div>
+
         <div className="home-logo">
           <span className="home-logo-icon">🧠</span>
           <div className="home-logo-ring" />

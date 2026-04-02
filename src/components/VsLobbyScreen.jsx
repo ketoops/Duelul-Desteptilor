@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { createRoom, joinRoom } from '../services/roomService'
 import './VsLobbyScreen.css'
 
-export default function VsLobbyScreen({ onRoomReady, onBack }) {
-  const [view, setView] = useState('choice') // choice | create | join
+export default function VsLobbyScreen({ username, onRoomReady, onBack }) {
+  const [view, setView] = useState('choice')
   const [roomCode, setRoomCode] = useState('')
   const [inputCode, setInputCode] = useState('')
   const [error, setError] = useState('')
@@ -13,7 +13,7 @@ export default function VsLobbyScreen({ onRoomReady, onBack }) {
     setLoading(true)
     setError('')
     try {
-      const code = await createRoom()
+      const code = await createRoom(username)
       setRoomCode(code)
       setView('create')
       onRoomReady(code, 'player1')
@@ -28,7 +28,7 @@ export default function VsLobbyScreen({ onRoomReady, onBack }) {
     setLoading(true)
     setError('')
     try {
-      await joinRoom(inputCode.toUpperCase())
+      await joinRoom(inputCode.toUpperCase(), username)
       onRoomReady(inputCode.toUpperCase(), 'player2')
     } catch (err) {
       setError(err.message)

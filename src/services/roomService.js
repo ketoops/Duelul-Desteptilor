@@ -20,7 +20,7 @@ function shuffleArray(arr) {
   return shuffled
 }
 
-export async function createRoom() {
+export async function createRoom(username) {
   const code = generateCode()
   const questionIds = shuffleArray(questions.map(q => q.id)).slice(0, 10)
 
@@ -28,14 +28,14 @@ export async function createRoom() {
     status: 'waiting',
     questionIds,
     createdAt: Date.now(),
-    player1: { score: 0, current: 0, finished: false },
+    player1: { name: username, score: 0, current: 0, finished: false, lastResult: null },
     player2: null,
   })
 
   return code
 }
 
-export async function joinRoom(code) {
+export async function joinRoom(code, username) {
   const roomRef = ref(db, `rooms/${code}`)
   const snapshot = await get(roomRef)
 
@@ -50,7 +50,7 @@ export async function joinRoom(code) {
 
   await update(roomRef, {
     status: 'playing',
-    'player2': { score: 0, current: 0, finished: false },
+    player2: { name: username, score: 0, current: 0, finished: false, lastResult: null },
   })
 
   return room.questionIds
