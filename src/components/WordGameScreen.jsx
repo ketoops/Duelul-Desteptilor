@@ -114,8 +114,18 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     const y = e.touches ? e.touches[0].clientY : e.clientY
     const idx = getLetterAtPoint(x, y)
 
-    if (idx >= 0 && !selected.includes(idx)) {
-      setSelected(prev => [...prev, idx])
+    if (idx >= 0) {
+      setSelected(prev => {
+        // If going back to the second-to-last letter, undo the last one
+        if (prev.length >= 2 && idx === prev[prev.length - 2]) {
+          return prev.slice(0, -1)
+        }
+        // If new letter not yet selected, add it
+        if (!prev.includes(idx)) {
+          return [...prev, idx]
+        }
+        return prev
+      })
     }
   }, [isDragging, selected, getLetterAtPoint])
 
