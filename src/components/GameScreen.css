@@ -310,7 +310,7 @@
 
 .feedback-image {
   width: 100%;
-  height: auto;
+  max-height: 45vh;
   object-fit: contain;
   display: block;
   border-radius: var(--radius-md);
