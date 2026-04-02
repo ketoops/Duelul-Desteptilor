@@ -34,6 +34,8 @@ export default function WordGameScreen({ onEnd, onQuit }) {
   const timerRef = useRef(null)
   const letterRefs = useRef([])
   const circleRef = useRef(null)
+  const selectedRef = useRef([])
+  const draggingRef = useRef(false)
 
   const allWords = puzzle.words.map(w => w.word)
   const allFound = foundWords.length === allWords.length
@@ -99,6 +101,10 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     return -1
   }, [])
 
+  // Keep refs in sync with state
+  useEffect(() => { selectedRef.current = selected }, [selected])
+  useEffect(() => { draggingRef.current = isDragging }, [isDragging])
+
   // Drag/swipe handlers
   function handlePointerDown(e, index) {
     e.preventDefault()
@@ -106,64 +112,65 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     setSelected([index])
   }
 
-  const handlePointerMove = useCallback((e) => {
-    if (!isDragging) return
-    e.preventDefault()
-
-    const x = e.touches ? e.touches[0].clientX : e.clientX
-    const y = e.touches ? e.touches[0].clientY : e.clientY
-    const idx = getLetterAtPoint(x, y)
-
-    if (idx >= 0) {
-      setSelected(prev => {
-        // If going back to the second-to-last letter, undo the last one
-        if (prev.length >= 2 && idx === prev[prev.length - 2]) {
-          return prev.slice(0, -1)
-        }
-        // If new letter not yet selected, add it
-        if (!prev.includes(idx)) {
-          return [...prev, idx]
-        }
-        return prev
-      })
-    }
-  }, [isDragging, selected, getLetterAtPoint])
-
-  const handlePointerUp = useCallback(() => {
-    if (!isDragging) return
-    setIsDragging(false)
-
-    // Submit the word
-    const word = selected.map(i => puzzle.letters[i]).join('')
-    if (allWords.includes(word) && !foundWords.includes(word)) {
-      setFoundWords(prev => [...prev, word])
-      setFlash('correct')
-      setTimeout(() => setFlash(null), 600)
-    } else if (selected.length >= 2) {
-      setShake(true)
-      setFlash('wrong')
-      setTimeout(() => { setShake(false); setFlash(null) }, 500)
-    }
-    setSelected([])
-  }, [isDragging, selected, puzzle.letters, allWords, foundWords])
-
-  // Global move/up listeners
+  // Global move/up listeners — use refs to avoid stale closures
   useEffect(() => {
-    const moveHandler = (e) => handlePointerMove(e)
-    const upHandler = () => handlePointerUp()
+    function handlePointerMove(e) {
+      if (!draggingRef.current) return
+      e.preventDefault()
 
-    window.addEventListener('mousemove', moveHandler)
-    window.addEventListener('mouseup', upHandler)
-    window.addEventListener('touchmove', moveHandler, { passive: false })
-    window.addEventListener('touchend', upHandler)
+      const x = e.touches ? e.touches[0].clientX : e.clientX
+      const y = e.touches ? e.touches[0].clientY : e.clientY
+      const idx = getLetterAtPoint(x, y)
+
+      if (idx >= 0) {
+        const prev = selectedRef.current
+        // Going back to second-to-last → undo last letter
+        if (prev.length >= 2 && idx === prev[prev.length - 2]) {
+          const next = prev.slice(0, -1)
+          selectedRef.current = next
+          setSelected(next)
+        }
+        // New letter not yet selected → add
+        else if (!prev.includes(idx)) {
+          const next = [...prev, idx]
+          selectedRef.current = next
+          setSelected(next)
+        }
+      }
+    }
+
+    function handlePointerUp() {
+      if (!draggingRef.current) return
+      draggingRef.current = false
+      setIsDragging(false)
+
+      const sel = selectedRef.current
+      const word = sel.map(i => puzzle.letters[i]).join('')
+      if (allWords.includes(word) && !foundWords.includes(word)) {
+        setFoundWords(prev => [...prev, word])
+        setFlash('correct')
+        setTimeout(() => setFlash(null), 600)
+      } else if (sel.length >= 2) {
+        setShake(true)
+        setFlash('wrong')
+        setTimeout(() => { setShake(false); setFlash(null) }, 500)
+      }
+      selectedRef.current = []
+      setSelected([])
+    }
+
+    window.addEventListener('mousemove', handlePointerMove)
+    window.addEventListener('mouseup', handlePointerUp)
+    window.addEventListener('touchmove', handlePointerMove, { passive: false })
+    window.addEventListener('touchend', handlePointerUp)
 
     return () => {
-      window.removeEventListener('mousemove', moveHandler)
-      window.removeEventListener('mouseup', upHandler)
-      window.removeEventListener('touchmove', moveHandler)
-      window.removeEventListener('touchend', upHandler)
+      window.removeEventListener('mousemove', handlePointerMove)
+      window.removeEventListener('mouseup', handlePointerUp)
+      window.removeEventListener('touchmove', handlePointerMove)
+      window.removeEventListener('touchend', handlePointerUp)
     }
-  }, [handlePointerMove, handlePointerUp])
+  }, [getLetterAtPoint, puzzle.letters, allWords, foundWords])
 
   function isCellRevealed(row, col) {
     for (const w of puzzle.words) {
