@@ -135,11 +135,12 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
       </div>
 
       <div className="game-content">
-        <div className="question-number">
-          Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}
+        <div className="question-card">
+          <div className="question-number">
+            Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}
+          </div>
+          <h2 className="question-text">{question.intrebare}</h2>
         </div>
-
-        <h2 className="question-text">{question.intrebare}</h2>
 
         <div className="options-grid">
           {options.map((option, i) => {

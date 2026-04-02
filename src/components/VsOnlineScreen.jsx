@@ -175,13 +175,7 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
 
   return (
     <div className="duel">
-      {/* Question Banner */}
-      <div className="duel-question-banner">
-        <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
-        <h2 className="duel-question-text">{question.intrebare}</h2>
-      </div>
-
-      {/* Arena — VS section */}
+      {/* Arena — VS section (top) */}
       <div className="duel-arena">
         <div className="duel-fighter duel-fighter-me">
           <div className={`duel-avatar ${showResults ? (myCorrect ? 'avatar-win' : 'avatar-lose') : (localAnswer ? 'avatar-ready' : '')}`}>
@@ -205,22 +199,30 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         </div>
       </div>
 
-      {/* Waiting indicator */}
-      {localAnswer && !showResults && (
-        <div className="duel-waiting">
-          <span className="duel-waiting-dot" /> Așteptăm pe {opponentName}...
-        </div>
-      )}
+      {/* Bottom section — question + options pushed down */}
+      <div className="duel-bottom">
+        {/* Waiting indicator */}
+        {localAnswer && !showResults && (
+          <div className="duel-waiting">
+            <span className="duel-waiting-dot" /> Așteptăm pe {opponentName}...
+          </div>
+        )}
 
-      {/* Results flash */}
-      {showResults && (
-        <div className="duel-result-flash">
-          <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
-        </div>
-      )}
+        {/* Results flash */}
+        {showResults && (
+          <div className="duel-result-flash">
+            <span className="duel-correct-answer">Răspuns corect: <strong>{question.raspuns}</strong></span>
+          </div>
+        )}
 
-      {/* 4 Answer options */}
-      <div className="duel-options">
+        {/* Question card — right above options */}
+        <div className="duel-question-card">
+          <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>
+          <h2 className="duel-question-text">{question.intrebare}</h2>
+        </div>
+
+        {/* 4 Answer options */}
+        <div className="duel-options">
         {options.map((option, i) => {
           const isCorrect = option === question.raspuns
           const isMyPick = option === localAnswer
@@ -251,6 +253,8 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           )
         })}
       </div>
+
+      </div>{/* end duel-bottom */}
 
       {/* Score bar */}
       <div className="duel-scorebar">
