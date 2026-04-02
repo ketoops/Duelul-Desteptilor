@@ -3,6 +3,7 @@ import {
   listenToRoom, submitAnswer, updateScore,
   advanceQuestion, setRoomStatus, deleteRoom, getQuestionsById
 } from '../services/roomService'
+import { saveDuelResult } from '../services/userService'
 import './VsOnlineScreen.css'
 
 const TOTAL_QUESTIONS = 10
@@ -123,10 +124,10 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
         vsNames: [room.player1?.name ?? 'J1', room.player2?.name ?? 'J2'],
         mode: 'vs',
       }
-      // Unsubscribe before deleting to avoid errors
+      // Save to history, then cleanup
+      saveDuelResult(result)
       unsubRef.current?.()
       unsubRef.current = null
-      // Delete the room from Firebase
       deleteRoom(roomCode)
       onEnd(result)
     }

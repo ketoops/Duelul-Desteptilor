@@ -31,6 +31,7 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
+  const [transitioning, setTransitioning] = useState(false)
   const timerRef = useRef(null)
   const handledTimeUp = useRef(false)
 
@@ -103,9 +104,13 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
       return
     }
 
-    setCurrentIndex(nextIndex)
-    setSelectedAnswer(null)
-    setFeedback(null)
+    setTransitioning(true)
+    setTimeout(() => {
+      setCurrentIndex(nextIndex)
+      setSelectedAnswer(null)
+      setFeedback(null)
+      setTransitioning(false)
+    }, 300)
   }
 
   const progress = ((currentIndex + 1) / totalQuestions) * 100
@@ -147,7 +152,7 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
         <span className="countdown-number">{timeLeft}</span>
       </div>
 
-      <div className="game-content">
+      <div className={`game-content ${transitioning ? 'content-exit' : 'content-enter'}`}>
         {feedback && imageUrl ? (
           /* After answer: image takes over, question & options hidden */
           <div className="feedback-fullscreen">

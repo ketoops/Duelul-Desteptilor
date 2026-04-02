@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import { applyTheme, getSavedTheme } from './services/themes'
+import { getUserId, ensureUserProfile } from './services/userService'
 import UsernameScreen from './components/UsernameScreen'
 import HomeScreen from './components/HomeScreen'
 import GameScreen from './components/GameScreen'
 import ResultScreen from './components/ResultScreen'
 import VsLobbyScreen from './components/VsLobbyScreen'
 import VsOnlineScreen from './components/VsOnlineScreen'
+import SettingsScreen from './components/SettingsScreen'
+import FriendsScreen from './components/FriendsScreen'
+import WallScreen from './components/WallScreen'
 
 function App() {
   const [username, setUsername] = useState(() => localStorage.getItem('username') || '')
@@ -14,6 +19,18 @@ function App() {
   const [result, setResult] = useState(null)
   const [roomCode, setRoomCode] = useState(null)
   const [playerSlot, setPlayerSlot] = useState(null)
+
+  // Apply saved theme on mount
+  useEffect(() => {
+    applyTheme(getSavedTheme())
+  }, [])
+
+  // Ensure user profile exists in Firebase
+  useEffect(() => {
+    if (username) {
+      ensureUserProfile(username)
+    }
+  }, [username])
 
   if (!username) {
     return <UsernameScreen onSave={setUsername} />
@@ -49,6 +66,18 @@ function App() {
     setPlayerSlot(null)
   }
 
+  if (screen === 'settings') {
+    return <SettingsScreen onBack={goHome} />
+  }
+
+  if (screen === 'friends') {
+    return <FriendsScreen username={username} onBack={goHome} />
+  }
+
+  if (screen === 'wall') {
+    return <WallScreen onBack={goHome} />
+  }
+
   if (screen === 'vsLobby') {
     return <VsLobbyScreen username={username} onRoomReady={handleRoomReady} onBack={goHome} />
   }
@@ -79,7 +108,15 @@ function App() {
     )
   }
 
-  return <HomeScreen username={username} onStart={startGame} />
+  return (
+    <HomeScreen
+      username={username}
+      onStart={startGame}
+      onSettings={() => setScreen('settings')}
+      onFriends={() => setScreen('friends')}
+      onWall={() => setScreen('wall')}
+    />
+  )
 }
 
 export default App

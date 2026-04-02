@@ -1,14 +1,17 @@
 import geniusImg from '../assets/genius.png'
 import './HomeScreen.css'
 
-export default function HomeScreen({ username, onStart }) {
+export default function HomeScreen({ username, onStart, onSettings, onFriends, onWall }) {
   return (
     <div className="home">
       <div className="home-bg-orb home-bg-orb-1" />
       <div className="home-bg-orb home-bg-orb-2" />
 
       <div className="home-content">
-        <div className="home-welcome">Salut, <strong>{username}</strong></div>
+        <div className="home-topbar">
+          <div className="home-welcome">Salut, <strong>{username}</strong></div>
+          <button className="home-settings-btn" onClick={onSettings}>⚙️</button>
+        </div>
 
         <div className="home-mascot">
           <img src={geniusImg} alt="Genius" className="home-mascot-img" />
@@ -34,11 +37,22 @@ export default function HomeScreen({ username, onStart }) {
           </button>
         </div>
 
-        <button className="mode-test-btn" onClick={() => onStart('test')}>
-          🧪 Test Imagini
-        </button>
+        <div className="home-nav">
+          <button className="nav-btn" onClick={onFriends}>
+            <span className="nav-icon">👥</span>
+            <span className="nav-label">Prieteni</span>
+          </button>
+          <button className="nav-btn" onClick={onWall}>
+            <span className="nav-icon">⚔️</span>
+            <span className="nav-label">Arena</span>
+          </button>
+          <button className="nav-btn" onClick={() => onStart('test')}>
+            <span className="nav-icon">🧪</span>
+            <span className="nav-label">Test</span>
+          </button>
+        </div>
 
-        <p className="home-footer">Scrii răspunsul. Gândești repede. Sau pierzi.</p>
+        <p className="home-footer">Gândești repede. Sau pierzi.</p>
       </div>
     </div>
   )

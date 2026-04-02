@@ -1,0 +1,210 @@
+.friends {
+  min-height: 100dvh;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.friends-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.friends-back {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  transition: color 0.2s;
+}
+
+.friends-back:hover { color: var(--text-bright); }
+
+.friends-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+/* My code */
+.my-code-section {
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+.my-code-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.my-code-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0 6px;
+}
+
+.my-code {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Space Grotesk', monospace;
+}
+
+.copy-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  background: var(--gradient-primary);
+  color: var(--text-bright);
+  border-radius: 20px;
+}
+
+.my-code-hint {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* Add friend */
+.add-friend-section {
+  margin-bottom: 24px;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.add-friend-row {
+  display: flex;
+  gap: 10px;
+}
+
+.friend-code-input {
+  flex: 1;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  padding: 12px;
+  background: var(--bg-input);
+  color: var(--text-bright);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-subtle);
+  font-family: 'Space Grotesk', monospace;
+  transition: border-color 0.2s;
+}
+
+.friend-code-input:focus {
+  border-color: var(--accent);
+}
+
+.friend-code-input::placeholder {
+  color: var(--text-dim);
+  letter-spacing: 4px;
+}
+
+.add-btn {
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  color: var(--text-bright);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.add-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.friend-msg {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.msg-ok { color: var(--green); }
+.msg-err { color: var(--red); }
+
+/* Friends list */
+.friends-list-section {
+  margin-bottom: 24px;
+}
+
+.no-friends {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 24px;
+}
+
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.friend-avatar {
+  font-size: 1.3rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 50%;
+}
+
+.friend-name {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-bright);
+}
+
+.friend-remove {
+  background: none;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.2s;
+}
+
+.friend-remove:hover {
+  color: var(--red);
+}

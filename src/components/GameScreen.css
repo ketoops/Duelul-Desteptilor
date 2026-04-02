@@ -165,6 +165,17 @@
   justify-content: flex-end;
   gap: 14px;
   padding: 0 0 32px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.content-enter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.content-exit {
+  opacity: 0;
+  transform: translateX(-30px);
 }
 
 .question-card {
