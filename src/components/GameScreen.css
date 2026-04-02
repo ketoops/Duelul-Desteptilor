@@ -296,8 +296,8 @@
 
 .feedback-image {
   width: 100%;
-  max-height: 200px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   display: block;
   border-radius: var(--radius-md);
 }
