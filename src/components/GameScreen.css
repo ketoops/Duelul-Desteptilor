@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .quit-btn {
@@ -76,6 +76,68 @@
 .active-player {
   color: var(--accent);
   font-weight: 800;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+}
+
+.countdown-ring {
+  width: 64px;
+  height: 64px;
+  transform: rotate(-90deg);
+}
+
+.countdown-track {
+  fill: none;
+  stroke: var(--bg-card);
+  stroke-width: 4;
+}
+
+.countdown-value {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear, stroke 0.3s;
+}
+
+.countdown-urgent .countdown-value {
+  stroke: var(--red);
+}
+
+.countdown-urgent .countdown-number {
+  color: var(--red);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+.countdown-done .countdown-value {
+  opacity: 0.3;
+}
+
+.countdown-done .countdown-number {
+  opacity: 0.3;
+  animation: none;
+}
+
+.countdown-number {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-bright);
+  line-height: 1;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 .game-content {

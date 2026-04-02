@@ -13,20 +13,59 @@ function shuffleArray(arr) {
 }
 
 const TOTAL_QUESTIONS = 10
+const TIME_LIMIT = 10
 
 export default function GameScreen({ mode, onEnd, onQuit }) {
   const [gameQuestions] = useState(() => shuffleArray(questions).slice(0, TOTAL_QUESTIONS))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userAnswer, setUserAnswer] = useState('')
-  const [feedback, setFeedback] = useState(null) // { correct, message }
+  const [feedback, setFeedback] = useState(null)
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
   const [vsScores, setVsScores] = useState([0, 0])
   const [currentPlayer, setCurrentPlayer] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
   const inputRef = useRef(null)
+  const timerRef = useRef(null)
 
   const isVs = mode === 'vs'
   const question = gameQuestions[currentIndex]
+
+  const handleTimeUp = useCallback(() => {
+    setFeedback({
+      correct: false,
+      message: '⏰ Timpul a expirat! ' + question.replica_ironica
+    })
+    setStreak(0)
+  }, [question])
+
+  // Countdown timer
+  useEffect(() => {
+    if (feedback) {
+      clearInterval(timerRef.current)
+      return
+    }
+
+    setTimeLeft(TIME_LIMIT)
+    timerRef.current = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timerRef.current)
+  }, [currentIndex, currentPlayer, feedback])
+
+  // Trigger time-up when timeLeft hits 0
+  useEffect(() => {
+    if (timeLeft === 0 && !feedback) {
+      handleTimeUp()
+    }
+  }, [timeLeft, feedback, handleTimeUp])
 
   useEffect(() => {
     if (!feedback && inputRef.current) {
@@ -37,6 +76,7 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   const submitAnswer = useCallback(() => {
     if (!userAnswer.trim() || feedback) return
 
+    clearInterval(timerRef.current)
     const correct = matchAnswer(userAnswer, question.raspuns)
 
     if (correct) {
@@ -67,13 +107,11 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
 
     if (isVs) {
       if (currentPlayer === 0) {
-        // Player 2's turn on same question
         setCurrentPlayer(1)
         setUserAnswer('')
         setFeedback(null)
         return
       }
-      // Both players answered, move to next question
       setCurrentPlayer(0)
     }
 
@@ -103,6 +141,7 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
   }
 
   const progress = ((currentIndex + 1) / TOTAL_QUESTIONS) * 100
+  const timerUrgent = timeLeft <= 3
 
   return (
     <div className="game">
@@ -125,6 +164,19 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
             </>
           )}
         </div>
+      </div>
+
+      <div className={`countdown ${timerUrgent ? 'countdown-urgent' : ''} ${feedback ? 'countdown-done' : ''}`}>
+        <svg className="countdown-ring" viewBox="0 0 60 60">
+          <circle className="countdown-track" cx="30" cy="30" r="26" />
+          <circle
+            className="countdown-value"
+            cx="30" cy="30" r="26"
+            strokeDasharray={2 * Math.PI * 26}
+            strokeDashoffset={2 * Math.PI * 26 * (1 - timeLeft / TIME_LIMIT)}
+          />
+        </svg>
+        <span className="countdown-number">{timeLeft}</span>
       </div>
 
       <div className="game-content">
