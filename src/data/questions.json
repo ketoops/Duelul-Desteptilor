@@ -143,19 +143,6 @@
     "imagine": null
   },
   {
-    "id": 12,
-    "intrebare": "Câte perechi de animale a luat Noe pe arcă?",
-    "raspuns": "Câte o pereche din fiecare specie",
-    "explicatie": "Nu doar două perechi, ci câte una din fiecare specie.",
-    "replica_ironica": "Dacă ai răspuns 'două', ai numărat perechile, nu animalele.",
-    "variante_gresite": [
-      "Câte 2, dublu sigur",
-      "Câte 7, număr norocos",
-      "Câte 10, să fie bine"
-    ],
-    "imagine": null
-  },
-  {
     "id": 13,
     "intrebare": "Dacă 2 oameni construiesc un zid în 2 zile, câți oameni trebuie pentru același zid în 1 zi?",
     "raspuns": "Nu se poate ști",
