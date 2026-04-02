@@ -135,6 +135,21 @@ export default function GameScreen({ mode, onEnd, onQuit }) {
       </div>
 
       <div className="game-content">
+        <div className="question-image-wrapper">
+          {question.imagine ? (
+            <img
+              src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
+              alt=""
+              className="question-image"
+            />
+          ) : (
+            <div className="question-image-placeholder">
+              <span className="placeholder-icon">🔍</span>
+              <span className="placeholder-text">Imaginează-ți răspunsul...</span>
+            </div>
+          )}
+        </div>
+
         <div className="question-card">
           <div className="question-number">
             Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}

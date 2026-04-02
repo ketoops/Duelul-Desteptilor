@@ -215,6 +215,21 @@ export default function VsOnlineScreen({ roomCode, playerSlot, username, onEnd, 
           </div>
         )}
 
+        {/* Question image */}
+        <div className="duel-image-wrapper">
+          {question.imagine ? (
+            <img
+              src={`${import.meta.env.BASE_URL}questions/${question.imagine}`}
+              alt=""
+              className="duel-image"
+            />
+          ) : (
+            <div className="duel-image-placeholder">
+              <span className="duel-ph-icon">🔍</span>
+            </div>
+          )}
+        </div>
+
         {/* Question card — right above options */}
         <div className="duel-question-card">
           <div className="duel-question-num">Întrebarea {currentIndex + 1}/{TOTAL_QUESTIONS}</div>

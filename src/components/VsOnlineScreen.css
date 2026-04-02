@@ -14,6 +14,36 @@
   background: linear-gradient(180deg, #0d0818 0%, #0a0a0f 30%, #0f0a1a 100%);
 }
 
+/* Question image */
+.duel-image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.duel-image {
+  width: 100%;
+  max-height: 140px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.duel-image-placeholder {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px dashed rgba(139, 92, 246, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.duel-ph-icon {
+  font-size: 1.8rem;
+  opacity: 0.4;
+}
+
 /* Question Card — above options */
 .duel-question-card {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(6, 182, 212, 0.08));
