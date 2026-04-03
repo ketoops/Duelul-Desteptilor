@@ -1,7 +1,7 @@
 import geniusImg from '../assets/genius.png'
 import './HomeScreen.css'
 
-export default function HomeScreen({ username, onStart, onSettings, onFriends, onWall }) {
+export default function HomeScreen({ username, onStart, onSettings, onLeaderboard, onFriends, onWall }) {
   return (
     <div className="home">
       <div className="home-bg-orb home-bg-orb-1" />
@@ -10,7 +10,10 @@ export default function HomeScreen({ username, onStart, onSettings, onFriends, o
       <div className="home-content">
         <div className="home-topbar">
           <div className="home-welcome">Salut, <strong>{username}</strong></div>
-          <button className="home-settings-btn" onClick={onSettings}>⚙️</button>
+          <div className="home-topbar-btns">
+            <button className="home-topbar-btn" onClick={onLeaderboard}>🏆</button>
+            <button className="home-topbar-btn" onClick={onSettings}>⚙️</button>
+          </div>
         </div>
 
         <div className="home-mascot">

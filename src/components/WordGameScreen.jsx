@@ -104,7 +104,8 @@ export default function WordGameScreen({ onEnd, onQuit }) {
           score,
           wordsFound: foundWords.length,
           words: foundWords,
-          mode: 'words'
+          mode: 'words',
+          gameDuration
         })
       }, 1500)
     }

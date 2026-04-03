@@ -69,7 +69,12 @@
   font-weight: 600;
 }
 
-.home-settings-btn {
+.home-topbar-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.home-topbar-btn {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   font-size: 1.1rem;
@@ -82,7 +87,7 @@
   transition: background 0.2s;
 }
 
-.home-settings-btn:hover {
+.home-topbar-btn:hover {
   background: var(--bg-card-hover);
 }
 

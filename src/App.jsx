@@ -13,6 +13,8 @@ import SettingsScreen from './components/SettingsScreen'
 import FriendsScreen from './components/FriendsScreen'
 import WordGameScreen from './components/WordGameScreen'
 import WallScreen from './components/WallScreen'
+import LeaderboardScreen from './components/LeaderboardScreen'
+import { submitScore } from './services/leaderboardService'
 
 function App() {
   const [username, setUsername] = useState(() => localStorage.getItem('username') || '')
@@ -73,6 +75,23 @@ function App() {
   function endGame(gameResult) {
     setResult(gameResult)
     setScreen('result')
+
+    // Save to leaderboard
+    const { mode, score, wordsFound, vsScores, vsNames, gameDuration } = gameResult
+    if (mode === 'words') {
+      const type = gameDuration === 30 ? 'words30' : 'words60'
+      submitScore(type, { score, wordsFound, username })
+    } else if (mode === 'normal' || mode === 'test') {
+      submitScore('trivia', { score, username })
+    } else if (mode === 'vs') {
+      // Save winner's score for VS leaderboards
+      const myIndex = vsNames?.indexOf(username)
+      if (myIndex !== -1 && vsScores) {
+        const myScore = vsScores[myIndex]
+        const gameType = gameResult.vsWordsFound ? 'vsWords' : 'vsTrivia'
+        submitScore(gameType, { score: myScore, username })
+      }
+    }
   }
 
   function goHome() {
@@ -98,6 +117,10 @@ function App() {
 
   if (screen === 'wall') {
     return <WallScreen onBack={goHome} />
+  }
+
+  if (screen === 'leaderboard') {
+    return <LeaderboardScreen onBack={goHome} />
   }
 
   if (screen === 'vsLobby') {
@@ -147,6 +170,7 @@ function App() {
       username={username}
       onStart={startGame}
       onSettings={() => setScreen('settings')}
+      onLeaderboard={() => setScreen('leaderboard')}
       onFriends={() => setScreen('friends')}
       onWall={() => setScreen('wall')}
     />
