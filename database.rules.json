@@ -1,0 +1,13 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "leaderboard": {
+      "words60": { ".indexOn": ["score"] },
+      "words30": { ".indexOn": ["score"] },
+      "trivia": { ".indexOn": ["score"] },
+      "vsTrivia": { ".indexOn": ["score"] },
+      "vsWords": { ".indexOn": ["score"] }
+    }
+  }
+}
