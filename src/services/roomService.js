@@ -2,7 +2,9 @@ import { db } from './firebase'
 import { ref, set, get, update, remove, onValue, off, runTransaction } from 'firebase/database'
 import questions from '../data/questions.json'
 
-const LETTER_POOL = 'AAAAAEEEEEIIIIOOOOUUUURRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'
+const VOWEL_POOL = 'AAAAAEEEEEIIIIOOOOUUU'.split('')
+const CONSONANT_POOL = 'RRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'.split('')
+const NEVER_DOUBLE = new Set('HZJKWXY'.split(''))
 
 function generateCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
@@ -22,23 +24,37 @@ function shuffleArray(arr) {
   return shuffled
 }
 
-function pickLettersForRoom(count = 8) {
-  const pool = LETTER_POOL.split('')
-  const vowels = 'AEIOU'.split('')
-  const consonants = pool.filter(l => !vowels.includes(l))
+function pickLettersForRoom(count = 7) {
   const picked = []
 
-  const vowelCount = 2 + Math.floor(Math.random() * 2)
-  const vowelPool = pool.filter(l => vowels.includes(l))
+  // Proportional vowels: ~40-50% of total letters
+  const baseVowels = Math.round(count * 0.43) // 7→3, 8→3
+  const vowelCount = baseVowels + (Math.random() < 0.45 ? 1 : 0) // 45% chance of +1
+  const allowVowelDouble = Math.random() < 0.4
+  let vowelDoubled = false
   for (let i = 0; i < vowelCount; i++) {
-    picked.push(vowelPool[Math.floor(Math.random() * vowelPool.length)])
+    let letter
+    let attempts = 0
+    do {
+      letter = VOWEL_POOL[Math.floor(Math.random() * VOWEL_POOL.length)]
+      attempts++
+    } while (attempts < 50 && picked.includes(letter) && (!allowVowelDouble || vowelDoubled || NEVER_DOUBLE.has(letter)))
+    if (picked.includes(letter)) vowelDoubled = true
+    picked.push(letter)
   }
 
+  // Fill rest with consonants
+  const allowConsonantDouble = Math.random() < 0.4
+  let consonantDoubled = false
   while (picked.length < count) {
-    const letter = consonants[Math.floor(Math.random() * consonants.length)]
-    if (picked.filter(l => l === letter).length < 2) {
-      picked.push(letter)
+    const letter = CONSONANT_POOL[Math.floor(Math.random() * CONSONANT_POOL.length)]
+    const alreadyHas = picked.filter(l => l === letter).length
+    if (alreadyHas >= 2) continue
+    if (alreadyHas === 1) {
+      if (!allowConsonantDouble || consonantDoubled || NEVER_DOUBLE.has(letter)) continue
+      consonantDoubled = true
     }
+    picked.push(letter)
   }
 
   return shuffleArray(picked)
@@ -48,7 +64,7 @@ export async function createRoom(username, gameType = 'trivia') {
   const code = generateCode()
 
   if (gameType === 'words') {
-    const letters = pickLettersForRoom(8)
+    const letters = pickLettersForRoom(7)
     await set(ref(db, `rooms/${code}`), {
       status: 'waiting',
       gameType: 'words',

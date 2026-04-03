@@ -9,28 +9,45 @@ function randomBg() {
 }
 
 // Romanian letter frequency distribution for random wheel generation
-const LETTER_POOL = 'AAAAAEEEEEIIIIOOOOUUUURRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'
+const VOWEL_POOL = 'AAAAAEEEEEIIIIOOOOUUU'.split('')
+const CONSONANT_POOL = 'RRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'.split('')
+const NEVER_DOUBLE = new Set('HZJKWXY'.split(''))
 
 function pickLetters() {
-  const count = 7 + Math.floor(Math.random() * 3) // 7, 8 or 9
-  const pool = LETTER_POOL.split('')
+  const count = 6 + Math.floor(Math.random() * 3) // 6, 7 or 8
   const picked = []
-  const vowels = 'AEIOU'.split('')
-  const consonants = pool.filter(l => !vowels.includes(l))
 
-  // Pick 2-3 vowels first
-  const vowelCount = 2 + Math.floor(Math.random() * 2)
-  const vowelPool = pool.filter(l => vowels.includes(l))
+  // Proportional vowels: ~40-50% of total letters
+  // 6 → 3, 7 → 3-4, 8 → 3-4
+  const baseVowels = Math.round(count * 0.43) // 6→3, 7→3, 8→3
+  const vowelCount = baseVowels + (Math.random() < 0.45 ? 1 : 0) // 45% chance of +1
+  // Decide if we allow a vowel double this round (~40% chance)
+  const allowVowelDouble = Math.random() < 0.4
+  let vowelDoubled = false
   for (let i = 0; i < vowelCount; i++) {
-    picked.push(vowelPool[Math.floor(Math.random() * vowelPool.length)])
+    let letter
+    let attempts = 0
+    do {
+      letter = VOWEL_POOL[Math.floor(Math.random() * VOWEL_POOL.length)]
+      attempts++
+    } while (attempts < 50 && picked.includes(letter) && (!allowVowelDouble || vowelDoubled || NEVER_DOUBLE.has(letter)))
+    if (picked.includes(letter)) vowelDoubled = true
+    picked.push(letter)
   }
 
-  // Fill rest with consonants, max 2 of same letter
+  // Fill rest with consonants
+  // Decide if we allow a consonant double this round (~40% chance)
+  const allowConsonantDouble = Math.random() < 0.4
+  let consonantDoubled = false
   while (picked.length < count) {
-    const letter = consonants[Math.floor(Math.random() * consonants.length)]
-    if (picked.filter(l => l === letter).length < 2) {
-      picked.push(letter)
+    const letter = CONSONANT_POOL[Math.floor(Math.random() * CONSONANT_POOL.length)]
+    const alreadyHas = picked.filter(l => l === letter).length
+    if (alreadyHas >= 2) continue
+    if (alreadyHas === 1) {
+      if (!allowConsonantDouble || consonantDoubled || NEVER_DOUBLE.has(letter)) continue
+      consonantDoubled = true
     }
+    picked.push(letter)
   }
 
   // Shuffle
@@ -56,6 +73,8 @@ export default function WordGameScreen({ onEnd, onQuit }) {
   const [isDragging, setIsDragging] = useState(false)
   const [lastWord, setLastWord] = useState(null)
   const [bgImage] = useState(() => randomBg())
+  const [streak, setStreak] = useState(0)
+  const [streakBonus, setStreakBonus] = useState(null) // { bonus, message }
 
   const timerRef = useRef(null)
   const letterRefs = useRef([])
@@ -77,6 +96,8 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     setLetters(pickLetters())
     setFoundWords([])
     setScore(0)
+    setStreak(0)
+    setStreakBonus(null)
     setPhase('playing')
   }
 
@@ -184,12 +205,26 @@ export default function WordGameScreen({ onEnd, onQuit }) {
 
       if (word.length >= 2 && dict && dict.has(word) && !foundWords.includes(word)) {
         const points = word.length
-        setScore(prev => prev + points)
+        const newStreak = streak + 1
+        setStreak(newStreak)
+
+        // Every 3 consecutive words → streak bonus
+        let bonus = 0
+        if (newStreak > 0 && newStreak % 3 === 0) {
+          bonus = newStreak / 3 // +1, +2, +3, ...
+          const messages = ['Grozav!', 'Excelent!', 'Fenomenal!', 'Incredibil!', 'Legendar!']
+          const msg = messages[Math.min(bonus - 1, messages.length - 1)]
+          setStreakBonus({ bonus, message: msg })
+          setTimeout(() => setStreakBonus(null), 1200)
+        }
+
+        setScore(prev => prev + points + bonus)
         setFoundWords(prev => [...prev, word])
         setLastWord({ word, points })
         setFlash('correct')
         setTimeout(() => { setFlash(null); setLastWord(null) }, 800)
       } else if (sel.length >= 2) {
+        setStreak(0)
         setShake(true)
         setFlash('wrong')
         setTimeout(() => { setShake(false); setFlash(null) }, 500)
@@ -352,6 +387,14 @@ export default function WordGameScreen({ onEnd, onQuit }) {
           🔀
         </button>
       </div>
+
+      {/* Streak bonus popup */}
+      {streakBonus && (
+        <div className="wg-streak-popup">
+          <div className="wg-streak-message">{streakBonus.message}</div>
+          <div className="wg-streak-bonus">+{streakBonus.bonus}</div>
+        </div>
+      )}
 
       {/* Time's up overlay */}
       {timeLeft === 0 && (

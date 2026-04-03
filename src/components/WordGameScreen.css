@@ -383,3 +383,41 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Streak bonus popup */
+.wg-streak-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 20;
+  animation: streakPop 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+.wg-streak-message {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+}
+
+.wg-streak-bonus {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #34d399;
+  text-shadow: 0 0 20px rgba(52, 211, 153, 0.6), 0 2px 8px rgba(0,0,0,0.5);
+}
+
+@keyframes streakPop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  30% { transform: translate(-50%, -50%) scale(1); }
+  75% { opacity: 1; transform: translate(-50%, -55%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -70%) scale(0.9); }
+}
