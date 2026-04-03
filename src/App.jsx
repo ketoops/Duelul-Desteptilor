@@ -8,6 +8,7 @@ import GameScreen from './components/GameScreen'
 import ResultScreen from './components/ResultScreen'
 import VsLobbyScreen from './components/VsLobbyScreen'
 import VsOnlineScreen from './components/VsOnlineScreen'
+import VsWordsScreen from './components/VsWordsScreen'
 import SettingsScreen from './components/SettingsScreen'
 import FriendsScreen from './components/FriendsScreen'
 import WordGameScreen from './components/WordGameScreen'
@@ -20,6 +21,7 @@ function App() {
   const [result, setResult] = useState(null)
   const [roomCode, setRoomCode] = useState(null)
   const [playerSlot, setPlayerSlot] = useState(null)
+  const [roomGameType, setRoomGameType] = useState(null)
 
   // Apply saved theme on mount
   useEffect(() => {
@@ -41,6 +43,13 @@ function App() {
     if (mode === 'vs') {
       setScreen('vsLobby')
       setGameMode('vs')
+      setRoomGameType('trivia')
+      return
+    }
+    if (mode === 'vsWords') {
+      setScreen('vsLobby')
+      setGameMode('vs')
+      setRoomGameType('words')
       return
     }
     if (mode === 'words') {
@@ -54,10 +63,11 @@ function App() {
     setScreen('game')
   }
 
-  function handleRoomReady(code, slot) {
+  function handleRoomReady(code, slot, gameType) {
     setRoomCode(code)
     setPlayerSlot(slot)
-    setScreen('vsOnline')
+    setRoomGameType(gameType)
+    setScreen(gameType === 'words' ? 'vsWords' : 'vsOnline')
   }
 
   function endGame(gameResult) {
@@ -71,6 +81,7 @@ function App() {
     setResult(null)
     setRoomCode(null)
     setPlayerSlot(null)
+    setRoomGameType(null)
   }
 
   if (screen === 'wordGame') {
@@ -90,7 +101,19 @@ function App() {
   }
 
   if (screen === 'vsLobby') {
-    return <VsLobbyScreen username={username} onRoomReady={handleRoomReady} onBack={goHome} />
+    return <VsLobbyScreen username={username} gameType={roomGameType} onRoomReady={handleRoomReady} onBack={goHome} />
+  }
+
+  if (screen === 'vsWords') {
+    return (
+      <VsWordsScreen
+        roomCode={roomCode}
+        playerSlot={playerSlot}
+        username={username}
+        onEnd={endGame}
+        onQuit={goHome}
+      />
+    )
   }
 
   if (screen === 'vsOnline') {

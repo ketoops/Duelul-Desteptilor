@@ -2,6 +2,8 @@ import { db } from './firebase'
 import { ref, set, get, update, remove, onValue, off, runTransaction } from 'firebase/database'
 import questions from '../data/questions.json'
 
+const LETTER_POOL = 'AAAAAEEEEEIIIIOOOOUUUURRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'
+
 function generateCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let code = ''
@@ -20,19 +22,55 @@ function shuffleArray(arr) {
   return shuffled
 }
 
-export async function createRoom(username) {
-  const code = generateCode()
-  const withImages = questions.filter(q => q.imagine)
-  const questionIds = shuffleArray(withImages.map(q => q.id)).slice(0, 10)
+function pickLettersForRoom(count = 8) {
+  const pool = LETTER_POOL.split('')
+  const vowels = 'AEIOU'.split('')
+  const consonants = pool.filter(l => !vowels.includes(l))
+  const picked = []
 
-  await set(ref(db, `rooms/${code}`), {
-    status: 'waiting',
-    questionIds,
-    currentQuestion: 0,
-    createdAt: Date.now(),
-    player1: { name: username, score: 0, answer: null },
-    player2: null,
-  })
+  const vowelCount = 2 + Math.floor(Math.random() * 2)
+  const vowelPool = pool.filter(l => vowels.includes(l))
+  for (let i = 0; i < vowelCount; i++) {
+    picked.push(vowelPool[Math.floor(Math.random() * vowelPool.length)])
+  }
+
+  while (picked.length < count) {
+    const letter = consonants[Math.floor(Math.random() * consonants.length)]
+    if (picked.filter(l => l === letter).length < 2) {
+      picked.push(letter)
+    }
+  }
+
+  return shuffleArray(picked)
+}
+
+export async function createRoom(username, gameType = 'trivia') {
+  const code = generateCode()
+
+  if (gameType === 'words') {
+    const letters = pickLettersForRoom(8)
+    await set(ref(db, `rooms/${code}`), {
+      status: 'waiting',
+      gameType: 'words',
+      letters,
+      createdAt: Date.now(),
+      player1: { name: username, score: 0, wordsFound: 0 },
+      player2: null,
+    })
+  } else {
+    const withImages = questions.filter(q => q.imagine)
+    const questionIds = shuffleArray(withImages.map(q => q.id)).slice(0, 10)
+
+    await set(ref(db, `rooms/${code}`), {
+      status: 'waiting',
+      gameType: 'trivia',
+      questionIds,
+      currentQuestion: 0,
+      createdAt: Date.now(),
+      player1: { name: username, score: 0, answer: null },
+      player2: null,
+    })
+  }
 
   return code
 }
@@ -50,12 +88,28 @@ export async function joinRoom(code, username) {
     throw new Error('Camera este deja plină')
   }
 
-  await update(roomRef, {
-    status: 'playing',
-    player2: { name: username, score: 0, answer: null },
-  })
+  if (room.gameType === 'words') {
+    await update(roomRef, {
+      status: 'playing',
+      startedAt: Date.now(),
+      player2: { name: username, score: 0, wordsFound: 0 },
+    })
+  } else {
+    await update(roomRef, {
+      status: 'playing',
+      player2: { name: username, score: 0, answer: null },
+    })
+  }
 
-  return room.questionIds
+  return room
+}
+
+export async function updateWordScore(code, playerSlot, score, wordsFound) {
+  await update(ref(db, `rooms/${code}/${playerSlot}`), { score, wordsFound })
+}
+
+export async function setPlayerFinished(code, playerSlot) {
+  await update(ref(db, `rooms/${code}/${playerSlot}`), { finished: true })
 }
 
 export function listenToRoom(code, callback) {

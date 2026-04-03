@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import './WordGameScreen.css'
+import {
+  listenToRoom, updateWordScore, setPlayerFinished,
+  setRoomStatus, deleteRoom
+} from '../services/roomService'
+import { saveDuelResult } from '../services/userService'
+import './VsWordsScreen.css'
 
+const GAME_TIME = 60
 const WORDWAR_IMAGES = [1, 2, 3, 4, 5, 6]
 
 function randomBg() {
@@ -8,53 +14,19 @@ function randomBg() {
   return `${import.meta.env.BASE_URL}wordwars/${img}.png`
 }
 
-// Romanian letter frequency distribution for random wheel generation
-const LETTER_POOL = 'AAAAAEEEEEIIIIOOOOUUUURRRRNNNNTTTTSSSSLLLLCCCCDDDDMMMMPPPBBFFGGHHJKVWXYZ'
-
-function pickLetters() {
-  const count = 7 + Math.floor(Math.random() * 3) // 7, 8 or 9
-  const pool = LETTER_POOL.split('')
-  const picked = []
-  const vowels = 'AEIOU'.split('')
-  const consonants = pool.filter(l => !vowels.includes(l))
-
-  // Pick 2-3 vowels first
-  const vowelCount = 2 + Math.floor(Math.random() * 2)
-  const vowelPool = pool.filter(l => vowels.includes(l))
-  for (let i = 0; i < vowelCount; i++) {
-    picked.push(vowelPool[Math.floor(Math.random() * vowelPool.length)])
-  }
-
-  // Fill rest with consonants, max 2 of same letter
-  while (picked.length < count) {
-    const letter = consonants[Math.floor(Math.random() * consonants.length)]
-    if (picked.filter(l => l === letter).length < 2) {
-      picked.push(letter)
-    }
-  }
-
-  // Shuffle
-  for (let i = picked.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [picked[i], picked[j]] = [picked[j], picked[i]]
-  }
-
-  return picked
-}
-
-export default function WordGameScreen({ onEnd, onQuit }) {
+export default function VsWordsScreen({ roomCode, playerSlot, username, onEnd, onQuit }) {
+  const [room, setRoom] = useState(null)
   const [dict, setDict] = useState(null)
-  const [phase, setPhase] = useState('setup') // 'setup' | 'playing'
-  const [gameDuration, setGameDuration] = useState(60)
-  const [letters, setLetters] = useState(null)
+  const [letters, setLetters] = useState([])
   const [foundWords, setFoundWords] = useState([])
   const [selected, setSelected] = useState([])
-  const [timeLeft, setTimeLeft] = useState(0)
+  const [timeLeft, setTimeLeft] = useState(GAME_TIME)
   const [shake, setShake] = useState(false)
   const [flash, setFlash] = useState(null)
   const [score, setScore] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [lastWord, setLastWord] = useState(null)
+  const [started, setStarted] = useState(false)
   const [bgImage] = useState(() => randomBg())
 
   const timerRef = useRef(null)
@@ -62,6 +34,13 @@ export default function WordGameScreen({ onEnd, onQuit }) {
   const circleRef = useRef(null)
   const selectedRef = useRef([])
   const draggingRef = useRef(false)
+  const unsubRef = useRef(null)
+  const finishedRef = useRef(false)
+
+  const opponentSlot = playerSlot === 'player1' ? 'player2' : 'player1'
+  const opponentData = room?.[opponentSlot]
+  const myData = room?.[playerSlot]
+  const opponentName = opponentData?.name || 'Adversar'
 
   // Load dictionary
   useEffect(() => {
@@ -70,19 +49,33 @@ export default function WordGameScreen({ onEnd, onQuit }) {
       .then(text => setDict(new Set(text.trim().split('\n'))))
   }, [])
 
-  // Start game
-  function startGame(duration) {
-    setGameDuration(duration)
-    setTimeLeft(duration)
-    setLetters(pickLetters())
-    setFoundWords([])
-    setScore(0)
-    setPhase('playing')
-  }
-
-  // Timer
+  // Listen to room
   useEffect(() => {
-    if (phase !== 'playing') return
+    unsubRef.current = listenToRoom(roomCode, (roomData) => {
+      setRoom(roomData)
+      if (roomData.letters) {
+        setLetters(roomData.letters)
+      }
+    })
+    return () => {
+      unsubRef.current?.()
+      clearInterval(timerRef.current)
+    }
+  }, [roomCode])
+
+  // Start timer when both players ready and dict loaded
+  useEffect(() => {
+    if (!dict || !room || room.status !== 'playing' || started) return
+    if (!room.startedAt) return
+
+    setStarted(true)
+    // Calculate remaining time from server start
+    const elapsed = Math.floor((Date.now() - room.startedAt) / 1000)
+    const remaining = Math.max(0, GAME_TIME - elapsed)
+    setTimeLeft(remaining)
+
+    if (remaining <= 0) return
+
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -92,25 +85,49 @@ export default function WordGameScreen({ onEnd, onQuit }) {
         return prev - 1
       })
     }, 1000)
-    return () => clearInterval(timerRef.current)
-  }, [phase])
+  }, [dict, room, started])
 
-  // Game over
+  // Time's up — mark as finished
   useEffect(() => {
-    if (phase === 'playing' && timeLeft === 0) {
+    if (timeLeft === 0 && started && !finishedRef.current) {
+      finishedRef.current = true
       clearInterval(timerRef.current)
-      setTimeout(() => {
-        onEnd({
-          score,
-          wordsFound: foundWords.length,
-          words: foundWords,
-          mode: 'words'
-        })
-      }, 1500)
+      setPlayerFinished(roomCode, playerSlot)
     }
-  }, [timeLeft, phase])
+  }, [timeLeft, started, roomCode, playerSlot])
 
-  // Shuffle letters (keep same set, rearrange positions)
+  // Both finished → end game
+  useEffect(() => {
+    if (!room || !finishedRef.current) return
+    const p1Done = room.player1?.finished
+    const p2Done = room.player2?.finished
+
+    if (p1Done && p2Done && room.status !== 'finished') {
+      setRoomStatus(roomCode, 'finished')
+    }
+  }, [room, roomCode])
+
+  // Game finished → navigate to results
+  useEffect(() => {
+    if (room?.status !== 'finished') return
+
+    const result = {
+      score: null,
+      total: null,
+      vsScores: [room.player1?.score ?? 0, room.player2?.score ?? 0],
+      vsNames: [room.player1?.name ?? 'J1', room.player2?.name ?? 'J2'],
+      vsWordsFound: [room.player1?.wordsFound ?? 0, room.player2?.wordsFound ?? 0],
+      mode: 'vs',
+    }
+
+    saveDuelResult(result)
+    unsubRef.current?.()
+    unsubRef.current = null
+    deleteRoom(roomCode)
+    onEnd(result)
+  }, [room?.status])
+
+  // Shuffle letters locally (same set, different positions)
   function shuffleLetters() {
     setLetters(prev => {
       const arr = [...prev]
@@ -136,21 +153,17 @@ export default function WordGameScreen({ onEnd, onQuit }) {
     return -1
   }, [])
 
-  // Keep refs in sync
   useEffect(() => { selectedRef.current = selected }, [selected])
   useEffect(() => { draggingRef.current = isDragging }, [isDragging])
 
   function handlePointerDown(e, index) {
-    if (!dict || timeLeft === 0) return
+    if (!dict || timeLeft === 0 || !started) return
     e.preventDefault()
     setIsDragging(true)
     setSelected([index])
   }
 
-  // Global move/up listeners
   useEffect(() => {
-    if (phase !== 'playing' || !letters) return
-
     function handlePointerMove(e) {
       if (!draggingRef.current) return
       e.preventDefault()
@@ -183,11 +196,15 @@ export default function WordGameScreen({ onEnd, onQuit }) {
 
       if (word.length >= 2 && dict && dict.has(word) && !foundWords.includes(word)) {
         const points = word.length
-        setScore(prev => prev + points)
+        const newScore = score + points
+        const newWordsFound = foundWords.length + 1
+        setScore(newScore)
         setFoundWords(prev => [...prev, word])
         setLastWord({ word, points })
         setFlash('correct')
         setTimeout(() => { setFlash(null); setLastWord(null) }, 800)
+        // Update Firebase
+        updateWordScore(roomCode, playerSlot, newScore, newWordsFound)
       } else if (sel.length >= 2) {
         setShake(true)
         setFlash('wrong')
@@ -208,15 +225,15 @@ export default function WordGameScreen({ onEnd, onQuit }) {
       window.removeEventListener('touchmove', handlePointerMove)
       window.removeEventListener('touchend', handlePointerUp)
     }
-  }, [getLetterAtPoint, letters, dict, foundWords, phase])
+  }, [getLetterAtPoint, letters, dict, foundWords, score, roomCode, playerSlot])
 
-  const currentWord = letters ? selected.map(i => letters[i]).join('') : ''
+  const currentWord = selected.map(i => letters[i]).join('')
   const timerUrgent = timeLeft <= 10
 
   // SVG lines
   function getLinePoints() {
     if (selected.length < 2) return []
-    const lineArr = []
+    const lines = []
     for (let i = 1; i < selected.length; i++) {
       const a = letterRefs.current[selected[i - 1]]
       const b = letterRefs.current[selected[i]]
@@ -224,93 +241,104 @@ export default function WordGameScreen({ onEnd, onQuit }) {
       const cr = circleRef.current.getBoundingClientRect()
       const ar = a.getBoundingClientRect()
       const br = b.getBoundingClientRect()
-      lineArr.push({
+      lines.push({
         x1: ar.left + ar.width / 2 - cr.left,
         y1: ar.top + ar.height / 2 - cr.top,
         x2: br.left + br.width / 2 - cr.left,
         y2: br.top + br.height / 2 - cr.top,
       })
     }
-    return lineArr
+    return lines
   }
 
   const lines = selected.length >= 2 ? getLinePoints() : []
 
-  // Loading dict
+  // Waiting states
+  if (!room || room.status === 'waiting') {
+    return (
+      <div className="vsw" style={{ backgroundImage: `url(${bgImage})` }}>
+        <div className="vsw-wait-content">
+          <div className="lobby-emoji">⏳</div>
+          <h2 className="lobby-title">Așteaptă adversarul</h2>
+          <div className="room-code">{roomCode}</div>
+          <p className="lobby-hint">Trimite codul prietenului tău</p>
+        </div>
+      </div>
+    )
+  }
+
   if (!dict) {
     return (
-      <div className="wg" style={{ backgroundImage: `url(${bgImage})` }}>
-        <div className="wg-loading-content">
-          <div className="wg-loading-text">Se încarcă dicționarul...</div>
+      <div className="vsw" style={{ backgroundImage: `url(${bgImage})` }}>
+        <div className="vsw-wait-content">
+          <div className="vsw-loading-text">Se încarcă dicționarul...</div>
         </div>
       </div>
     )
   }
 
-  // Setup screen — choose duration
-  if (phase === 'setup') {
-    return (
-      <div className="wg" style={{ backgroundImage: `url(${bgImage})` }}>
-        <button className="wg-quit" onClick={onQuit}>✕</button>
-        <div className="wg-setup">
-          <h2 className="wg-setup-title">Războiul Cuvintelor</h2>
-          <p className="wg-setup-desc">Formează cât mai multe cuvinte din literele de pe rotiță!</p>
-          <p className="wg-setup-hint">1 punct per literă</p>
-          <div className="wg-setup-options">
-            <button className="wg-setup-btn" onClick={() => startGame(30)}>
-              <span className="wg-setup-time">30s</span>
-              <span className="wg-setup-label">Rapid</span>
-            </button>
-            <button className="wg-setup-btn" onClick={() => startGame(60)}>
-              <span className="wg-setup-time">60s</span>
-              <span className="wg-setup-label">Clasic</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const myScore = score
+  const opScore = opponentData?.score ?? 0
+  const opWords = opponentData?.wordsFound ?? 0
+  const scoreDiff = myScore - opScore
+  const winning = scoreDiff > 0
+  const losing = scoreDiff < 0
 
   return (
-    <div className="wg" style={{ backgroundImage: `url(${bgImage})` }}>
-      <div className="wg-header">
-        <button className="wg-quit" onClick={onQuit}>✕</button>
-        <div className="wg-level">
-          <span className="wg-level-icon">🔤</span>
-          <span>Războiul Cuvintelor</span>
+    <div className="vsw" style={{ backgroundImage: `url(${bgImage})` }}>
+      <button className="vsw-quit" onClick={onQuit}>✕</button>
+
+      {/* VS Arena header */}
+      <div className="vsw-arena">
+        <div className="vsw-fighter vsw-fighter-me">
+          <div className="vsw-avatar vsw-avatar-me">🧠</div>
+          <span className="vsw-name vsw-name-me">{username}</span>
+          <span className="vsw-fighter-score">{myScore} pts</span>
+          <span className="vsw-fighter-words">{foundWords.length} cuv.</span>
         </div>
-        <div className={`wg-timer ${timerUrgent ? 'wg-timer-urgent' : ''}`}>
-          {timeLeft}s
+
+        <div className="vsw-center">
+          <div className={`vsw-timer ${timerUrgent ? 'vsw-timer-urgent' : ''}`}>
+            {timeLeft}
+          </div>
+          <div className="vsw-vs-badge">VS</div>
+          {scoreDiff !== 0 && (
+            <div className={`vsw-diff ${winning ? 'vsw-diff-up' : 'vsw-diff-down'}`}>
+              {winning ? '+' : ''}{scoreDiff}
+            </div>
+          )}
+        </div>
+
+        <div className="vsw-fighter vsw-fighter-opp">
+          <div className="vsw-avatar vsw-avatar-opp">🧠</div>
+          <span className="vsw-name vsw-name-opp">{opponentName}</span>
+          <span className="vsw-fighter-score">{opScore} pts</span>
+          <span className="vsw-fighter-words">{opWords} cuv.</span>
         </div>
       </div>
 
-      <div className="wg-score-bar">
-        <span className="wg-found">{foundWords.length} cuvinte</span>
-        <span className="wg-total-score">⭐ {score} puncte</span>
-      </div>
-
-      {/* Found words list */}
-      <div className="wg-words-list">
+      {/* Found words */}
+      <div className="vsw-words-list">
         {foundWords.length === 0 ? (
-          <div className="wg-words-empty">Formează cuvinte din litere!</div>
+          <div className="vsw-words-empty">Formează cuvinte din litere!</div>
         ) : (
           foundWords.slice().reverse().map((w, i) => (
-            <span key={i} className="wg-word-tag">
+            <span key={i} className="vsw-word-tag">
               {w} <small>+{w.length}</small>
             </span>
           ))
         )}
       </div>
 
-      {/* Current word display */}
-      <div className={`wg-current ${shake ? 'wg-shake' : ''} ${flash === 'correct' ? 'wg-flash-correct' : flash === 'wrong' ? 'wg-flash-wrong' : ''}`}>
+      {/* Current word */}
+      <div className={`vsw-current ${shake ? 'vsw-shake' : ''} ${flash === 'correct' ? 'vsw-flash-correct' : flash === 'wrong' ? 'vsw-flash-wrong' : ''}`}>
         {currentWord || (lastWord ? `${lastWord.word} +${lastWord.points}` : '···')}
       </div>
 
       {/* Letter Circle */}
-      <div className="wg-circle-area">
-        <div className="wg-circle" ref={circleRef}>
-          <svg className="wg-lines">
+      <div className="vsw-circle-area">
+        <div className="vsw-circle" ref={circleRef}>
+          <svg className="vsw-lines">
             {lines.map((l, i) => (
               <line
                 key={i}
@@ -333,7 +361,7 @@ export default function WordGameScreen({ onEnd, onQuit }) {
               <div
                 key={`${i}-${letter}`}
                 ref={el => letterRefs.current[i] = el}
-                className={`wg-letter ${isSelected ? 'wg-letter-selected' : ''}`}
+                className={`vsw-letter ${isSelected ? 'vsw-letter-selected' : ''}`}
                 style={{ left: `${x}%`, top: `${y}%` }}
                 onMouseDown={(e) => handlePointerDown(e, i)}
                 onTouchStart={(e) => handlePointerDown(e, i)}
@@ -345,19 +373,22 @@ export default function WordGameScreen({ onEnd, onQuit }) {
         </div>
       </div>
 
-      {/* Shuffle only */}
-      <div className="wg-controls">
-        <button className="wg-ctrl-btn" onClick={shuffleLetters} title="Amestecă">
+      {/* Shuffle button */}
+      <div className="vsw-controls">
+        <button className="vsw-ctrl-btn" onClick={shuffleLetters} title="Amestecă">
           🔀
         </button>
       </div>
 
       {/* Time's up overlay */}
       {timeLeft === 0 && (
-        <div className="wg-complete-overlay">
-          <span className="wg-complete-icon">⏰</span>
-          <span className="wg-complete-text">Timpul a expirat!</span>
-          <span className="wg-complete-score">{score} puncte · {foundWords.length} cuvinte</span>
+        <div className="vsw-complete-overlay">
+          <span className="vsw-complete-icon">⏰</span>
+          <span className="vsw-complete-text">Timpul a expirat!</span>
+          <span className="vsw-complete-score">{myScore} pts · {foundWords.length} cuvinte</span>
+          {!opponentData?.finished && (
+            <span className="vsw-waiting-opp">Așteptăm pe {opponentName}...</span>
+          )}
         </div>
       )}
     </div>

@@ -37,10 +37,17 @@ export default function HomeScreen({ username, onStart, onSettings, onFriends, o
           </button>
         </div>
 
-        <button className="mode-btn mode-words" onClick={() => onStart('words')}>
-          <span className="mode-btn-icon">⚔️</span>
-          <span className="mode-btn-label">Războiul Cuvintelor</span>
-        </button>
+        <div className="home-modes">
+          <button className="mode-btn mode-words" onClick={() => onStart('words')}>
+            <span className="mode-btn-icon">🔤</span>
+            <span className="mode-btn-label">Cuvinte Solo</span>
+          </button>
+
+          <button className="mode-btn mode-vs-words" onClick={() => onStart('vsWords')}>
+            <span className="mode-btn-icon">⚔️</span>
+            <span className="mode-btn-label">Cuvinte 1v1</span>
+          </button>
+        </div>
 
         <div className="home-nav">
           <button className="nav-btn" onClick={onFriends}>

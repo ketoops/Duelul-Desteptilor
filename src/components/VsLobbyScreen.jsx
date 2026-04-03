@@ -2,21 +2,25 @@ import { useState } from 'react'
 import { createRoom, joinRoom } from '../services/roomService'
 import './VsLobbyScreen.css'
 
-export default function VsLobbyScreen({ username, onRoomReady, onBack }) {
+export default function VsLobbyScreen({ username, gameType = 'trivia', onRoomReady, onBack }) {
   const [view, setView] = useState('choice')
   const [roomCode, setRoomCode] = useState('')
   const [inputCode, setInputCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const isWords = gameType === 'words'
+  const title = isWords ? 'Războiul Cuvintelor 1v1' : '1 vs 1 Online'
+  const emoji = isWords ? '🔤' : '⚔️'
+
   async function handleCreate() {
     setLoading(true)
     setError('')
     try {
-      const code = await createRoom(username)
+      const code = await createRoom(username, gameType)
       setRoomCode(code)
       setView('create')
-      onRoomReady(code, 'player1')
+      onRoomReady(code, 'player1', gameType)
     } catch {
       setError('Eroare la creare. Încearcă din nou.')
       setLoading(false)
@@ -28,8 +32,8 @@ export default function VsLobbyScreen({ username, onRoomReady, onBack }) {
     setLoading(true)
     setError('')
     try {
-      await joinRoom(inputCode.toUpperCase(), username)
-      onRoomReady(inputCode.toUpperCase(), 'player2')
+      const room = await joinRoom(inputCode.toUpperCase(), username)
+      onRoomReady(inputCode.toUpperCase(), 'player2', room.gameType || 'trivia')
     } catch (err) {
       setError(err.message)
       setLoading(false)
@@ -54,8 +58,8 @@ export default function VsLobbyScreen({ username, onRoomReady, onBack }) {
       <div className="lobby-content">
         {view === 'choice' ? (
           <>
-            <div className="lobby-emoji">⚔️</div>
-            <h2 className="lobby-title">1 vs 1 Online</h2>
+            <div className="lobby-emoji">{emoji}</div>
+            <h2 className="lobby-title">{title}</h2>
 
             <div className="lobby-actions">
               <button className="lobby-btn create-btn" onClick={handleCreate} disabled={loading}>

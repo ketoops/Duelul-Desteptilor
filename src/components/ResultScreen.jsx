@@ -1,8 +1,9 @@
 import './ResultScreen.css'
 
 export default function ResultScreen({ result, onRestart, onHome }) {
-  const { score, total, vsScores, vsNames, mode } = result
+  const { score, total, vsScores, vsNames, mode, wordsFound } = result
   const isVs = mode === 'vs'
+  const isWords = mode === 'words'
 
   let emoji, title, subtitle
 
@@ -23,6 +24,21 @@ export default function ResultScreen({ result, onRestart, onHome }) {
       title = 'Egalitate!'
       subtitle = `${vsScores[0]} - ${vsScores[1]}`
     }
+  } else if (isWords) {
+    if (score >= 50) {
+      emoji = '🧠'
+      title = 'Maestru al cuvintelor!'
+    } else if (score >= 30) {
+      emoji = '🔥'
+      title = 'Foarte bine!'
+    } else if (score >= 15) {
+      emoji = '😏'
+      title = 'Nu-i rău!'
+    } else {
+      emoji = '💪'
+      title = 'Mai exersează!'
+    }
+    subtitle = `${score} puncte · ${wordsFound || 0} cuvinte`
   } else {
     const pct = score / total
     if (pct >= 0.8) {
