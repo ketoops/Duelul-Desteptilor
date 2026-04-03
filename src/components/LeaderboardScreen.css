@@ -12,21 +12,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .lb-back {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: var(--radius-sm);
 }
 
 .lb-title {
-  font-size: 1.3rem;
+  font-size: 1.95rem;
   font-weight: 800;
   color: var(--text-bright);
 }
@@ -34,10 +34,10 @@
 /* Tabs */
 .lb-tabs {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
-  padding-bottom: 8px;
-  margin-bottom: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -48,13 +48,13 @@
 .lb-tab {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
-  border-radius: 20px;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 24px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 1.1rem;
   font-weight: 600;
   white-space: nowrap;
   transition: all 0.2s;
@@ -73,11 +73,11 @@
 }
 
 .lb-tab-icon {
-  font-size: 0.85rem;
+  font-size: 1.25rem;
 }
 
 .lb-tab-label {
-  font-size: 0.7rem;
+  font-size: 1.05rem;
 }
 
 /* List */
@@ -85,21 +85,21 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .lb-empty {
   text-align: center;
   color: var(--text-dim);
-  font-size: 0.9rem;
+  font-size: 1.35rem;
   padding: 40px 0;
 }
 
 .lb-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 14px;
+  padding: 14px 18px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -116,26 +116,26 @@
 }
 
 .lb-rank {
-  min-width: 36px;
+  min-width: 42px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--text-dim);
 }
 
 .lb-rank-medal {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
 }
 
 .lb-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .lb-name {
-  font-size: 0.9rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-bright);
 }
@@ -145,14 +145,14 @@
 }
 
 .lb-words {
-  font-size: 0.7rem;
+  font-size: 1.05rem;
   color: var(--text-dim);
 }
 
 .lb-score {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: var(--text-bright);
-  min-width: 40px;
+  min-width: 50px;
   text-align: right;
 }

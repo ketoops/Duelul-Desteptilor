@@ -78,18 +78,19 @@ function App() {
 
     // Save to leaderboard
     const { mode, score, wordsFound, vsScores, vsNames, gameDuration } = gameResult
+    const save = (type, data) => submitScore(type, data).catch(e => console.error('Leaderboard save failed:', e))
+
     if (mode === 'words') {
       const type = gameDuration === 30 ? 'words30' : 'words60'
-      submitScore(type, { score, wordsFound, username })
+      save(type, { score, wordsFound, username })
     } else if (mode === 'normal' || mode === 'test') {
-      submitScore('trivia', { score, username })
+      save('trivia', { score, username })
     } else if (mode === 'vs') {
-      // Save winner's score for VS leaderboards
       const myIndex = vsNames?.indexOf(username)
-      if (myIndex !== -1 && vsScores) {
+      if (myIndex >= 0 && vsScores) {
         const myScore = vsScores[myIndex]
         const gameType = gameResult.vsWordsFound ? 'vsWords' : 'vsTrivia'
-        submitScore(gameType, { score: myScore, username })
+        save(gameType, { score: myScore, username })
       }
     }
   }
