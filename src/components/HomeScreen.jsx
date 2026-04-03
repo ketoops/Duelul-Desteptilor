@@ -1,7 +1,55 @@
+import { useState, useEffect } from 'react'
 import geniusImg from '../assets/genius.png'
+import { getLeaderboard } from '../services/leaderboardService'
 import './HomeScreen.css'
 
+const CHAMPION_CATEGORIES = [
+  { key: 'words60', label: 'Cuvinte 60s', icon: '🔤' },
+  { key: 'words30', label: 'Cuvinte 30s', icon: '⚡' },
+  { key: 'trivia', label: 'Întrebări Capcană', icon: '🧠' },
+  { key: 'vsTrivia', label: 'VS Trivia', icon: '⚔️' },
+  { key: 'vsWords', label: 'VS Cuvinte', icon: '🔤' },
+]
+
 export default function HomeScreen({ username, onStart, onSettings, onLeaderboard, onFriends, onWall }) {
+  const [champions, setChampions] = useState([])
+  const [champIndex, setChampIndex] = useState(0)
+  const [animating, setAnimating] = useState(false)
+
+  // Load #1 player for each category
+  useEffect(() => {
+    async function loadChampions() {
+      const results = []
+      for (const cat of CHAMPION_CATEGORIES) {
+        const entries = await getLeaderboard(cat.key)
+        if (entries.length > 0) {
+          results.push({
+            ...cat,
+            name: entries[0].name,
+            score: entries[0].score,
+          })
+        }
+      }
+      setChampions(results)
+    }
+    loadChampions()
+  }, [])
+
+  // Rotate every 5s
+  useEffect(() => {
+    if (champions.length <= 1) return
+    const interval = setInterval(() => {
+      setAnimating(true)
+      setTimeout(() => {
+        setChampIndex(prev => (prev + 1) % champions.length)
+        setAnimating(false)
+      }, 400)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [champions])
+
+  const champ = champions[champIndex]
+
   return (
     <div className="home">
       <div className="home-bg-orb home-bg-orb-1" />
@@ -24,9 +72,21 @@ export default function HomeScreen({ username, onStart, onSettings, onLeaderboar
           Duelul
           <span className="home-title-accent"> Deștepților</span>
         </h1>
-        <p className="home-subtitle">
-          Întrebări capcană. Fără variante. Fără milă.
-        </p>
+
+        <p className="home-subtitle">Galeria Campionilor</p>
+
+        {champ && (
+          <div className="champion-ticker" onClick={onLeaderboard}>
+            <div className={`champion-card ${animating ? 'champion-exit' : 'champion-enter'}`}>
+              <span className="champion-medal">🥇</span>
+              <span className="champion-icon">{champ.icon}</span>
+              <span className="champion-name">{champ.name}</span>
+              <span className="champion-divider">·</span>
+              <span className="champion-score">{champ.score} pts</span>
+              <span className="champion-cat">{champ.label}</span>
+            </div>
+          </div>
+        )}
 
         <div className="home-modes">
           <button className="mode-btn mode-solo" onClick={() => onStart('normal')}>

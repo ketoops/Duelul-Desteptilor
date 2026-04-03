@@ -92,7 +92,7 @@
 }
 
 .home-mascot {
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 }
 
 .home-mascot-img {
@@ -117,7 +117,7 @@
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--text-bright);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   letter-spacing: -1px;
   line-height: 1.15;
 }
@@ -130,10 +130,97 @@
 }
 
 .home-subtitle {
-  font-size: 1rem;
-  color: var(--text-muted);
-  margin-bottom: 40px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 8px;
   line-height: 1.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Champion Ticker */
+.champion-ticker {
+  margin-bottom: 28px;
+  height: 40px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.champion-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(250, 204, 21, 0.2);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.champion-enter {
+  animation: champSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.champion-exit {
+  animation: champSlideOut 0.4s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes champSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes champSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+}
+
+.champion-medal {
+  font-size: 1rem;
+}
+
+.champion-icon {
+  font-size: 0.85rem;
+}
+
+.champion-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-bright);
+}
+
+.champion-divider {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.champion-score {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: rgba(250, 204, 21, 0.9);
+}
+
+.champion-cat {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
 }
 
 .home-modes {
